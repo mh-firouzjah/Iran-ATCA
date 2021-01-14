@@ -1,0 +1,1389 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-06 13:05+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: apps/blog/admin.py:44
+msgid "publish"
+msgstr "انتشار"
+
+#: apps/blog/apps.py:7 apps/blog/templates/blog/blog-intro.html:12
+#: templates/components/navigation.html:36
+#: templates/components/objects_list.html:12
+msgid "Blog"
+msgstr "وبلاگ"
+
+#: apps/blog/apps.py:8
+msgid "Blogs"
+msgstr "وبلاگ‌ها"
+
+#: apps/blog/forms.py:23
+msgid "if the term was not found, we will check for similar terms"
+msgstr "اگر واژه پیدا نشد، ما برای واژه‌های مشابه هم جستجو خواهیم کرد."
+
+#: apps/blog/forms.py:26
+msgid "Check for similar terms"
+msgstr "درهر حال برای واژه‌های مشابه هم جستجو شود"
+
+#: apps/blog/forms.py:28
+msgid "may cause heavy loading and more delay"
+msgstr "ممکن است باعث عملیات سنگین و اتلاف زیاد زمان شود."
+
+#: apps/blog/forms.py:29
+msgid "Consider as single phrase"
+msgstr "یک رشته‌ی پیوسته درنظر گرفته شود"
+
+#: apps/blog/forms.py:31
+msgid "this will reduse search time"
+msgstr "این مورد باعث زودتر به نتیجه رسیدن می‌شود."
+
+#: apps/blog/forms.py:36
+#: apps/documents/templates/documents/documents-sidebar.html:26
+#: apps/documents/templates/documents/documents-sidebar.html:86
+#: templates/components/sidebar.html:26 templates/components/sidebar.html:105
+msgid "Search"
+msgstr "جستجو"
+
+#: apps/blog/models.py:16 apps/documents/models.py:24
+msgid "Draft"
+msgstr "پیش‌نویس"
+
+#: apps/blog/models.py:17 apps/documents/models.py:25
+msgid "Published"
+msgstr "منتشر شده"
+
+#: apps/blog/models.py:19 apps/company/models.py:14 apps/documents/models.py:27
+#: apps/forum/models.py:9 apps/users/models.py:12
+msgid "No"
+msgstr "خیر"
+
+#: apps/blog/models.py:19 apps/company/models.py:14 apps/documents/models.py:27
+#: apps/forum/models.py:9 apps/users/models.py:12
+msgid "Yes"
+msgstr "بله"
+
+#: apps/blog/models.py:23 apps/blog/models.py:39 apps/company/models.py:19
+#: apps/company/models.py:148 apps/company/models.py:177
+#: apps/forum/models.py:23
+msgid "Name"
+msgstr "نام"
+
+#: apps/blog/models.py:24 apps/blog/models.py:62 apps/documents/models.py:64
+msgid "Slug"
+msgstr "نشانی فایل در سایت"
+
+#: apps/blog/models.py:25 apps/company/models.py:60
+msgid "icon"
+msgstr "آیکون"
+
+#: apps/blog/models.py:26 apps/company/models.py:61
+msgid "An icon-tag from fontawesome.com"
+msgstr "یک آیکون از وب‌سایت fontawesome.com"
+
+#: apps/blog/models.py:31
+msgid "Post Category"
+msgstr "دسته بندی پست"
+
+#: apps/blog/models.py:32
+msgid "Post Categories"
+msgstr "دسته بندی‌های پست‌ها"
+
+#: apps/blog/models.py:42
+msgid "Tag"
+msgstr "برچسب"
+
+#: apps/blog/models.py:43 apps/blog/models.py:90
+msgid "Tags"
+msgstr "برچسب‌ها"
+
+#: apps/blog/models.py:61 apps/company/models.py:58 apps/company/models.py:77
+#: apps/documents/admin.py:14 apps/documents/models.py:61
+#: apps/documents/models.py:127
+msgid "Title"
+msgstr "سرنویس"
+
+#: apps/blog/models.py:64 apps/company/models.py:151 apps/documents/admin.py:25
+#: apps/documents/models.py:63 apps/forum/models.py:24 apps/users/models.py:52
+msgid "Description"
+msgstr "توصیف"
+
+#: apps/blog/models.py:67 apps/blog/models.py:89
+msgid "Type comma to create a new instance."
+msgstr "ویرگول را بنویسید تا دسته‌بندی مورد نیاز ساخته شود."
+
+#: apps/blog/models.py:68 apps/documents/models.py:73
+#: apps/documents/templates/documents/documents-sidebar.html:149
+msgid "Categories"
+msgstr "دسته بندی‌ها"
+
+#: apps/blog/models.py:70 apps/blog/templates/blog/post_detail.html:60
+#: apps/blog/templates/blog/post_detail.html:417
+#: apps/blog/templates/blog/post_detail.html:484
+#: apps/documents/templates/documents/document_detail.html:48
+#: templates/components/objects_list.html:201
+msgid "Author"
+msgstr "نگارنده"
+
+#: apps/blog/models.py:73
+msgid "Body"
+msgstr "محتوا"
+
+#: apps/blog/models.py:74 apps/blog/models.py:193 apps/documents/models.py:79
+#: apps/forum/models.py:30
+msgid "Publish"
+msgstr "انتشار"
+
+#: apps/blog/models.py:76 apps/blog/models.py:185 apps/company/admin.py:59
+#: apps/company/models.py:154 apps/company/models.py:181
+#: apps/documents/models.py:82 apps/forum/models.py:71 apps/users/models.py:164
+msgid "Created"
+msgstr "ساخته شده"
+
+#: apps/blog/models.py:78 apps/company/models.py:155
+#: apps/documents/models.py:83 apps/forum/models.py:72 apps/users/models.py:165
+msgid "Updated"
+msgstr "بروزرسانی"
+
+#: apps/blog/models.py:80 apps/documents/models.py:80
+msgid "Status"
+msgstr "وضعیت"
+
+#: apps/blog/models.py:84 apps/company/models.py:150
+msgid "Public"
+msgstr "همکانی"
+
+#: apps/blog/models.py:87
+msgid "International"
+msgstr "فرامرزی"
+
+#: apps/blog/models.py:102 apps/blog/models.py:144 apps/blog/models.py:176
+msgid "Post"
+msgstr "پست"
+
+#: apps/blog/models.py:103
+msgid "Posts"
+msgstr "پست‌ها"
+
+#: apps/blog/models.py:147
+msgid "Image"
+msgstr "تصویر"
+
+#: apps/blog/models.py:152
+msgid "Post Image"
+msgstr "تصویر پست‌"
+
+#: apps/blog/models.py:153
+msgid "Post Images"
+msgstr "تصویر‌های پست"
+
+#: apps/blog/models.py:173 apps/forum/models.py:55 apps/users/models.py:84
+#: apps/users/models.py:135
+msgid "User"
+msgstr "کاربر"
+
+#: apps/blog/models.py:180
+msgid "Replied to"
+msgstr "درپاسخ"
+
+#: apps/blog/models.py:184 apps/company/models.py:153
+#: apps/company/models.py:180 apps/documents/admin.py:48
+#: apps/documents/models.py:78 apps/forum/models.py:64 apps/users/models.py:161
+msgid "Content"
+msgstr "محتوا"
+
+#: apps/blog/models.py:187 apps/forum/models.py:31 apps/forum/models.py:73
+msgid "Active"
+msgstr "فعال"
+
+#: apps/blog/models.py:190
+msgid "public"
+msgstr "عمومی"
+
+#: apps/blog/models.py:200 apps/blog/templates/blog/post_detail.html:217
+#: apps/blog/templates/blog/post_detail.html:377
+#: templates/components/objects_list.html:221
+msgid "Comment"
+msgstr "دیدگاه"
+
+#: apps/blog/models.py:201 apps/blog/templates/blog/post_detail.html:215
+#: apps/blog/templates/blog/post_detail.html:375
+#: templates/components/objects_list.html:219
+msgid "Comments"
+msgstr "دیدگاه‌ها"
+
+#: apps/blog/models.py:206
+#, python-brace-format
+msgid "{self_user} to {self_post} on {self_created}"
+msgstr "{self_user} به {self_post} در {self_created}"
+
+#: apps/blog/models.py:218 apps/blog/models.py:219
+msgid "Hit Count"
+msgstr "بازدید شمار"
+
+#: apps/blog/templates/blog/blog-intro.html:21
+msgid "Welcome on our blog."
+msgstr "به وبلاگ ما خوش آمدید."
+
+#: apps/blog/templates/blog/blog-intro.html:30
+msgid ""
+"In this blog, we publish news related to aviation and air traffic control. "
+"Follow aviation innovations, developments, changes and events from our blog. "
+"Stay up to date with the latest aviation events in Iran and the world."
+msgstr ""
+"در این وبلاگ ما رخ‌دادهای هوانوردی و پایشگری آمد و شدهای هوایی را پخش‌ می‌کنیم. "
+"نوآوری‌ها، پیشرفت‌ها و رخ‌دادهای هوانوردی را از وبلاگ ما پیگیری کنید. با ما از "
+"تازه‌ترین‌ها رویدادهای هوانورد ایران و جهان باشید."
+
+#: apps/blog/templates/blog/blog-intro.html:47
+#: apps/blog/templates/blog/post_detail.html:345
+#: apps/company/templates/company/company.html:358
+#: apps/company/templates/company/timetable_intro.html:29
+#: apps/documents/templates/documents/doc-list-box.html:84
+#: apps/documents/templates/documents/document_detail.html:223
+#: apps/documents/templates/documents/documents-intro.html:45
+#: apps/forum/templates/forum/forum-intro.html:42
+#: apps/forum/templates/forum/forum_detail.html:55
+#: templates/components/objects_list.html:239
+msgid "Read more"
+msgstr "خواندن بیشتر"
+
+#: apps/blog/templates/blog/comment_form.html:23
+msgid "SUBMIT"
+msgstr "درج"
+
+#: apps/blog/templates/blog/post_detail.html:196
+#: templates/components/objects_list.html:213
+msgid "Views"
+msgstr "بازدیدها"
+
+#: apps/blog/templates/blog/post_detail.html:270
+msgid "Share this post"
+msgstr "این پست را به اشتراک بگذارید"
+
+#: apps/blog/templates/blog/post_detail.html:327
+#: apps/documents/templates/documents/document_detail.html:205
+msgid "About"
+msgstr "درباه‌ی"
+
+#: apps/blog/templates/blog/post_detail.html:340
+msgid "Other articles from this author"
+msgstr "دیگر نوشته‌های ایشون"
+
+#: apps/blog/templates/blog/post_detail.html:386
+msgid "login to see all"
+msgstr "وارد شوید تا بیشتر بخوانید"
+
+#: apps/blog/templates/blog/post_detail.html:416
+#: apps/blog/templates/blog/post_detail.html:483
+msgid "This user is the author of the post"
+msgstr "ایشون نویسنده‌ی پست هستن"
+
+#: apps/blog/templates/blog/post_detail.html:429
+#: apps/blog/templates/blog/post_detail.html:496
+#, python-format
+msgid "Reply to %(cmuser)s's comment"
+msgstr "درپاسخ به دیدگاه %(cmuser)s"
+
+#: apps/blog/templates/blog/post_detail.html:436
+#: apps/blog/templates/blog/post_detail.html:503 apps/forum/models.py:67
+msgid "Reply"
+msgstr "پاسخ"
+
+#: apps/blog/templates/blog/post_detail.html:544
+#: apps/blog/templates/blog/post_detail.html:548
+#: apps/forum/templates/forum/forum_detail.html:115
+msgid "Add your comment"
+msgstr "دیدگاه خود را درج کنید"
+
+#: apps/blog/views.py:142
+msgid "You don't have permission to read a private page."
+msgstr "دسترسی شما به این برگه امکان پذیر نیست."
+
+#: apps/blog/views.py:146
+msgid "Requested page is not in English!"
+msgstr "برگه‌ی درخواست شده، به زبان انگلیسی نیست!"
+
+#: apps/company/admin.py:38
+msgid "Icon"
+msgstr "آیکون"
+
+#: apps/company/apps.py:7
+msgid "Company"
+msgstr "انجمن"
+
+#: apps/company/apps.py:8
+msgid "Companies"
+msgstr "انجمن‌ها"
+
+#: apps/company/forms.py:13
+msgid "Your Name"
+msgstr "نام شما"
+
+#: apps/company/forms.py:15
+msgid "Your Email"
+msgstr "رایانامه شما"
+
+#: apps/company/forms.py:17 apps/company/models.py:179
+msgid "Subject"
+msgstr "درباره‌ی"
+
+#: apps/company/forms.py:19
+msgid "Your Message"
+msgstr "پیام شما"
+
+#: apps/company/models.py:12
+msgid "Please enter numbers, or switch your keyboard to `en`."
+msgstr "خواهش می‌کنیم تنها شماره‌ وارد کنید، یا شماره‌ها را انگلیسی کنید."
+
+#: apps/company/models.py:20
+msgid "Logo"
+msgstr "نشان"
+
+#: apps/company/models.py:23
+msgid "Short Description"
+msgstr "شرح کوتاه"
+
+#: apps/company/models.py:25
+msgid "Long Description"
+msgstr "شرح بلند"
+
+#: apps/company/models.py:26
+msgid "Footer Description"
+msgstr "شرح پایین برگه"
+
+#: apps/company/models.py:28
+msgid "Timetable intro"
+msgstr "زیگ زمان‌بندی"
+
+#: apps/company/models.py:30
+msgid "Contact us intro"
+msgstr "دیباچه‌ی گفتگو با ما"
+
+#: apps/company/models.py:32
+msgid "Phone (main)"
+msgstr "تلفن (اصلی)"
+
+#: apps/company/models.py:34 apps/users/models.py:89
+msgid "Phone"
+msgstr "تلفن"
+
+#: apps/company/models.py:36
+msgid "Fax"
+msgstr "دورنگار"
+
+#: apps/company/models.py:38 apps/company/models.py:178 apps/users/models.py:46
+msgid "Email"
+msgstr "رایانامه"
+
+#: apps/company/models.py:39 apps/users/models.py:111
+msgid "Address"
+msgstr "نشانی"
+
+#: apps/company/models.py:41
+msgid "Social Links"
+msgstr "شبکه‌های اجتماعی"
+
+#: apps/company/models.py:42
+msgid "Darken Logo"
+msgstr "نشان خاکستری"
+
+#: apps/company/models.py:45 apps/company/models.py:46
+msgid "Iran-ATCA"
+msgstr "ایران آتکا"
+
+#: apps/company/models.py:59 apps/company/models.py:78 apps/users/models.py:162
+msgid "URL"
+msgstr "نشانی"
+
+#: apps/company/models.py:67
+msgid "Company Social Link"
+msgstr "شبکه‌ی اجتماعی انجمن"
+
+#: apps/company/models.py:68
+msgid "Company Social Links"
+msgstr "شبکه‌های اجتماعی انجمن"
+
+#: apps/company/models.py:81
+msgid "Useful Link"
+msgstr "پیوند به بیرون"
+
+#: apps/company/models.py:82
+msgid "Useful Links"
+msgstr "پیوندهای بیرون"
+
+#: apps/company/models.py:94
+msgid "Introduction"
+msgstr "دیباچه"
+
+#: apps/company/models.py:96
+msgid "Secretary-General"
+msgstr "دبیرکل"
+
+#: apps/company/models.py:100 apps/company/templates/company/company.html:282
+msgid "Veep"
+msgstr "جانشین"
+
+#: apps/company/models.py:104 apps/company/templates/company/company.html:285
+msgid "Treasure"
+msgstr "خزانه‌دار"
+
+#: apps/company/models.py:108 apps/company/templates/company/company.html:292
+msgid "Warden"
+msgstr "بازرس"
+
+#: apps/company/models.py:112
+msgid "Head of PR"
+msgstr "سرپرست روابط عمومی"
+
+#: apps/company/models.py:116
+msgid "Head of FR"
+msgstr "سرپرست روابط بین‌الملل"
+
+#: apps/company/models.py:120 apps/company/templates/company/company.html:301
+msgid "Secretary"
+msgstr "دفتردار"
+
+#: apps/company/models.py:128
+msgid "Management Team"
+msgstr "مدیران انجمن"
+
+#: apps/company/models.py:129
+msgid "Management Teams"
+msgstr "مدیران انجمن"
+
+#: apps/company/models.py:149
+msgid "Date"
+msgstr "هنگامه"
+
+#: apps/company/models.py:162 apps/company/templates/company/company.html:316
+msgid "Timetable"
+msgstr "زیگ زمان‌بندی"
+
+#: apps/company/models.py:163
+msgid "Timetables"
+msgstr "زیگ‌های زمان‌بندی"
+
+#: apps/company/models.py:183
+msgid "ClientIP"
+msgstr "IP مشترک"
+
+#: apps/company/models.py:188 apps/company/models.py:189
+msgid "Contact Us"
+msgstr "گفتگو با ما"
+
+#: apps/company/templates/company/company.html:82
+msgid "Intro"
+msgstr "دیباچه"
+
+#: apps/company/templates/company/company.html:197
+msgid "About us"
+msgstr "درباه‌ی ما"
+
+#: apps/company/templates/company/company.html:244
+msgid "More important events"
+msgstr "رویدادهای برجسته‌ی پیش رو"
+
+#: apps/company/templates/company/company.html:252
+msgid "See the timetable"
+msgstr "زیگ زمانی را ببینید"
+
+#: apps/company/templates/company/company.html:269
+msgid "Our management team"
+msgstr "سرپرستان انجمن"
+
+#: apps/company/templates/company/company.html:279
+msgid "Secretary General"
+msgstr "دبیرکل"
+
+#: apps/company/templates/company/company.html:295
+msgid "Head of Public Relations"
+msgstr "سرپرست روابط عمومی"
+
+#: apps/company/templates/company/company.html:298
+msgid "Head of Foreign Relations"
+msgstr "سرپرست روابط بین‌الملل"
+
+#: apps/company/templates/company/company.html:386
+msgid "Contact us"
+msgstr "گفتگو با ما"
+
+#: apps/company/templates/company/company.html:493
+msgid "Send"
+msgstr "فرستادن"
+
+#: apps/company/templates/company/company.html:500
+msgid "Your message has been sent, thank you."
+msgstr "پیام شما فرستاده شد؛ سپاس‌گزاریم."
+
+#: apps/company/templates/company/company.html:509
+msgid "Our Social Links"
+msgstr "پیوندهای اجتماعی ما"
+
+#: apps/company/templates/company/timetable_intro.html:8
+msgid "<strong>IRAN-ATCA'S</strong> TIMETABLE"
+msgstr "زیگ زمان‌بندی <strong>ایران آتکا</strong>"
+
+#: apps/company/templates/company/timetable_intro.html:13
+msgid "Welcome on our timetable."
+msgstr "به زیگ زمان‌بندی ما خوش آمدید."
+
+#: apps/custom/apps.py:7 apps/custom/apps.py:8
+msgid "Custom Settings"
+msgstr "تنظیمات شخصی‌سازی شده"
+
+#: apps/custom/templates/errors/403.html:6
+#: apps/custom/templates/errors/403_csrf.html:6
+msgid "Forbidden"
+msgstr "غیرمجاز"
+
+#: apps/custom/templates/errors/403.html:10
+#: apps/custom/templates/errors/403_csrf.html:10
+msgid "Error 403"
+msgstr "خطای ۴۰۳"
+
+#: apps/custom/templates/errors/403.html:20
+#: apps/custom/templates/errors/403_csrf.html:19
+#, python-format
+msgid ""
+"This request is <strong>Forbidden</strong> because: <p class=\"text-center "
+"mt-3 wow fadeIn\" data-wow-delay=\"0.3s\"> %(exception)s </p>"
+msgstr ""
+"درخواست شما <strong>غیرمجاز</strong> است زیرا: <p class=\"text-center mt-3 "
+"wow fadeIn\" data-wow-delay=\"0.3s\"> %(exception)s </p>"
+
+#: apps/custom/templates/errors/403.html:31
+msgid "This request is <strong>Forbidden</strong>"
+msgstr "درخواست شما <strong>غیرمجاز</strong> است."
+
+#: apps/custom/templates/errors/404.html:6
+#: apps/custom/templates/errors/errors_base.html:38
+msgid "Page not found"
+msgstr "برگه یافت نشد"
+
+#: apps/custom/templates/errors/404.html:10
+msgid "Error 404"
+msgstr "خطای ۴۰۴"
+
+#: apps/custom/templates/errors/404.html:16
+msgid "We’re sorry, but the requested page could not be found."
+msgstr "شرمنده‌ایم، اما برگه‌ی درخواست شده پیدا نشد."
+
+#: apps/custom/templates/errors/500.html:6
+#: apps/custom/templates/errors/500.html:10
+msgid "Server Error (500)"
+msgstr "خطای ۵۰۰"
+
+#: apps/custom/templates/errors/500.html:16
+msgid ""
+"There’s been an error. It’s been reported to the site administrators via "
+"email and should be fixed shortly.<br> Thanks for your patience."
+msgstr ""
+"خطایی رخ داده است. این رخ داد با رایانامه به سرپرست‌های وب‌سایت اطلاع رسانی "
+"شده است و به زودی درست خواهد شد.<br> از شکیبایی شما سپاس‌گزاریم."
+
+#: apps/custom/views.py:32 apps/users/views.py:31
+msgid "Welcome"
+msgstr "خوش آمدید"
+
+#: apps/documents/admin.py:19
+msgid "Title translation"
+msgstr "ترجمه‌های عنوان"
+
+#: apps/documents/admin.py:30
+msgid "Description translation"
+msgstr "ترجمه‌ی توصیف"
+
+#: apps/documents/admin.py:36
+msgid "Info"
+msgstr "اطلاعات"
+
+#: apps/documents/admin.py:53
+msgid "Content translation"
+msgstr "ترجمه‌های محتوا"
+
+#: apps/documents/apps.py:7 apps/documents/apps.py:8
+#: apps/documents/models.py:93
+#: apps/documents/templates/documents/document_detail.html:9
+#: apps/documents/templates/documents/document_list.html:9
+#: apps/documents/templates/documents/documents-intro.html:12
+#: templates/components/navigation.html:55
+msgid "Documents"
+msgstr "مستندات"
+
+#: apps/documents/models.py:17
+msgid "Articles"
+msgstr "مقالات"
+
+#: apps/documents/models.py:18
+msgid "PDFs"
+msgstr "کتب الکترونیکی"
+
+#: apps/documents/models.py:19
+msgid "Videos"
+msgstr "فیلم‌ها"
+
+#: apps/documents/models.py:20
+msgid "Voices"
+msgstr "صداها"
+
+#: apps/documents/models.py:21
+msgid "Other formats"
+msgstr "دیگرفرمت‌ها"
+
+#: apps/documents/models.py:67
+msgid "Uploaded by"
+msgstr "بارگزاری شده توسط"
+
+#: apps/documents/models.py:69
+msgid "Type"
+msgstr "نوع"
+
+#: apps/documents/models.py:74
+msgid "Cover"
+msgstr "عکس پیش‌نمایش"
+
+#: apps/documents/models.py:75
+msgid "Download link"
+msgstr "لینک دانلود"
+
+#: apps/documents/models.py:77
+msgid "If file is uploaded on hosts"
+msgstr "درصورتی که فایل در سایت دیگری بارگزاری شده است."
+
+#: apps/documents/models.py:92
+msgid "Document"
+msgstr "مستند"
+
+#: apps/documents/models.py:115
+msgid "At least one of \"Content\" or \"Download link\" must have value"
+msgstr "حداقل یکی از دو فیلد «محتوا» یا «لینک دانلود» بایستی پر شود."
+
+#: apps/documents/models.py:128
+msgid "categories e.g: Education, ATC docs,..."
+msgstr "دسته‌بندی منظور آموزشی، مرتبط با ATC، یا ..."
+
+#: apps/documents/models.py:129
+msgid "Total Documents"
+msgstr "مستندات"
+
+#: apps/documents/models.py:135
+msgid "Document Category"
+msgstr "دسته‌بندی مستندات"
+
+#: apps/documents/models.py:136
+msgid "Document Categories"
+msgstr "دسته‌بندی‌های مستندات"
+
+#: apps/documents/templates/documents/doc-list-box.html:59
+msgid "by"
+msgstr "توسط"
+
+#: apps/documents/templates/documents/doc-list-box.html:60
+msgid "documents by"
+msgstr "مستندات بارگزاری شده‌ی"
+
+#: apps/documents/templates/documents/doc-list-box.html:79
+msgid "Download"
+msgstr "دریافت"
+
+#: apps/documents/templates/documents/doc-list-box.html:110
+msgid "There is no documents for this category"
+msgstr "برای دسته‌بندی درخواست شده مستنداتی پیدا نشد."
+
+#: apps/documents/templates/documents/document_detail.html:149
+msgid "Share this document"
+msgstr "این منبع را به اشتراک بگذارید"
+
+#: apps/documents/templates/documents/document_detail.html:218
+msgid "Other documents from this user"
+msgstr "دیگر نوشته‌های ایشون"
+
+#: apps/documents/templates/documents/documents-intro.html:21
+msgid "Welcome on our documents library."
+msgstr "به بخش مستندات ما خوش آمدید."
+
+#: apps/documents/templates/documents/documents-intro.html:30
+msgid ""
+"here we provide most ATC related documents, either published by ICAO or "
+"Iranian Organizations. also there will be a lot of documents uploaded by our "
+"team, and our users maybe you!"
+msgstr ""
+
+#: apps/documents/templates/documents/documents-sidebar.html:106
+msgid "Filters"
+msgstr "فیلترها"
+
+#: apps/documents/templates/documents/documents-sidebar.html:120
+msgid "Types"
+msgstr "نوع"
+
+#: apps/documents/templates/documents/documents-sidebar.html:180
+msgid "Submit"
+msgstr "درج"
+
+#: apps/documents/templates/documents/documents-sidebar.html:202
+#: templates/components/sidebar.html:126
+msgid "ARCHIVE"
+msgstr "بایگانی"
+
+#: apps/forum/apps.py:8 apps/forum/models.py:40 apps/forum/models.py:60
+#: apps/forum/templates/forum/forum-intro.html:12
+#: templates/components/objects_list.html:10
+msgid "Forum"
+msgstr "تالار گفتگو"
+
+#: apps/forum/apps.py:9 apps/forum/models.py:41
+#: templates/components/navigation.html:44
+msgid "Forums"
+msgstr "تالار‌های گفتگو"
+
+#: apps/forum/forms.py:18
+msgid "Your message:"
+msgstr "پیام شما:"
+
+#: apps/forum/models.py:26 templates/components/objects_list.html:206
+msgid "Admin"
+msgstr "سرپرست"
+
+#: apps/forum/models.py:33
+msgid "Members"
+msgstr "اعضا"
+
+#: apps/forum/models.py:78
+msgid "Chat"
+msgstr "پیام"
+
+#: apps/forum/models.py:79
+msgid "Chats"
+msgstr "پیام‌ها"
+
+#: apps/forum/templates/forum/chat-box.html:38
+msgid "replied to"
+msgstr "درپاسخ"
+
+#: apps/forum/templates/forum/chat-box.html:64
+msgid "reply"
+msgstr "پاسخ"
+
+#: apps/forum/templates/forum/chat-box.html:73
+msgid "edit"
+msgstr "ویرایش"
+
+#: apps/forum/templates/forum/chat-box.html:83
+#: templates/components/avatar-delete.html:45
+msgid "delete"
+msgstr "پاک‌کردن"
+
+#: apps/forum/templates/forum/chat-delete-confirm.html:3
+msgid "Confirm delete?"
+msgstr "می‌پذیرید که پاک شود؟"
+
+#: apps/forum/templates/forum/chat-delete-confirm.html:11
+msgid "Negative"
+msgstr "خیر"
+
+#: apps/forum/templates/forum/chat-delete-confirm.html:15
+msgid "Affirm"
+msgstr "بله"
+
+#: apps/forum/templates/forum/chat-form.html:12
+msgid "submit"
+msgstr "درج"
+
+#: apps/forum/templates/forum/forum-intro.html:21
+#: apps/forum/templates/forum/forum_detail.html:39
+msgid "Welcome on our forum."
+msgstr "به تالارهای گفتگوی ما خوش آمدید."
+
+#: apps/forum/templates/forum/forum-intro.html:30
+msgid "In these forums, we will discus about Iran-ATCA related stories."
+msgstr "در تالارهای گفتگو‌ رویدادهای هوانوردی و بررسی می‌شوند."
+
+#: apps/forum/templates/forum/forum_detail.html:95
+msgid "There is no chats yet."
+msgstr "هنوز گفتگویی نشده است."
+
+#: apps/forum/views.py:39 apps/forum/views.py:113
+msgid "You have to be a registered ATCo in Iran-ATCA."
+msgstr "شما باید یک کنترلر و عضو انجمن باشید."
+
+#: apps/forum/views.py:120 apps/forum/views.py:123
+msgid "You are not a member of this forum."
+msgstr "شما در این تالار گفتگو نیستید."
+
+#: apps/users/apps.py:7
+msgid "Users"
+msgstr "کاربران"
+
+#: apps/users/forms.py:17
+msgid "Required for password reset"
+msgstr "لازم برای تغییر گذرواژه"
+
+#: apps/users/models.py:14
+msgid "Male"
+msgstr "آقا"
+
+#: apps/users/models.py:14
+msgid "Female"
+msgstr "خانم"
+
+#: apps/users/models.py:21
+msgid "Facebook"
+msgstr "فیسبوک"
+
+#: apps/users/models.py:28
+msgid "Twitter"
+msgstr "توئیتر"
+
+#: apps/users/models.py:34
+msgid "Instagram"
+msgstr "اینستاگرام"
+
+#: apps/users/models.py:40
+msgid "Telegram"
+msgstr "تلگرام"
+
+#: apps/users/models.py:57
+msgid "This text should be provided for `Author` users."
+msgstr "این گزاره برای کسانی که دسترسی نوشتن پیام دارند مهم است."
+
+#: apps/users/models.py:58
+msgid "Story"
+msgstr "داستان من"
+
+#: apps/users/models.py:78
+msgid "Group"
+msgstr "دسته"
+
+#: apps/users/models.py:79
+msgid "Groups"
+msgstr "دسته‌ها"
+
+#: apps/users/models.py:86
+msgid "Choose the who has not been selected yet"
+msgstr "کسانیکه هنوز انتخاب نشده‌اند، انتخاب کنید."
+
+#: apps/users/models.py:88
+msgid "Mobile"
+msgstr "همراه"
+
+#: apps/users/models.py:90
+msgid "Work City"
+msgstr "شهر محل‌کار"
+
+#: apps/users/models.py:91
+msgid "Father"
+msgstr "نام پدر"
+
+#: apps/users/models.py:92
+msgid "Birth"
+msgstr "زادروز"
+
+#: apps/users/models.py:93
+msgid "Birth Place"
+msgstr "زادگاه"
+
+#: apps/users/models.py:95
+msgid "Gender"
+msgstr "جنسیت"
+
+#: apps/users/models.py:96 apps/users/models.py:97
+msgid "Maried"
+msgstr "متاهل"
+
+#: apps/users/models.py:96
+msgid "Single"
+msgstr "مجرد"
+
+#: apps/users/models.py:98
+msgid "Nationality Code"
+msgstr "شماره ملی"
+
+#: apps/users/models.py:100
+msgid "Member Of Iran-ATCA"
+msgstr "عضو ایران آتکا"
+
+#: apps/users/models.py:102
+msgid "Iran-ATCA code"
+msgstr "شماره‌ی کاربری ایران آتکا"
+
+#: apps/users/models.py:104
+msgid "Member of IFATCA"
+msgstr "عضو IFATCA"
+
+#: apps/users/models.py:106
+msgid "IFATCA code"
+msgstr "شماره‌ی اعضویت IFATCA"
+
+#: apps/users/models.py:107
+msgid "Joined"
+msgstr "عضویت"
+
+#: apps/users/models.py:108
+msgid "Passed-away"
+msgstr "فوت شده"
+
+#: apps/users/models.py:109
+msgid "Paid membership years"
+msgstr "سال‌های پرداخت شده"
+
+#: apps/users/models.py:110 apps/users/models.py:114
+msgid "Provide a comma separated list"
+msgstr "یک رشته‌ که با ویرگول از هم جدا شود."
+
+#: apps/users/models.py:112
+msgid "Academic Licenses"
+msgstr "گواهینامه‌های دانشگاهی"
+
+#: apps/users/models.py:117
+msgid "Air Traffic Controller"
+msgstr "واپایشگر آمد و شد هوایی"
+
+#: apps/users/models.py:118
+msgid "Air Traffic Controllers"
+msgstr "واپایشگران آمد و شد هوایی"
+
+#: apps/users/models.py:137
+msgid "Link"
+msgstr "نشانی پیوند"
+
+#: apps/users/models.py:138
+msgid "Media"
+msgstr "رسانه"
+
+#: apps/users/models.py:143
+msgid "Social Media"
+msgstr "شبکه‌های اجتماعی"
+
+#: apps/users/models.py:144
+msgid "Social Medias"
+msgstr "شبکه‌های اجتماعی"
+
+#: apps/users/models.py:159
+msgid "user"
+msgstr "کاربر"
+
+#: apps/users/models.py:160
+msgid "Event"
+msgstr "رویداد"
+
+#: apps/users/models.py:163
+msgid "Acknowledged"
+msgstr "دریافت‌شده"
+
+#: apps/users/models.py:169
+msgid "Notification"
+msgstr "اعلان"
+
+#: apps/users/models.py:170
+msgid "Notifications"
+msgstr "اعلانات"
+
+#: apps/users/models.py:175
+#, python-brace-format
+msgid "for: {user_name}, event: {event}"
+msgstr "برای {user_name}, رویداد: {event}"
+
+#: apps/users/models.py:188
+#, python-brace-format
+msgid "{user_name} has commented your post: {post}, at: {time}"
+msgstr "{user_name} یک کامنت گذاشت؛ برای پست: {post}،در: {time}"
+
+#: apps/users/models.py:195
+#, python-brace-format
+msgid "{user_name} has commented your comment: {rel}, at: {time}"
+msgstr "{user_name} یک کامنت گذاشت؛ برای کامنت: {rel}،در: {time}"
+
+#: apps/users/templates/registration/logged_out.html:5
+#: apps/users/templates/registration/password_change_done.html:11
+#: templates/components/navigation.html:113
+msgid "Log out"
+msgstr "خروج"
+
+#: apps/users/templates/registration/logged_out.html:24
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr "از اینکه بخشی از زمان خود را در این تارنما گذراندید سپاس‌گزاریم."
+
+#: apps/users/templates/registration/logged_out.html:29
+msgid "Log in again"
+msgstr "ورود دوباره"
+
+#: apps/users/templates/registration/login.html:10
+#: apps/users/templates/registration/login.html:39
+#: apps/users/templates/registration/login.html:106
+#: apps/users/templates/registration/password_reset_complete.html:18
+#: apps/users/templates/registration/signup.html:12
+msgid "Log in"
+msgstr "ورود"
+
+#: apps/users/templates/registration/login.html:49
+#: apps/users/templates/registration/password_change_form.html:66
+msgid "Please correct the error below."
+msgstr "خواهش می‌کنیم خطای زیر را درست کنید."
+
+#: apps/users/templates/registration/login.html:51
+#: apps/users/templates/registration/password_change_form.html:68
+msgid "Please correct the errors below."
+msgstr "خواهش می‌کنیم خطاهای زیر را درست کنید."
+
+#: apps/users/templates/registration/login.html:60
+#, python-format
+msgid ""
+"You are authenticated as %(username)s, but are not authorized to access this "
+"page. Would you like to login to a different account?"
+msgstr ""
+"شما به نام %(username)s وارد شده‌اید، اما دسترسی دیدن این برگه را ندارید؛ آیا "
+"مایلید با نام دیگری ادامه دهید؟"
+
+#: apps/users/templates/registration/login.html:118
+msgid "Forgotten your password or username?"
+msgstr "نام کاربری یا گذرواژه‌ی خود را فراموش کرده اید؟"
+
+#: apps/users/templates/registration/login.html:121
+msgid "Click here"
+msgstr "اینجا بزنید."
+
+#: apps/users/templates/registration/login.html:127
+msgid "Not a member?"
+msgstr "هنوز عضو نیستید؟"
+
+#: apps/users/templates/registration/login.html:129
+msgid "Register"
+msgstr "نام نویسی"
+
+#: apps/users/templates/registration/login.html:134
+msgid "or sign in with"
+msgstr "یا ورود با"
+
+#: apps/users/templates/registration/password_change_done.html:7
+msgid "Documentation"
+msgstr "مستندات"
+
+#: apps/users/templates/registration/password_change_done.html:18
+#: apps/users/templates/registration/password_reset_complete.html:6
+#: apps/users/templates/registration/password_reset_confirm.html:7
+#: apps/users/templates/registration/password_reset_done.html:6
+#: apps/users/templates/registration/password_reset_form.html:7
+#: templates/components/navigation.html:29
+msgid "Home"
+msgstr "خانه"
+
+#: apps/users/templates/registration/password_change_done.html:20
+#: apps/users/templates/registration/password_change_form.html:33
+#: apps/users/templates/registration/password_change_form.html:56
+msgid "Password change"
+msgstr "بازنشانی گذرواژه"
+
+#: apps/users/templates/registration/password_change_done.html:28
+msgid "Change password"
+msgstr "بازنشانی گذرواژه"
+
+#: apps/users/templates/registration/password_change_done.html:30
+msgid "Your password was changed."
+msgstr "گذرواژه‌ی شما بازنشانی شده است."
+
+#: apps/users/templates/registration/password_change_form.html:85
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+"خواهش می‌کنیم گذرواژه پیشین خود را وارد کنید؛ سپس گذرواژه‌ی تازه را دو بار "
+"وارد کنید تا ما بتوانیم بررسی کنیم که به درستی نوشته‌ باشید. "
+
+#: apps/users/templates/registration/password_change_form.html:117
+msgid "Your password can’t be too similar to your other personal information."
+msgstr "گذرواژه‌ی شما نمی‌تواند مشابه با سایر اطلاعات شما باشد."
+
+#: apps/users/templates/registration/password_change_form.html:127
+msgid "Your password must contain at least 8 characters."
+msgstr "گذرواژه‌ی شما بایستی دارای حداقل ۸ واج باشد."
+
+#: apps/users/templates/registration/password_change_form.html:133
+msgid "Your password can’t be a commonly used password."
+msgstr "گذرواژه‌ی شما نمی‌تواند یک گذرواژه‌ی معمولی باشد."
+
+#: apps/users/templates/registration/password_change_form.html:138
+msgid "Your password must have at least 1 capital character."
+msgstr "گذرواژه‌ی شما بایستی دارای حداقل یک واج انگلیسی بزرگ باشد."
+
+#: apps/users/templates/registration/password_change_form.html:143
+msgid "Your password must have at least 1 number."
+msgstr "گذرواژه‌ی شما بایستی حداقل یک عدد داشته‌باشد."
+
+#: apps/users/templates/registration/password_change_form.html:148
+msgid "Your password must have at least 1 special char."
+msgstr "گذرواژه‌ی شما بایستی دارای حداقل یکی از واج‌های انگلیسی خاص باشد."
+
+#: apps/users/templates/registration/password_change_form.html:161
+msgid "Password doesn't match."
+msgstr "گذرواژه‌های وارد شده مانند یکدیگر نیستند."
+
+#: apps/users/templates/registration/password_change_form.html:176
+#: apps/users/templates/registration/password_reset_confirm.html:32
+msgid "Change my password"
+msgstr "گذرواژه‌ی مرا بازنشانی کن"
+
+#: apps/users/templates/registration/password_reset_complete.html:7
+#: apps/users/templates/registration/password_reset_done.html:7
+#: apps/users/templates/registration/password_reset_form.html:8
+msgid "Password reset"
+msgstr "جایگزینی گذرواژه"
+
+#: apps/users/templates/registration/password_reset_complete.html:16
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "گذرواژه‌ی شما بازنشانی شد. اکنون می‌توانید وارد شوید."
+
+#: apps/users/templates/registration/password_reset_confirm.html:8
+msgid "Password reset confirmation"
+msgstr "تایید جایگزینی گذرواژه"
+
+#: apps/users/templates/registration/password_reset_confirm.html:18
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"خواهش می‌کنیم گذرواژه‌ی خود را دو بار وارد کنید؛تا بررسی شود که به درستی وارد "
+"کرده‌اید."
+
+#: apps/users/templates/registration/password_reset_confirm.html:24
+msgid "New password:"
+msgstr "گذرواژه‌ی جدید:"
+
+#: apps/users/templates/registration/password_reset_confirm.html:29
+msgid "Confirm password:"
+msgstr "تایید گذرواژه"
+
+#: apps/users/templates/registration/password_reset_confirm.html:38
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: apps/users/templates/registration/password_reset_done.html:15
+msgid ""
+"We’ve emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+
+#: apps/users/templates/registration/password_reset_done.html:17
+msgid ""
+"If you don’t receive an email, please make sure you’ve entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"اگر پیغامی دریافت نکرده‌اید، خواهش می‌کنیم بررسی کنید نشانی که با آن در وب‌سایت "
+"درج شده‌اید وارد کرده باشید، همچنین پوشه‌ی هرزنامه‌های خود را نیز بررسی کنید."
+
+#: apps/users/templates/registration/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you\n"
+"requested a password reset for your user account at\n"
+"%(site_name)s."
+msgstr ""
+"این پیغام را برای درخواست بازنشانی گذرواژه‌ی حساب کاربری‌تان در وب‌سایت "
+"%(site_name)s دریافت کرده‌اید."
+
+#: apps/users/templates/registration/password_reset_email.html:6
+msgid "Please go to the following page and choose a new password:"
+msgstr "خواهش می‌کنیم به برگه زیر رفته و یک گذرواژه‌ی جدید وارد کنید:"
+
+#: apps/users/templates/registration/password_reset_email.html:10
+msgid "Your username, in case you’ve forgotten:"
+msgstr "چنانچه فراموش کرده‌اید، نام کاربری خود را وارد کنید:"
+
+#: apps/users/templates/registration/password_reset_email.html:13
+msgid "Thanks for using our site!"
+msgstr "سپاس از اینکه از وب‌سایت ما استفاده کردید!"
+
+#: apps/users/templates/registration/password_reset_email.html:15
+#, python-format
+msgid ""
+"The %(site_name)s\n"
+"team"
+msgstr "تیم %(site_name)s"
+
+#: apps/users/templates/registration/password_reset_form.html:16
+msgid ""
+"Forgotten your password? Enter your email address below, and we’ll email "
+"instructions for setting a new one."
+msgstr ""
+"گذرواژه‌ی خود را فراموش کرده‌اید؟ رایانامه خود را وارد کنید؛ ما دستورها را "
+"برایتان می‌فرستیم."
+
+#: apps/users/templates/registration/password_reset_form.html:22
+msgid "Email address:"
+msgstr "نشانی رایانامه:"
+
+#: apps/users/templates/registration/password_reset_form.html:25
+msgid "Reset my password"
+msgstr "گذرواژه‌ی مرا جایگزین کن"
+
+#: apps/users/templates/users/user_detail.html:12
+msgid "User Profile"
+msgstr "پروفایل"
+
+#: apps/users/templates/users/user_detail.html:72
+msgid "Edit profile"
+msgstr "ویرایش پروفایل"
+
+#: apps/users/templates/users/user_detail.html:79
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+#: apps/users/templates/users/user_detail.html:104
+msgid "Edit Photo"
+msgstr "ویرایش تصویر"
+
+#: apps/users/templates/users/user_detail.html:115
+msgid "Profile photo will be changed automatically"
+msgstr "تصویر جدید به صورت خودکار جایگزین خواهد شد"
+
+#: apps/users/templates/users/user_detail.html:121
+msgid "Change"
+msgstr "تغییر"
+
+#: apps/users/templates/users/user_detail.html:126
+#: apps/users/templates/users/user_detail.html:278
+msgid "Delete"
+msgstr "پاک‌کردن"
+
+#: apps/users/templates/users/user_detail.html:147
+msgid "Edit Account"
+msgstr "ویرایش حساب"
+
+#: apps/users/templates/users/user_detail.html:231
+msgid "My social networks"
+msgstr "شبکه‌های اجتماعی من"
+
+#: apps/users/templates/users/user_detail.html:298
+msgid "Update Account"
+msgstr "بروزرسانی حساب"
+
+#: apps/users/templates/users/user_detail.html:375
+msgid "Birthplace"
+msgstr "زادگاه"
+
+#: apps/users/templates/users/user_detail.html:380
+msgid "Working in"
+msgstr "شهر محل‌کار"
+
+#: apps/users/templates/users/user_detail.html:385
+msgid "Joined Iran-ATCA on"
+msgstr "عضویت در ایران آتکا"
+
+#: apps/users/templates/users/user_detail.html:403
+msgid "My Story"
+msgstr "داستان من"
+
+#: apps/users/templates/users/user_detail.html:415
+#, python-format
+msgid "currently author of %(counter)s post."
+msgid_plural "currently author of %(counter)s posts."
+msgstr[0] "تاکنون %(counter)s پست در سایت نوشته‌اند."
+msgstr[1] "تاکنون %(counter)s پست در سایت نوشته‌اند."
+
+#: apps/users/templates/users/user_detail.html:428
+msgid "Contact me"
+msgstr "تماس با من"
+
+#: apps/users/views.py:52
+msgid "Your password has been changed successfully"
+msgstr "گذرواژه‌ی شما با موفقیت تغییر یافت."
+
+#: apps/users/views.py:60
+msgid "Good bye"
+msgstr "خدا نگهدارتان"
+
+#: server/settings.py:261
+msgid "Persian"
+msgstr "پارسی"
+
+#: server/settings.py:262
+msgid "English"
+msgstr "انگلیسی"
+
+#: templates/components/avatar-add.html:17
+msgid "Your current avatar: "
+msgstr "آواتار فعلی شما"
+
+#: templates/components/avatar-add.html:26
+msgid "You haven't uploaded an avatar yet. Please upload one now."
+msgstr "شما تاکنون عکسی بارگزاری نکرده‌اید. لطفا اکنون یکی بارگزاری کنید."
+
+#: templates/components/avatar-add.html:45
+msgid "Upload New Image"
+msgstr "یک عکس بارگزاری کنید"
+
+#: templates/components/avatar-delete.html:13
+msgid "Please select the avatars that you would like to delete."
+msgstr "لطفا آواتارهای که میخواهید حذف شوند، انتخاب کنید."
+
+#: templates/components/avatar-delete.html:18
+msgid "You have no avatars to delete."
+msgstr "شما تاکنون آواتاری نداشته‌اید."
+
+#: templates/components/avatar-delete.html:20
+msgid "Please upload one now."
+msgstr "لطفا هم‌اکنون یکی بارگزاری کنید."
+
+#: templates/components/avatar-delete.html:58
+msgid "Delete These"
+msgstr "پاک‌کردن"
+
+#: templates/components/footer.html:34
+msgid "Useful links"
+msgstr "پیوندهای بیرون"
+
+#: templates/components/footer.html:56
+msgid "Contact"
+msgstr "پیوندهای ما"
+
+#: templates/components/navigation.html:95
+msgid "Menu"
+msgstr "فهرست"
+
+#: templates/components/navigation.html:104
+msgid "Profile"
+msgstr "پروفایل"
+
+#: templates/components/navigation.html:109
+msgid "admin"
+msgstr "مدیریت"
+
+#: templates/components/navigation.html:121
+msgid "Login"
+msgstr "ورود"
+
+#: templates/components/pagination.html:10
+msgid "Total pages"
+msgstr "برگه‌ها"
+
+#: templates/components/sidebar.html:237
+msgid "LATEST"
+msgstr "تازه‌ترین‌ها"
+
+#: templates/components/sidebar.html:316
+msgid "LATEST ACTIVE"
+msgstr "تازه‌ترین رویدادها"
+
+#: templates/components/sidebar.html:401
+msgid "YOU MAY ALSO LIKE"
+msgstr "شاید بپسندید"
+
+#: templates/components/sidebar.html:487
+msgid "Subscribe to my RSS feed"
+msgstr "اشتراک در RSS"

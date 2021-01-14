@@ -1,0 +1,35 @@
+{% load i18n %}
+<h5 class="mt-4">
+  {% trans 'Confirm delete?' %}
+</h5>
+
+<input type="hidden" id="inpChatId"
+  value="{{ chat_id }}">
+
+<button id="chatDeleteCancel"
+  class="btn success-color font-weight-bold text-white btn-sm my-3 mx-3">
+  {% trans 'Negative' %}
+</button>
+<button id="chatDeleteConfirmed"
+  class="btn danger-color font-weight-bold text-white btn-sm my-3">
+  {% trans 'Affirm' %}
+</button>
+
+<script>
+  var $submit = $('#chatDeleteConfirmed');
+  $submit.click(function () {
+    // send message in JSON format
+    var finalData = JSON.stringify({
+      'message_type': "deletion",
+      'chat_id': $("#inpChatId").val()
+    })
+    chatSocket.send(finalData);
+
+    $("#generalModal .close").click();
+  });
+
+  $('#chatDeleteCancel').click(function () {
+    $("#generalModal .close").click();
+  });
+
+</script>

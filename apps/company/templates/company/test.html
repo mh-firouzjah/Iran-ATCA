@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport"
+				content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+
+	<link rel="shortcut icon" href="/assets/img/favicon.ico"
+				type="image/x-icon" />
+	<link rel="stylesheet" href="/assets/css/fontawesome.all.min.css" />
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/assets/css/mdb.min.css" />
+	<link rel="stylesheet" href="/assets/css/style-test.css" />
+
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+	<div class="container mt-5 pt-5">
+		<ul class="custom-scrollbar"></ul>
+		<div class="row">
+			<div class="col-4">
+				<div class="md-form">
+					<input type="text" id="form1" class="form-control">
+					<label for="form1" class="">Basic example</label>
+				</div>
+			</div>
+
+			<div class="col-4">
+				<div class="md-form">
+					<select class="mdb-select">
+						<optgroup label="team 1">
+							<option value="1">Option 1</option>
+							<option value="2">Option 2</option>
+						</optgroup>
+						<optgroup label="team 2">
+							<option value="3">Option 3</option>
+							<option value="4">Option 4</option>
+						</optgroup>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-4">
+				<div class="switch">
+					<label>
+						Off
+						<input type="checkbox" checked="checked">
+						<span class="lever"></span>
+						On
+					</label>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script src="/assets/js/popper.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/mdb.min.js"></script>
+	<script src="/assets/js/main-test.js"></script>
+	<script>
+		$(document).ready(function () {
+			new WOW().init();
+		});
+
+		var container = document.querySelector('.custom-scrollbar');
+		var ps = new PerfectScrollbar(container, {
+			wheelSpeed: 2,
+			wheelPropagation: true,
+			minScrollbarLength: 20
+		});
+
+		// Material Select Initialization
+		$(document).ready(function () {
+			$('.mdb-select').materialSelect();
+		});
+
+	</script>
+</body>
+
+</html>

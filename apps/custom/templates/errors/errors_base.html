@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block extra_heads %}
+<style>
+  html,
+  body,
+  header,
+  .view {
+    height: 100%;
+  }
+
+  @media (max-width: 740px) {
+
+    html,
+    body,
+    header,
+    .view {
+      height: 815px;
+    }
+  }
+
+  @media (min-width: 800px) and (max-width: 850px) {
+
+    html,
+    body,
+    header,
+    .view {
+      height: 600px;
+    }
+  }
+
+</style>
+{% endblock extra_heads %}
+
+{% block title %}
+{% translate 'Page not found' %}
+{% endblock title %}
+
+{% block content %}{% endblock content %}
+{% block footer %}{% endblock footer %}
+
+{% block header_content %}
+
+<!-- Intro Section -->
+<section class="view intro-2">
+  <div
+    class="mask rainy-ashville-gradient text-dark">
+    <div
+      class="container h-100 d-flex justify-content-center align-items-center">
+      <div class="row">
+        <div class="col-md-12 wow fadeIn mb-3">
+          <div
+            class="card card-body rgba-white-slight text-center">
+            <ul
+              class="list-unstyled py-5 mx-lg-5">
+              <li>
+                <h1
+                  class="orange-ic display-3 mt-5 mx-5 mt-lg-0 mb-5 font-weight-bold wow fadeIn"
+                  data-wow-delay="0.3s">
+                  <strong>
+                    {% block error_header %}
+
+                    {% endblock error_header %}
+                  </strong>
+                </h1>
+              </li>
+              <li>
+                <p class="description mb-4 wow fadeIn"
+                  data-wow-delay="0.4s">
+                  {% block error_description %}
+
+                  {% endblock error_description %}
+                </p>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock header_content %}

@@ -1,0 +1,302 @@
+{% load i18n static jalali_tags %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block extra_heads %}
+<style>
+  .active-purple-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid #ce93d8;
+    box-shadow: 0 0 0 1px #ce93d8;
+  }
+
+</style>
+{% endblock extra_heads %}
+
+<!-- Sidebar -->
+<div class="col-lg-4 col-xl-3 col-md-12 mb-5 pt-0">
+
+  <!-- Section: Search-Box -->
+  <section class="section widget-content">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+      <div class="single-post">
+        <p class="font-weight-bold dark-grey-text text-uppercase text-center
+           spacing purple lighten-5 py-2 mb-4">
+          <strong>
+            {% translate "Search" %}
+          </strong>
+        </p>
+
+        <!-- Grid row -->
+        <div class="row mb-4">
+          <div class="col-12 text-center smaller">
+            <!-- Search form -->
+            <form class="active-purple-4 mx-2"
+                  {% if 'post' in section %}
+                  action="{% url 'blog:post_search' %}"
+                  {% elif 'forum' in section %}
+                  action="{% url 'forum:forum_search' %}"
+                  {% elif 'document' in section %}
+                  action="{% url 'documents:document_search' %}"
+                  {% endif %} method="post">
+              {% csrf_token %}
+              {{ search_form.non_field_errors }}
+              {{ search_form.query }}
+              <p class="text-muted small mt-2">
+                {{ search_form.query.help_text }}
+              </p>
+              {% for error in search_form.query.errors %}
+              <p class="danger-ic small">
+                {{ error }}
+              </p>
+              {% endfor %}
+
+              {% if not 'forum' in section %}
+              <!-- Filled-in rounded example -->
+              <div
+                   class="form-check checkbox-rounded checkbox-living-coral-filled mt-3 mx-1">
+                {{ search_form.check_for_similarities.errors }}
+                {{ search_form.check_for_similarities }}
+                <label class="form-check-label"
+                       for="{{search_form.check_for_similarities.id_for_label}}">
+                  {{ search_form.check_for_similarities.label }}
+                </label>
+                <p class="small text-muted">
+                  {{ search_form.check_for_similarities.help_text }}
+                </p>
+              </div>
+
+              <!-- Filled-in rounded example -->
+              <div
+                   class="form-check checkbox-rounded checkbox-living-coral-filled mt-3 mx-1">
+                {{ search_form.consider_one_phrase.errors }}
+                {{ search_form.consider_one_phrase }}
+                <label class="form-check-label"
+                       for="{{search_form.consider_one_phrase.id_for_label}}">
+                  {{ search_form.consider_one_phrase.label }}
+                </label>
+                <p class="small text-muted">
+                  {{ search_form.consider_one_phrase.help_text }}
+                </p>
+              </div>
+              {% endif %}
+
+              <button class="btn btn-sm purple-gradient font-weight-bold mx-auto mt-3 waves-effect waves-light"
+                      type="submit">
+                {% trans "Search" %}
+              </button>
+            </form>
+          </div>
+        </div>
+        <!--  Grid row -->
+      </div>
+    </div>
+  </section>
+  <!--  Section: Search-Box -->
+
+  <!-- filters-Box -->
+  <section class="section widget-content mt-5">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+      <div class="single-post">
+        <p class="font-weight-bold dark-grey-text text-uppercase text-center
+           spacing purple lighten-5 py-2 mb-4">
+          <strong>
+            {% translate "Filters" %}
+          </strong>
+        </p>
+
+        <!-- Grid row -->
+        <div class="row mb-4">
+          <div class="col-12 text-center smaller">
+            <!-- Search form -->
+            <form class="active-purple-4 mx-2" method="get"
+                  action="{{request.get_full_path}}#list-start">
+
+              <hr class="mt-0">
+
+              <h3>
+                {% translate "Types" %}
+              </h3>
+
+              {% for doctype1, doctype2 in doctypes %}
+              {% if forloop.first or forloop.counter0|divisibleby:2 %}
+              <div class="row">
+                {% endif %}
+
+                <div class="col-6">
+                  <label for="id_{{doctype1}}">
+                    {{ doctype2 }}
+                  </label>
+                  <div class="switch">
+                    <label>
+                      <input id="id_{{doctype1}}" type="checkbox"
+                             name="type" value="{{doctype1}}"
+                             {% if doctype1 in request.get_full_path %}checked{% endif %}>
+                      <span class="lever"></span>
+                    </label>
+                  </div>
+                </div>
+                {% if forloop.last or forloop.counter0|add:1|divisibleby:2 %}
+              </div>
+              {% endif %}
+              {% endfor %}
+
+              <hr>
+
+              <h3>
+                {% translate "Categories" %}
+              </h3>
+
+              {% for cat in doc_cats %}
+              {% if forloop.first or forloop.counter0|divisibleby:2 %}
+              <div class="row">
+                {% endif %}
+
+                <div class="col-6">
+                  <label for="id_{{cat.title}}">
+                    {{ cat.title }}
+                  </label>
+                  <div class="switch">
+                    <label>
+                      <input id="id_{{cat.title}}" type="checkbox"
+                             name="category" value="{{cat.title_en}}"
+                             {% if cat.title_en in request.get_full_path %}
+                             checked {% endif %}>
+
+                      <span class="lever"></span>
+                    </label>
+                  </div>
+                </div>
+                {% if forloop.last or forloop.counter0|add:1|divisibleby:2 %}
+              </div>
+              {% endif %}
+              {% endfor %}
+
+              <div class="row">
+                <button class="btn btn-sm purple-gradient font-weight-bold mx-auto mt-3 waves-effect waves-light"
+                        type="submit">
+                  {% trans "Submit" %}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!--  Grid row -->
+      </div>
+    </div>
+  </section>
+  <!--  filters-Box -->
+
+  <!-- Archive -->
+  <section class="section archive  mt-5">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+      <div class="single-post">
+
+        <p
+           class="font-weight-bold dark-grey-text text-center spacing purple lighten-5 py-2 mb-4">
+          <strong>
+            {% translate "ARCHIVE" %}
+          </strong>
+        </p>
+
+        <!-- Grid row -->
+        <div class="row mb-4">
+
+          <!-- Grid column -->
+          <div class="col-md-12 text-center">
+            {% for item in archive %}
+            <!--Accordion wrapper-->
+            {% ifchanged item.month %}
+            {% ifchanged item.year %}
+            <div class="accordion md-accordion"
+                 id="postArchiveAccordion" role="tablist"
+                 aria-multiselectable="true">
+
+              <!-- Accordion card -->
+              <div class="card">
+
+                <!-- Card header -->
+                <div class="card-header" role="tab"
+                     id="postArchiveHeading{{item.year}}">
+                  <a data-toggle="collapse"
+                     data-parent="#postArchiveAccordion"
+                     href="#postArchive{{item.year}}"
+                     aria-expanded="false"
+                     aria-controls="postArchive{{item.year}}"
+                     class="teal-text">
+                    <h5 class="mb-0">
+                      {% if LANGUAGE_BIDI %}
+                      {{ item|to_jalali:'%Y' }}
+                      {% else %}
+                      {{ item.year }}
+                      {% endif %}
+                      <i class="fas fa-angle-down rotate-icon"></i>
+                    </h5>
+                  </a>
+                </div>
+                <!-- Card header -->
+
+                <!-- Card body -->
+                <div id="postArchive{{item.year}}" class="collapse"
+                     role="tabpanel"
+                     aria-labelledby="postArchiveHeading{{item.year}}"
+                     data-parent="#postArchiveAccordion">
+                  <div class="card-body">
+
+                    <p>
+                      <a href="{% url 'documents:document_list_archive' item.year item.month %}"
+                         class="blue-grey-text">
+                        {% if LANGUAGE_BIDI %}
+                        {{ item|to_jalali:'%B' }}
+                        {% else %}
+                        {{ item|date:"N" }}
+                        {% endif %}
+                      </a>
+                    </p>
+
+                    {% else %}
+
+                    <p>
+                      <a href="{% url 'documents:document_list_archive' item.year item.month %}"
+                         class="blue-grey-text">
+                        {% if LANGUAGE_BIDI %}
+                        {{ item|to_jalali:'%B' }}
+                        {% else %}
+                        {{ item|date:"N" }}
+                        {% endif %}
+                      </a>
+                    </p>
+
+                  </div>
+                </div>
+                <!-- Card body -->
+
+              </div>
+              <!-- Accordion card -->
+
+            </div>
+            {% endifchanged %}
+            {% endifchanged %}
+            <!--Accordion wrapper-->
+
+            {% endfor %}
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+
+    </div>
+    <!--  Card -->
+
+  </section>
+  <!-- Archive -->
+
+</div>
+<!-- Sidebar -->

@@ -1,0 +1,16 @@
+python-decouple
+dj-database-url
+django-jalali-date
+jdatetime
+django-admin-autocomplete-filter
+django-widget-tweaks
+social-auth-app-django
+django-ckeditor
+django-modeltranslation
+sorl-thumbnail
+django-social-share
+Pillow
+django-avatar
+channels
+channels-redis
+psycopg2

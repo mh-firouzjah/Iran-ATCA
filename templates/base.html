@@ -1,0 +1,198 @@
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+  <!-- Meta tags for SEO -->
+  <meta name="description"
+        content="{% block meta_description %} {% endblock meta_description %}" />
+
+  <meta name="keywords"
+        content="{% block meta_keywords %} {% endblock meta_keywords %}" />
+
+  <meta name="robots" content="index, follow" />
+  <!-- Meta tags for SEO -->
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" {% if company.darken_logo %}
+        href="{% static 'img/favicon-grey.ico' %}" {% else %}
+        href="{% static 'img/favicon.ico' %}" {% endif %}
+        type="image/x-icon" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="{% static 'css/fontawesome.all.min.css' %}">
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet"
+        href="{% static 'css/bootstrap.min.css' %}" />
+
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+  {% block extra_heads %}{% endblock extra_heads %}
+
+  <!-- JQuery -->
+  <script type="text/javascript"
+          src="{% static 'js/jquery-3.4.1.min.js' %}">
+  </script>
+
+  <title>
+    {{ company.name }} -
+    {% block title %}{% endblock title %}
+  </title>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MNLT3L4');
+
+  </script>
+  <!-- End Google Tag Manager -->
+</head>
+
+<body class="blue-skin
+	{% block body_class %}{% endblock body_class %}
+	{% if LANGUAGE_BIDI %} text-right {% endif %}"
+      {% if LANGUAGE_BIDI %} dir="rtl" {% endif %}>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNLT3L4"
+            height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- Navigation & Intro -->
+  <header id="main_header" class="h-100">
+    <ul class="custom-scrollbar my-0 py-0"></ul>
+    <!-- Navbar -->
+    {% block header_content %}
+    {% include 'components/navigation.html' %}
+    {% endblock header_content %}
+
+    <noscript>
+      <div class="alert alert-warning alert-dismissible fade show"
+           role="alert">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Warning!</strong>
+        your browser does not support JavaScript!
+        Or maybe its
+        disabled in yor browsers settings
+      </div>
+    </noscript>
+  </header>
+  <!-- Navigation & Intro -->
+
+  <!-- Main layout -->
+  <main>
+    {% block content %}
+    {% endblock content %}
+  </main>
+  <!-- Main layout -->
+
+  <!-- Footer -->
+  {% block footer %}
+  {% include 'components/footer.html' %}
+  {% endblock footer %}
+  <!-- Footer -->
+
+  <!-- Message(s) -->
+  {% include 'components/alert.html' %}
+
+
+  <!-- General Modal -->
+  <div class="modal fade" id="generalModal" tabindex="-1"
+       role="dialog" aria-labelledby="modelTitleId"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <a class="close mt-3 mx-3" data-dismiss="modal"
+           aria-label="Close">
+          <span aria-hidden="true"> &times;
+					</span>
+        </a>
+        <div class="modal-header">
+          <h5 class="modal-title my-0 py-0" id="gmodalTitle">
+            <!-- Modal Title -->
+          </h5>
+        </div>
+        <div class="modal-body my-0 py-0" id="gmodalContent">
+          <div class="container-fluid my-0 py-0">
+            <!-- Modal Content -->
+          </div>
+        </div>
+        <div class="modal-footer" id="gmodalFooter">
+          <!-- Modal Footer -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- General Modal -->
+
+  <!-- Back To Top -->
+  <div id="btnTop" class="smooth-scroll md" {% if LANGUAGE_BIDI %}
+       style="position: fixed; bottom: 10px; left: 5px !important; display: none"
+       {% else %} style="position: fixed; bottom: 10px; right: 5px;
+		display: none" {% endif %}>
+    <a class="btn-floating stylish-color-dark waves-effect waves-light"
+       href="#main_header">
+      <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </a>
+  </div>
+  <!-- Back To Top -->
+
+  <!-- SCRIPTS -->
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript"
+          src="{% static 'js/popper.min.js' %}">
+  </script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript"
+          src="{% static 'js/bootstrap.min.js' %}">
+  </script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}">
+  </script>
+
+  <!-- Custom scripts -->
+  <script type="text/javascript" src="{% static 'js/main.js' %}">
+  </script>
+
+  {% block document_ready %}
+  <!-- any js used in components -->
+  {% endblock document_ready %}
+
+</body>
+
+</html>
+{% endspaceless %}

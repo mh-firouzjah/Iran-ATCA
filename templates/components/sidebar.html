@@ -1,0 +1,545 @@
+{% load i18n static jalali_tags %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block extra_heads %}
+<style>
+  .active-purple-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid #ce93d8;
+    box-shadow: 0 0 0 1px #ce93d8;
+  }
+
+</style>
+{% endblock extra_heads %}
+
+<!-- Sidebar -->
+<div class="col-lg-4 col-xl-3 col-md-12 mb-5 pt-0">
+
+  <!-- Section: Search-Box -->
+  <section class="section widget-content">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+      <div class="single-post">
+        <p class="font-weight-bold dark-grey-text text-uppercase text-center
+           spacing purple lighten-5 py-2 mb-4">
+          <strong>
+            {% translate "Search" %}
+          </strong>
+        </p>
+
+        <!-- Grid row -->
+        <div class="row mb-4">
+          <div class="col-12 text-center smaller">
+            <!-- Search form -->
+            <form class="active-purple-4 mx-2"
+                  {% if 'post' in section %}
+                  action="{% url 'blog:post_search' %}"
+                  {% elif 'forum' in section %}
+                  action="{% url 'forum:forum_search' %}" {% endif %}
+                  method="post">
+              {% csrf_token %}
+              {{ search_form.non_field_errors }}
+              {{ search_form.query }}
+              <p class="text-muted small mt-2">
+                {{ search_form.query.help_text }}
+              </p>
+              {% for error in search_form.query.errors %}
+              <p class="danger-ic small">
+                {{ error }}
+              </p>
+              {% endfor %}
+
+              {% if not 'forum' in section %}
+              <!-- Filled-in rounded example -->
+              <div
+                   class="form-check checkbox-rounded checkbox-living-coral-filled mt-3 mx-1">
+                {{ search_form.check_for_similarities.errors }}
+                {{ search_form.check_for_similarities }}
+                <label class="form-check-label"
+                       for="{{search_form.check_for_similarities.id_for_label}}">
+                  {{ search_form.check_for_similarities.label }}
+                </label>
+                <p class="small text-muted">
+                  {{ search_form.check_for_similarities.help_text }}
+                </p>
+              </div>
+
+              <!-- Filled-in rounded example -->
+              <div
+                   class="form-check checkbox-rounded checkbox-living-coral-filled mt-3 mx-1">
+                {{ search_form.consider_one_phrase.errors }}
+                {{ search_form.consider_one_phrase }}
+                <label class="form-check-label"
+                       for="{{search_form.consider_one_phrase.id_for_label}}">
+                  {{ search_form.consider_one_phrase.label }}
+                </label>
+                <p class="small text-muted">
+                  {{ search_form.consider_one_phrase.help_text }}
+                </p>
+              </div>
+              {% endif %}
+
+              {% comment %}
+              <!-- Filled-in rounded example -->
+              <div
+                   class="form-check checkbox-rounded checkbox-living-coral-filled mt-3 mx-1">
+                <input class="form-check-input filled-in float-right"
+                       type="checkbox" id="roundedExample2" checked>
+                <label class="form-check-label" for="roundedExample2">
+                  {% trans "Search in contents" %}
+                </label>
+              </div>
+              <!-- Filled-in rounded example -->
+              <div
+                   class="form-check checkbox-rounded checkbox-living-coral-filled mt-3 mx-1">
+                <input class="form-check-input filled-in"
+                       type="checkbox" id="roundedExample2" checked>
+                <label class="form-check-label" for="roundedExample2">
+                  {% trans "Search in comments" %}
+                </label>
+              </div> {% endcomment %}
+
+              <button class="btn btn-sm purple-gradient font-weight-bold mx-auto mt-3 waves-effect waves-light"
+                      type="submit">
+                {% trans "Search" %}
+              </button>
+            </form>
+          </div>
+        </div>
+        <!--  Grid row -->
+      </div>
+    </div>
+  </section>
+  <!--  Section: Search-Box -->
+
+  <!-- Archive -->
+  <section class="section archive  mt-5">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+      <div class="single-post">
+
+        <p
+           class="font-weight-bold dark-grey-text text-center spacing purple lighten-5 py-2 mb-4">
+          <strong>
+            {% translate "ARCHIVE" %}
+          </strong>
+        </p>
+
+        <!-- Grid row -->
+        <div class="row mb-4">
+
+          <!-- Grid column -->
+          <div class="col-md-12 text-center">
+            {% for item in archive %}
+            <!--Accordion wrapper-->
+            {% ifchanged item.month %}
+            {% ifchanged item.year %}
+            <div class="accordion md-accordion"
+                 id="postArchiveAccordion" role="tablist"
+                 aria-multiselectable="true">
+
+              <!-- Accordion card -->
+              <div class="card">
+
+                <!-- Card header -->
+                <div class="card-header" role="tab"
+                     id="postArchiveHeading{{item.year}}">
+                  <a data-toggle="collapse"
+                     data-parent="#postArchiveAccordion"
+                     href="#postArchive{{item.year}}"
+                     aria-expanded="false"
+                     aria-controls="postArchive{{item.year}}"
+                     class="teal-text">
+                    <h5 class="mb-0">
+                      {% if LANGUAGE_BIDI %}
+                      {{ item|to_jalali:'%Y' }}
+                      {% else %}
+                      {{ item.year }}
+                      {% endif %}
+                      <i class="fas fa-angle-down rotate-icon"></i>
+                    </h5>
+                  </a>
+                </div>
+                <!-- Card header -->
+
+                <!-- Card body -->
+                <div id="postArchive{{item.year}}" class="collapse"
+                     role="tabpanel"
+                     aria-labelledby="postArchiveHeading{{item.year}}"
+                     data-parent="#postArchiveAccordion">
+                  <div class="card-body">
+
+                    <p>
+                      <a href="{% url 'blog:post_list_archive' item.year item.month %}"
+                         class="blue-grey-text">
+                        {% if LANGUAGE_BIDI %}
+                        {{ item|to_jalali:'%B' }}
+                        {% else %}
+                        {{ item|date:"N" }}
+                        {% endif %}
+                      </a>
+                    </p>
+
+                    {% else %}
+
+                    <p>
+                      <a href="{% url 'blog:post_list_archive' item.year item.month %}"
+                         class="blue-grey-text">
+                        {% if LANGUAGE_BIDI %}
+                        {{ item|to_jalali:'%B' }}
+                        {% else %}
+                        {{ item|date:"N" }}
+                        {% endif %}
+                      </a>
+                    </p>
+
+                  </div>
+                </div>
+                <!-- Card body -->
+
+              </div>
+              <!-- Accordion card -->
+
+            </div>
+            {% endifchanged %}
+            {% endifchanged %}
+            <!--Accordion wrapper-->
+
+            {% endfor %}
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+
+    </div>
+    <!--  Card -->
+
+  </section>
+  <!-- Archive -->
+
+
+  <!-- Section: LatestCreated -->
+  <section class="section widget-content mt-5">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+
+      <div class="single-post">
+
+        <p
+           class="font-weight-bold dark-grey-text text-center spacing purple lighten-5 py-2 mb-4">
+          <strong>
+            {% translate "LATEST" %}
+          </strong>
+        </p>
+
+        {% for object in latest_objects %}
+        <!-- Grid row -->
+        <div class="row mb-4">
+
+          <!-- Image -->
+          <div class="col-5">
+            <!-- Image -->
+            <div class="view overlay">
+              {% if object.images %}
+              <img src="{{ object.images.first.image.url }}"
+                   class="img-fluid z-depth-1 rounded-0"
+                   alt="sample image">
+              {% else %}
+              <img src="{% static 'img/no-image.jpeg' %}"
+                   class="img-fluid z-depth-1 rounded-0"
+                   alt="sample image">
+              {% endif %}
+              <a>
+                <div class="mask rgba-white-slight">
+                </div>
+              </a>
+            </div>
+            <!-- Image -->
+          </div>
+          <!-- Image -->
+
+          <!-- Excerpt -->
+          <div class="col-7">
+            <h6 class="mt-0 font-weight-bolder">
+              <a class="dark-grey-text"
+                 href="{{ object.get_absolute_url }}">
+                {{ object }}
+              </a>
+            </h6>
+
+            <div class="post-data">
+              <p class="small">
+                <a class="blue-grey-text"
+                   href="{{ object.get_absolute_url }}">
+                  {{ object.description|safe }}
+                </a>
+              </p>
+              <p class="small grey-text mb-0">
+                <i class="far fa-clock-o"></i>
+                {% if LANGUAGE_BIDI %}
+                {{ object.publish|to_jalali:'%H:%M %B %d, %Y' }}
+                {% else %}
+                {{ object.publish }}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <!--  Excerpt -->
+        </div>
+        <!--  Grid row -->
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+  <!--  Section: LatestCreated -->
+
+
+  {% if last_active_objects %}
+  <!-- Section: LatestCommented -->
+  <section class="section widget-content mt-5">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+
+      <div class="single-post">
+
+        <p
+           class="font-weight-bold dark-grey-text text-center spacing purple lighten-5 py-2 mb-4">
+          <strong>
+            {% translate "LATEST ACTIVE" %}
+          </strong>
+        </p>
+
+        {% for object in last_active_objects %}
+        <!-- Grid row -->
+        <div class="row mb-4">
+
+          <!-- Image -->
+          <div class="col-5">
+            <!-- Image -->
+            <div class="view overlay">
+              {% if object.images %}
+              <img src="{{ object.images.first.image.url }}"
+                   class="img-fluid z-depth-1 rounded-0"
+                   alt="sample image">
+              {% else %}
+              <img src="{% static 'img/no-image.jpeg' %}"
+                   class="img-fluid z-depth-1 rounded-0"
+                   alt="sample image">
+              {% endif %}
+              <a>
+                <div class="mask rgba-white-slight">
+                </div>
+              </a>
+            </div>
+            <!-- Image -->
+          </div>
+          <!-- Image -->
+
+          <!-- Excerpt -->
+          <div class="col-7">
+            <h6 class="mt-0 font-weight-bolder">
+              <a class="dark-grey-text"
+                 href="{{ object.get_absolute_url }}">
+                {{ object }}
+              </a>
+            </h6>
+
+            <div class="post-data">
+              <p class="small">
+                <a class="blue-grey-text"
+                   href="{{ object.get_absolute_url }}">
+                  {{ object.description|safe }}
+                </a>
+              </p>
+              <p class="small grey-text mb-0">
+                {% firstof object.comments.last.user object.chats.last.user as object_ev_user %}
+                {{ object_ev_user }}: <br>
+                {% autoescape off %}
+                {% firstof object.comments.last.content object.chats.last.content as object_ev_content %}
+                {{ object_ev_content|truncatewords_html:50 }}
+                {% endautoescape %}
+              </p>
+              <p class="small grey-text mb-0">
+                <i class="far fa-clock-o"></i>
+                {% firstof object.comments.last.created|timesince object.chats.last.created|timesince as object_ev_created %}
+                {{ object_ev_created }}
+              </p>
+            </div>
+          </div>
+          <!--  Excerpt -->
+        </div>
+        <!--  Grid row -->
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+  <!--  Section: LatestCommented -->
+  {% endif %}
+
+
+  {% if similar_objects %}
+  <!-- Section: LatestCommented -->
+  <section class="section widget-content mt-5">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+
+      <div class="single-post">
+
+        <purple class=5font-weight-bold dark-grey-text text-center
+                spacing grey lighten-4 py-2 mb-4">
+          <strong>
+            {% translate "YOU MAY ALSO LIKE" %}
+          </strong>
+        </purple>
+
+        {% for object in similar_objects %}
+        <!-- Grid row -->
+        <div class="row mb-4">
+
+          <!-- Image -->
+          <div class="col-5">
+            <!-- Image -->
+            <div class="view overlay">
+              {% if object.images %}
+              <img src="{{ object.images.first.image.url }}"
+                   class="img-fluid z-depth-1 rounded-0"
+                   alt="sample image">
+              {% else %}
+              <img src="{% static 'img/no-image.jpeg' %}"
+                   class="img-fluid z-depth-1 rounded-0"
+                   alt="sample image">
+              {% endif %}
+              <a>
+                <div class="mask rgba-white-slight">
+                </div>
+              </a>
+            </div>
+            <!-- Image -->
+          </div>
+          <!-- Image -->
+
+          <!-- Excerpt -->
+          <div class="col-7">
+            <h6 class="mt-0 font-weight-bolder">
+              <a class="dark-grey-text"
+                 href="{{ object.get_absolute_url }}">
+                {{ object }}
+              </a>
+            </h6>
+
+            <div class="post-data">
+              <p class="small">
+                <a class="blue-grey-text"
+                   href="{{ object.get_absolute_url }}">
+                  {{ object.description|safe }}
+                </a>
+              </p>
+              <p class="small grey-text mb-0">
+                {% firstof object.comments.last.user object.chats.last.user as object_ev_user %}
+                {{ object_ev_user }}: <br>
+                {% autoescape off %}
+                {% firstof object.comments.last.content object.chats.last.content as object_ev_content %}
+                {{ object_ev_content|truncatewords_html:50 }}
+                {% endautoescape %}
+              </p>
+              <p class="small grey-text mb-0">
+                <i class="far fa-clock-o"></i>
+                {% firstof object.comments.last.created|timesince object.chats.last.created|timesince as object_ev_created %}
+                {{ object_ev_created }}
+              </p>
+            </div>
+          </div>
+          <!--  Excerpt -->
+        </div>
+        <!--  Grid row -->
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+  <!--  Section: LatestCommented -->
+  {% endif %}
+
+  <!-- Section: RSS feed -->
+  <section class="section widget-content mt-5">
+    <div class="card card-body pb-0">
+      <div class="single-post">
+        <p
+           class="font-weight-bold dark-grey-text text-center spacing purple lighten-5 py-2 mb-4">
+          <strong>
+            RSS
+          </strong>
+        </p>
+        <div class="row mb-4">
+          <div class="mx-auto">
+            <p class="small">
+              <a class="blue-text" href="{% url 'blog:post_feed' %}">
+                {% translate "Subscribe to my RSS feed" %}
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  {% comment %}
+  <!-- Newsletter -->
+  <section class="my-5">
+
+    <!--  Card -->
+    <div class="card card-body pb-0">
+      <div class="single-post">
+
+        <p
+           class="font-weight-bold dark-grey-text text-center spacing purple lighten-5 py-2 mb-4">
+          <strong>NEWSLETTER</strong>
+        </p>
+
+        <!-- Grid row -->
+        <div class="row mt-4">
+
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+            <div class="input-group md-form form-sm form-3 pl-0">
+              <div class="input-group-prepend">
+                <span
+                  class="input-group-text white black-text"
+                  id="basic-addon9">@</span>
+              </div>
+              <input type="text"
+                     class="form-control mt-0 black-border rgba-white-strong"
+                     placeholder="Username"
+                     aria-describedby="basic-addon9">
+            </div>
+
+            <button type="button"
+                    class="btn btn-grey btn-block my-4">Sign
+              up</button>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+    </div>
+
+  </section>
+  <!-- Newsletter -->
+  {% endcomment %}
+
+</div>
+<!-- Sidebar -->

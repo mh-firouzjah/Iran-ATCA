@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load i18n avatar_tags widget_tweaks %}
+
+{% block title %}
+{{block.super}}
+{{request.user}}
+{% endblock title %}
+
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <!-- Card -->
+    <div class="card">
+
+        <div class="card-up secondary-color">
+
+            <p class="mx-5 my-3">
+                {% if not avatars %}
+                {% translate "You haven't uploaded an avatar yet. Please upload one now." %}
+                {% else %}
+                {% translate "Your current avatar: " %}
+                {% endif %}
+            </p>
+
+        </div>
+
+        {% if avatars %}
+        <!-- Avatar -->
+        <div class="avatar avatar-img mx-auto">
+            {% avatar user %}
+        </div>
+        {% endif %}
+
+
+        <div class="card-body">
+            <div class="col-6">
+                <form class="md-form" enctype="multipart/form-data"
+                      method="POST" action="{% url 'avatar_add' %}">
+
+                    {{ upload_avatar_form.non_field_errors }}
+                    {% for field in upload_avatar_form %}
+                    {{ field|add_class:"form-control" }}
+                    {{ field.errors }}
+                    {% endfor %}
+
+                    <p>
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-purple"
+                               value="{% translate "Upload New Image" %}" />
+                    </p>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- Card -->
+</div>
+
+
+
+{% endblock %}

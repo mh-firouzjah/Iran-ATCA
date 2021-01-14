@@ -1,0 +1,146 @@
+{% load i18n thumbnail %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+<!-- Footer -->
+<footer class="container-fluid page-footer pt-5">
+
+  <div
+       class="container-fluid card card-cascade stylish-color-dark mb-3 pt-3 shadow">
+    <!-- Footer Links -->
+    <div class="container">
+      <!-- Footer links -->
+      <div class="row text-center mt-2 {% if LANGUAGE_BIDI %} text-md-right
+        {% else %} text-md-left {% endif %} ">
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-4 col-xl-4 {% if LANGUAGE_BIDI %} ml-auto
+          {% else %} mr-auto {% endif %} mt-3">
+
+          <h6 class="text-uppercase mb-4 font-weight-bold">
+            {{ company.name }}
+          </h6>
+          {{ company.short_description|safe }}
+          {{ company.footer_description|safe }}
+        </div>
+        <!-- Grid column -->
+
+        <hr class="w-100 clearfix d-md-none">
+
+        <!-- Useful links Grid column -->
+        <div class="col-md-4 col-lg-4 col-xl-4 {% if LANGUAGE_BIDI %} ml-auto
+          {% else %} mr-auto {% endif %} mt-3">
+
+          <h6 class="text-uppercase mb-4 font-weight-bold">
+            {% translate 'Useful links' %}
+          </h6>
+          {% for link in useful_links %}
+          <p>
+            <a href="{{ link.url }}" target="_blank"
+               class="hoverable">
+              {{ link.title }}
+            </a>
+          </p>
+          {% endfor %}
+
+        </div>
+        <!-- Useful links Grid column -->
+
+        <!-- Third column -->
+        <hr class="w-100 clearfix d-md-none">
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-4 col-xl-4 {% if LANGUAGE_BIDI %} ml-auto
+          {% else %} mr-auto {% endif %} mt-3">
+
+          <h6 class="text-uppercase mb-4 font-weight-bold">
+            {% translate "Contact" %}
+          </h6>
+
+          <p>
+            <i class="fas fa-home mr-3"></i>
+            {{ company.address }}
+          </p>
+
+          <p>
+            <i class="fas fa-envelope mr-3"></i>
+            <a href="mailto:{{ company.email }}" class="hoverable">
+              {{ company.email }}
+            </a>
+          </p>
+
+          <p>
+
+            <i class="fas fa-phone mr-3"></i>
+            {{ company.phone1 }}
+          </p>
+
+          <p>
+
+            <i class="fas fa-print mr-3"></i>
+            {{ company.fax }}
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Footer links -->
+
+      <hr>
+
+      <div class="row py-2 text-center">
+
+        <!-- Grid column -->
+        <div class="col-12 text-center">
+
+          <!-- Copyright -->
+          <p class="grey-text">
+            {% if LANGUAGE_BIDI %}
+            © 2019 - {% now 'Y' %} تمامی حقوق محفوظ است:
+            {% else %}
+            © 2019 Copyright:
+            {% endif %}
+            {{ company.name }}
+          </p>
+          <!-- Copyright -->
+
+        </div>
+        <!-- Grid column -->
+
+        {% comment %}
+        <!-- Grid column -->
+        <div class="col-md-5 col-lg-4 ml-lg-0">
+
+          <!-- Social buttons -->
+          <div class="social-section text-center
+          {% if LANGUAGE_BIDI %}
+          ml-auto
+           text-md-right
+          {% else %}
+          mr-auto
+           text-md-left
+          {% endif %}
+          ">
+
+            <ul class="list-unstyled list-inline">
+              {% for social_link in company_social_links %}
+              <li class="list-inline-item">
+                <a href="{{ social_link.url }}" target="_blank"
+                   class="btn-floating btn-sm rgba-white-slight">
+                  {{ social_link.icon|safe }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <!-- Social buttons -->
+        </div>
+        <!-- Grid column -->
+        {% endcomment %}
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+<!-- Footer -->

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% block title %}
+{{ object.name }}
+{% endblock title %}
+
+{% block content %}
+
+{% include 'company/timetable_intro.html' %}
+
+<hr class="mt-5" />
+
+<!-- Blog section -->
+<section>
+	<div id="list-start" class="container-fluid grey lighten-4 pt-3">
+		<div class="row mt-5 pt-3">
+			<div class="col-lg-8 col-xl-9 col-md-12">
+				<section
+					class="text-center mb-4 {% if LANGUAGE_BIDI %} text-md-right {% else %} text-md-left {% endif %}">
+					<div class="card card-body">
+						<div class="row">
+							<div class="col-12 col-sm-10">
+								{{ object.content|safe }}
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block title %}{% translate 'Log out' %}{% endblock title %}
+
+
+{% block header_content %}
+<section class="mt-5 pt-5">
+  <div class="mask rgba-gradient">
+    <div
+      class="container d-flex justify-content-center align-items-center">
+
+      <!--Grid row-->
+      <div {% if LANGUAGE_CODE == 'fa-ir' %}
+        dir="rtl" {% endif %} class="row mt-5 pt-5
+        {% if LANGUAGE_CODE == 'fa-ir' %}
+        text-right
+        {% endif %}">
+
+        <!--Grid column-->
+        <div class="col-md-12">
+          <p>
+            {% translate "Thanks for spending some quality time with the Web site today." %}
+          </p>
+
+          <p>
+            <a href="{% url 'users:login' %}">
+              {% translate 'Log in again' %}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}{% endblock content %}
+{% block footer %}{% endblock footer %}

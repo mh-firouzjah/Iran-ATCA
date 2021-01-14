@@ -1,0 +1,23 @@
+{% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% if messages %}
+	{% for message in messages %}
+	<!-- MDBootstrap Alert -->
+	<div id="toast-container" aria-live="polite" role="alert"
+		{% if LANGUAGE_BIDI %} dir="rtl"
+		class="md-toast-bottom-right text-right" {% else %}
+		class="md-toast-bottom-right" {% endif %}>
+		<div {% if message.tags %}
+			class="md-toast md-toast-{{message.tags}}" {% else %}
+			class="md-toast md-toast-error" {% endif %}>
+			<div class="md-toast-message">
+				<strong>
+					{% translate message.tags|title %}
+				</strong>
+
+				{{ message }}
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+{% endif %}

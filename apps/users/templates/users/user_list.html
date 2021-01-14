@@ -1,0 +1,14 @@
+<h1>users</h1>
+<ul>
+  {% for user in user_list %}
+  <li>
+    <a href="{{ user.get_absolute_url }}">
+      {{ user.name }}
+      -
+      {{ user.username }}
+    </a>
+  </li>
+  {% empty %}
+  <li>No users yet.</li>
+  {% endfor %}
+</ul>

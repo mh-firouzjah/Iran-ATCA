@@ -1,0 +1,17 @@
+{% extends 'errors/errors_base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+{% translate 'Page not found' %}
+{% endblock title %}
+
+{% block error_header %}
+{% trans "Error 404" %}
+{% endblock error_header %}
+
+{% block error_description %}
+<i class="fas fa-exclamation-triangle orange-ic"
+   aria-hidden="true"></i>
+{% translate 'We’re sorry, but the requested page could not be found.' %}
+{% endblock error_description %}

@@ -1,0 +1,72 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+
+{% block extrahead %}
+
+{{ block.super }}
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}"
+      type="image/x-icon" />
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="{% static 'css/fontawesome.all.min.css' %}">
+
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endif %}
+
+<script>
+  window.CKEDITOR_BASEPATH =
+    '/static/ckeditor/ckeditor/';
+
+</script>
+{% endblock extrahead %}
+
+
+
+{% block userlinks %}
+
+<form action="{% url 'set_language' %}" id="lang-setter-form"
+      method="post">
+  {% csrf_token %}
+  <input type="hidden" name="language" value="">
+  <input name="next" type="hidden"
+         value="{{ request.path|slice:'3:' }}" />
+</form>
+<!-- languages  -->
+
+{% get_available_languages as languages %}
+{% for lang_code, lang_name in languages %}
+{% if lang_code != LANGUAGE_CODE %}
+{% language lang_code %}
+
+<a href="#" class="lang-setter" data-lang-code="{{ lang_code }}">
+  {{ lang_code|language_name_local }}
+</a>
+
+{% endlanguage %}
+{% endif %}
+{% endfor %}
+{{ block.super }}
+{% endblock %}
+
+{% block footer %}
+{{block.super}}
+<script type="text/javascript">
+  var langSetters = document.querySelectorAll('.lang-setter');
+  var langForm = document.getElementById('lang-setter-form');
+  var langInput = langForm.querySelector("input[name='language']");
+
+  langSetters.forEach(function (element, index) {
+    element.onclick = function () {
+      langInput.value = element.getAttribute('data-lang-code');
+      langForm.submit();
+    };
+  });
+
+</script>
+{% endblock %}

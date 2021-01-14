@@ -1,0 +1,15 @@
+kind: ExternalService
+name: iran-atca
+spec:
+  image_pull_policy: Always
+  port: 80
+  source:
+    context: .
+    media_path: media
+    project_type: django
+    python_version: '3.9'
+    static_path: staticfiles
+    wsgi: server.wsgi
+  volume_mounts:
+    - mount_path: /usr/src/app/media
+      sub_path: iran-atca/media

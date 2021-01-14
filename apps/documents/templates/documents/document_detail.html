@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+
+{% load i18n static jalali_tags %}
+{% load social_share thumbnail %}
+{% load avatar_tags humanize %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}
+{% translate 'Documents' %}
+{% endblock title %}
+
+{% block meta_description %}
+{{ object.description|truncatewords:200 }}
+{% endblock meta_description %}
+
+{% block content %}
+
+{% include 'documents/documents-intro.html' %}
+
+<hr class="my-5">
+
+<div id="list-start" class="container-fluid grey lighten-4 pt-5">
+
+  <section class="mt-4">
+    <!-- Magazine -->
+    <div class="row">
+
+      <!-- Main newsfeed -->
+      <div class="col-lg-8 col-xl-9 col-md-12">
+
+        <!-- Section: Blog v.3 -->
+        <section {% if LANGUAGE_BIDI %}class="pb-1 text-lg-right"
+                 {% else %} class="pb-1 text-lg-left" {% endif %}>
+
+          <!-- Grid row -->
+          <div class="row mb-4">
+
+            <!-- Grid column -->
+            <div class="col-md-12">
+
+              <!-- Card -->
+              <div class="card">
+
+                <div class="post-data mb-4 ml-4 mt-4 px-4">
+
+                  <p class="font-small dark-grey-text mb-1">
+                    <strong>
+                      {% trans "Author" %}:
+                    </strong>
+                    {{ object.uploaded_by }}
+                  </p>
+
+                  <p class="font-small grey-text mb-0">
+
+                    <i class="far fa-clock-o"></i>
+                    {% if LANGUAGE_BIDI %}
+                    {{ object.publish|to_jalali:'%H:%M %B %d, %Y' }}
+                    {% else %}
+                    {{ object.publish }}
+                    {% endif %}
+                  </p>
+
+                  {% for item in post_tags %}
+                  <a href="{% url 'blog:post_list' %}?tag={{item}}">
+                    <span
+                      class="badge
+                              {% cycle 'indigo' 'purple' 'cyan' 'green' 'lime' 'teal' 'amber' 'brown' 'deep-orange' 'pink' %}">
+                    {{ item }}
+                    </span>
+                  </a>
+                  {% endfor %}
+
+                </div>
+
+                <!-- Title -->
+                <h1 class="font-weight-bold text-center">
+                  <strong>
+                    {{ object.title }}
+                  </strong>
+
+                </h1>
+
+                <hr class="red title-hr">
+
+                <!-- Card image -->
+                <div class="view overlay">
+
+                  {% thumbnail object.cover "x600" padding=True as im %}
+                  <img class="d-block rounded-0 w-100 mx-auto"
+                       src="{{ im.url }}"
+                       alt="slide number {{ forloop.counter }}" style="height:600px;
+                          width:600px;
+                          object-fit:cover;">
+                  {% endthumbnail %}
+
+                  <a>
+                    <div class="mask rgba-white-slight">
+                    </div>
+                  </a>
+                </div>
+                <!-- Card image -->
+
+                <!-- Card content -->
+                <div class="card-body">
+                  <!-- Grid row -->
+                  <div class="row px-4">
+
+                    <!-- Grid column -->
+                    <div class="col-md-6 mt-1">
+
+                      <p class="font-weight-bold indigo-text">
+
+                        {% for cat in object.categories.all %}
+
+                        <a class="indigo-text"
+                           href="{% url 'documents:document_list' %}?category={{cat.title_en}}">{{ cat.title }}</a>
+                        {% endfor %}
+
+                      </p>
+
+                    </div>
+                    <!-- Grid column -->
+
+                  </div>
+                  <!-- Grid row -->
+
+                  <hr>
+
+                  <!-- Grid row -->
+                  <div class="row px-4 mt-1">
+                    <div class="article">
+                      {{ object.content|safe }}
+                    </div>
+                  </div>
+                  <!-- Grid row -->
+
+                  <hr>
+
+                  <!-- Share row -->
+                  <div class="row mb-4">
+
+                    <!-- Grid column -->
+                    <div class="col-md-12 text-center">
+
+                      <h4
+                          class="text-center font-weight-bold dark-grey-text mt-3 mb-3">
+
+                        <strong>
+                          {% translate "Share this document" %}:
+                        </strong>
+
+                      </h4>
+
+                      <div class="row justify-content-center">
+                        <!-- Facebook -->
+                        {% post_to_facebook post '<button title="Facebook" type="button" class="btn btn-fb btn-sm font-weight-bolder"> <i class="fab fa-facebook-f fa-3x left"></i></button>' %}
+                        <!-- Twitter -->
+                        {% post_to_twitter "{{ object.title }}" post '<button title="Twitter" type="button" class="btn btn-tw btn-sm font-weight-bolder"> <i class="fab fa-twitter fa-3x left"></i></button> ' %}
+                        <!-- Google + -->
+                        {% post_to_gplus post '<button title="Google" type="button" class="btn btn-gplus btn-sm font-weight-bolder"> <i class="fab fa-google-plus-g fa-3x left"></i></button>' %}
+                        <!-- Telegram -->
+                        {% post_to_telegram "{{object.title }}" post '<button title="Telegram" type="button" class="btn btn-blue btn-sm font-weight-bolder"> <i class="fab fa-telegram-plane fa-3x left"></i></button>' %}
+                        <!-- Whatsapp -->
+                        {% post_to_whatsapp post '<button title="Whatsapp" type="button" class="btn btn-success btn-sm font-weight-bolder"> <i class="fab fa-whatsapp fa-3x left"></i></button>' %}
+                      </div>
+
+                    </div>
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Share row -->
+
+                </div>
+                <!-- Card content -->
+
+              </div>
+              <!-- Card -->
+
+            </div>
+            <!-- Grid column -->
+
+          </div>
+          <!-- Grid row -->
+
+        </section>
+        <!-- Section: Blog v.3 -->
+
+        <!-- Author box -->
+        <section {% if LANGUAGE_BIDI %}class="text-center mb-4 text-md-right"
+                 {% else %}class="text-center mb-4 text-md-left"
+                 {% endif %}>
+
+          <!-- Author box -->
+          <div class="card card-body">
+
+            <div class="row">
+
+              <!-- Avatar -->
+              <div class="col-12 col-sm-2 mb-md-0 mb-3">
+                {% avatar object.uploaded_by 200 class="img-fluid rounded-circle z-depth-1 shadow" alt="object.uploaded_by" %}
+              </div>
+
+              <!-- Author Data -->
+              <div class="col-12 col-sm-10">
+                <p>
+                  {% trans "About" %}:
+                  <a href="{{ object.uploaded_by.get_absolute_url }}">
+                    <strong>
+                      {{ object.uploaded_by }}
+                    </strong>
+                  </a>
+                </p>
+
+                <p class="dark-grey-text article">
+                  {{ object.uploaded_by.description|safe }}
+                </p>
+
+                <div class="personal-sm small">
+                  {% translate "Other documents from this user" %}
+                  ({{ object.uploaded_by.document_set.count }}):
+                  <a
+                     href="{% url 'documents:documents_by_author' object.uploaded_by.user.username %}#list-start">
+                    <span class="badge badge-secondary">
+                      {% translate "Read more" %}
+                    </span>
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Author box -->
+        </section>
+        <!-- Author box -->
+
+      </div>
+
+      {% include 'documents/documents-sidebar.html' %}
+
+    </div>
+  </section>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% load i18n static widget_tweaks %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block extra_heads %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock extra_heads %}
+
+{% block title %}{% translate 'Log in' %}{% endblock title %}
+{% block body_class %}login-page{% endblock body_class %}
+
+{% block content %}{% endblock content %}
+{% block footer %}{% endblock footer %}
+
+{% block header_content %}
+
+{% if form.non_field_errors %}
+{% include 'components/alert.html' with messages=form.non_field_errors %}
+{% endif %}
+
+<!--Intro Section-->
+<section dir="ltr" class="intro-2 rainy-ashville-gradient
+  text-left" style="min-height:100vh;">
+  <div class="mask d-flex justify-content-center align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-10 col-sm-12 mx-auto">
+
+          <!--Form with header-->
+          <div class="card rainy-ashville-gradient">
+            <div class="card-body">
+
+              <!--Header-->
+              <div {% if LANGUAGE_BIDI %} dir="rtl" {% endif %} class="form-header rounded
+                accordion-gradient-bcg">
+                <h3>
+                  <i class="fas fa-user mt-2 mb-2"></i>
+                  {% translate 'Log in' %}
+                </h3>
+              </div>
+
+              <div {% if LANGUAGE_BIDI %} dir="rtl" {% endif %} class="md-form
+                    {% if LANGUAGE_BIDI %}
+                    text-right {% endif %}">
+                {% if form.errors and not form.non_field_errors %}
+                <p class="errornote text-danger">
+                  {% if form.errors.items|length == 1 %}
+                  {% translate "Please correct the error below." %}
+                  {% else %}
+                  {% translate "Please correct the errors below." %}
+                  {% endif %}
+                </p>
+                {% endif %}
+
+                <div id="content-main">
+                  {% if user.is_authenticated %}
+                  <p class="errornote">
+                    <small class="text-danger ">
+                      {% blocktranslate trimmed %}
+                      You are authenticated as
+                      {{ username }}, but are not
+                      authorized to access this
+                      page. Would you like to
+                      login to a different
+                      account?
+                      {% endblocktranslate %}</small>
+                  </p>
+                  {% endif %}
+                  <input type="hidden" name="next" value="{{ next }}">
+                </div>
+
+              </div>
+              <!--Body-->
+              <form action="{{ app_path }}" method="post">
+                {% csrf_token %}
+                <div class="md-form mt-5">
+                  <i class="fas fa-user prefix white-text"></i>
+
+                  {{ form.username|add_class:"form-control mb-5"|attr:"id_username"|attr:"type:text"}}
+                  <label for="id_username">
+                    {{ form.username.label }}
+                  </label>
+                  <div class="invalid-feedback">
+                    {{ form.username.errors }}
+                  </div>
+                </div>
+
+                <div class="md-form mt-5">
+                  <i class="fas fa-lock prefix white-text mx-2"></i>
+
+                  {{ form.password|add_class:"form-control"|attr:"id_password"|attr:"type:password" }}
+
+                  <label
+                         for="id_password">{{ form.password.label }}</label>
+
+                  <div class="invalid-feedback">
+                    {{ form.password.errors }}
+                  </div>
+                </div>
+
+                <div class="text-center mb-3">
+                  <button class="btn
+                    accordion-gradient-bcg text-white
+                    btn-lg">
+                    {% translate 'Log in' %}
+                  </button>
+                </div>
+
+                <div {% if LANGUAGE_BIDI %} dir="rtl"
+                     class="text-right" {% endif %}>
+
+                  <!-- Forgot password -->
+                  {% url 'users:password_reset' as password_reset_url %}
+                  {% if password_reset_url %}
+
+                  <p>
+                    {% translate 'Forgotten your password or username?' %}
+
+                    <a class="text-primary"
+                       href="{{ password_reset_url }}">{% translate 'Click here' %}</a>
+                  </p>
+
+                  {% endif %}
+                  <!-- Register -->
+                  <p>
+                    {% translate 'Not a member?' %}
+                    <a class="text-primary"
+                       href="{% url 'users:signup' %}">{% translate 'Register' %}</a>
+                  </p>
+
+                  <!-- Social login -->
+                  <p>
+                    {% translate 'or sign in with' %}:
+                  </p>
+                  <a type="button"
+                     href="{% url 'social:begin' 'facebook' %}"
+                     class="btn-floating btn-fb btn-sm">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a type="button" class="btn-floating btn-li btn-sm">
+                    <i class="fab fa-linkedin-in"></i>
+                  </a>
+                  <a type="button"
+                     href="{% url 'social:begin' 'google-oauth2' %}"
+                     class="btn-floating btn-gplus btn-sm">
+                    <i class="fab fa-google-plus-g"></i>
+                  </a>
+
+                  <a type="button"
+                     href="{% url 'social:begin' 'github' %}"
+                     class="btn-floating btn-git btn-sm">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </form>
+
+            </div>
+          </div>
+          <!--/Form with header-->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock header_content %}

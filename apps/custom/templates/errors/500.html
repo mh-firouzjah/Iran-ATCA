@@ -1,0 +1,23 @@
+{% extends 'errors/errors_base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+{% translate 'Server Error (500)' %}
+{% endblock title %}
+
+{% block error_header %}
+{% translate 'Server Error (500)' %}
+{% endblock error_header %}
+
+{% block error_description %}
+<i class="fas fa-exclamation-triangle danger-ic"
+   aria-hidden="true"></i>
+{% blocktranslate trimmed %}
+There’s been an error.
+It’s been reported to the site
+administrators via email and
+should be fixed shortly.<br>
+Thanks for your patience.
+{% endblocktranslate %}
+{% endblock error_description %}

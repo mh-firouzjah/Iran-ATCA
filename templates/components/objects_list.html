@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% load i18n jalali_tags thumbnail  %}
+{% comment %} {% load hitcount_tags %} {% endcomment %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}
+
+{% if 'forum' in section %}
+{% translate "Forum" %}
+{% else %}
+{% translate "Blog" %}
+{% endif %}
+
+{% endblock title %}
+
+{% block body_class %}
+postpage-v1
+{% endblock body_class %}
+
+{% block content %}
+
+{% block intro %}
+{% if 'forum' in section %}
+{% include 'forum/forum-intro.html' %}
+{% else %}
+{% include 'blog/blog-intro.html' %}
+{% endif %}
+{% endblock intro %}
+
+<hr class="mt-5">
+
+<section>
+  <div id="list-start" class="container-fluid grey lighten-4 pt-3">
+    <!-- Magazine -->
+    <div class="row mt-5 pt-3">
+
+      <!-- Main newsfeed -->
+      <div class="col-xl-9 col-lg-8 col-md-12">
+
+        <!-- Section: News -->
+        <section>
+
+          <!-- Grid row -->
+          <div class="row">
+            {% for object in object_list %}
+            <!-- Grid column -->
+            <div class="col-md-12 mb-4">
+
+              <!-- News card -->
+              <div class="card  mb-3 text-center">
+
+                <div class="card-body">
+
+                  <!-- Grid row -->
+                  <div class="row">
+
+                    {% with object.images.all as object_images %}
+                    {% if object_images|length %}
+                    <!-- IMAGE Grid column -->
+                    <div class="col-md-5 mx-3 my-3">
+
+                      <!-- Featured image -->
+                      <div class="view overlay rgba-white-slight">
+
+                        <!-- Carousel Wrapper -->
+                        <div id="carousel-example-1z"
+                             class="carousel slide carousel-fade"
+                             data-ride="carousel">
+
+                          <!-- Indicators -->
+                          <ol class="carousel-indicators">
+                            {% for image in object_images %}
+                            <li data-target="#carousel-example-1z"
+                                data-slide-to="{{ forloop.counter0 }}"
+                                {% if forloop.first %} class="active"
+                                {% endif %}>
+                            </li>
+                            {% endfor %}
+                          </ol>
+                          <!-- Indicators -->
+
+                          <!-- Slides -->
+                          <div class="carousel-inner" role="listbox">
+
+                            <!-- slide -->
+                            {% for item in object_images %}
+                            <div class="carousel-item
+                                {% if forloop.first %}
+                                active
+                                {% endif %}
+                                ">
+                              {% thumbnail item.image "400" padding=True as im %}
+                              <img class="d-block rounded-0 mx-auto"
+                                   src="{{ im.url }}"
+                                   alt="slide number {{ forloop.counter }}"
+                                   style="height:400px;
+                            width:400px;
+                            object-fit:cover;">
+                              {% endthumbnail %}
+
+                            </div>
+                            {% endfor %}
+                            <!-- slide -->
+
+                            <!-- Controls -->
+                            <a class="carousel-control-prev"
+                               href="#carousel-example-1z"
+                               role="button" data-slide="prev">
+
+                              <span
+                            class="carousel-control-prev-icon"
+                            aria-hidden="true"></span>
+
+                              <span
+                            class="sr-only">Previous</span>
+
+                            </a>
+
+                            <a class="carousel-control-next"
+                               href="#carousel-example-1z"
+                               role="button" data-slide="next">
+
+                              <span
+                            class="carousel-control-next-icon"
+                            aria-hidden="true"></span>
+
+                              <span
+                            class="sr-only">Next</span>
+
+                            </a>
+                            <!-- Controls -->
+
+                          </div>
+                          <!-- Slides -->
+
+                        </div>
+                        <!-- Carousel Wrapper -->
+
+                        <a>
+                          <div class="mask"></div>
+                        </a>
+
+                      </div>
+
+                    </div>
+                    <!-- IMAGE Grid column -->
+                    {% endif %}
+
+
+                    <!-- Grid column -->
+                    <div class="mt-3 ml-lg-0 mr-lg-0
+                        {% if object_images|length %}
+                        col-md-6
+                        {% endif %}
+                        {% if LANGUAGE_BIDI %}
+                        mr-md-3
+                        mr-xl-3
+                        text-right
+                        {% else %}
+                        ml-md-3
+                        ml-xl-3
+                        text-left
+                        {% endif %}
+                      ">
+
+                      <h4 class="mb-4">
+
+                        <strong>
+                          {{object}}
+                        </strong>
+
+                      </h4>
+
+                      <p class="grey-text">
+                        {{object.description|safe}}
+                      </p>
+
+                      {% if object.tags.count %}
+                      <p>
+                        {% for item in object.tags.all %}
+                        <a
+                           href="{% url 'blog:post_list' %}?tag={{item}}">
+                          <span
+                              class="badge
+                              {% cycle 'indigo' 'purple' 'cyan' 'green' 'lime' 'teal' 'amber' 'brown' 'deep-orange' 'pink' %}">
+                          {{ item }}
+                          </span>
+                        </a>
+                        {% endfor %}
+                      </p>
+                      {% endif %}
+
+                      <p class="dark-grey-text">
+                        {{object.body|safe|truncatechars_html:300}}
+                      </p>
+
+                      <p class="font-small dark-grey-text mb-1">
+                        {% if object.author %}
+                        <strong>
+                          {% trans "Author" %}:
+                        </strong>
+                        {{ object.author }}
+                        {% elif object.admin %}
+                        <strong>
+                          {% trans "Admin" %}:
+                        </strong>
+                        {{ object.admin }}
+                        {% endif %}
+                      </p>
+                      <p class="grey-text">
+
+                        {% translate "Views" %}:
+                        {% comment %} {% get_hit_count for object %}
+                        {% endcomment %}
+
+                        {% if object.total_comments != 1 %}
+                        {% trans "Comments" %}:
+                        {% else %}
+                        {% trans "Comment" %}:
+                        {% endif %}
+
+                        {{ object.total_comments|default:0 }}
+
+                      </p>
+
+                      <p class="font-small grey-text mb-0">
+                        <i class="fab fa-clock-o"></i>
+                        {% if LANGUAGE_BIDI %}
+                        {{ object.publish|to_jalali:'%H:%M %B %d, %Y' }}
+                        {% else %}
+                        {{ object.publish }}
+                        {% endif %}
+                      </p>
+
+                      <a href="{{object.get_absolute_url}}"
+                         class="btn btn-indigo btn-sm">
+                        {% translate "Read more" %}
+                      </a>
+
+                    </div>
+                    <!-- Grid column -->
+                    {% endwith %}
+
+                  </div>
+                  <!-- Grid row -->
+
+                </div>
+
+              </div>
+              <!-- News card -->
+
+            </div>
+            <!-- Grid column -->
+            {% endfor %}
+          </div>
+          <!-- Grid row -->
+
+          {% include 'components/pagination.html' %}
+
+        </section>
+        <!-- Section: News -->
+      </div>
+      <!-- Main newsfeed -->
+
+      {% block sidbar %}
+      {% include 'components/sidebar.html' %}
+      {% endblock sidbar %}
+
+    </div>
+  </div>
+</section>
+{% endblock content %}

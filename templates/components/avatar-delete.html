@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{block.super}}
+{{request.user}}
+{% endblock title %}
+
+{% load i18n avatar_tags widget_tweaks %}
+{% block content %}
+<div class="container mt-5 pt-5">
+    <!-- Card -->
+    <div class="card p-5">
+        {% if not avatars %}
+        {% url 'avatar_change' as avatar_change_url %}
+        <p>
+            {% translate "You have no avatars to delete." %}
+            <a href="{{ avatar_change_url }}">
+                {% translate "Please upload one now." %}
+            </a>
+        </p>
+        {% else %}
+        <p>
+            {% trans "Please select the avatars that you would like to delete." %}
+        </p>
+        <div class="card-body">
+            <div class="col-6">
+                <form class="md-form" method="POST"
+                      action="{% url 'avatar_delete' %}">
+                    <div class="container">
+                        {% csrf_token %}
+
+                        {{ delete_avatar_form.non_field_errors }}
+
+                        {% for field in delete_avatar_form %}
+                        <div class="row">
+                            {% for pk, choice in field.field.widget.choices %}
+                            <div class="md-form mx-5">
+                                <div class="switch">
+                                    <label
+                                           for="id_{{field.name}}_{{ forloop.counter0 }}">
+
+                                        <input id="id_{{field.name}}_{{ forloop.counter0 }}"
+                                               name="{{field.name}}"
+                                               type="checkbox"
+                                               value="{{pk}}" />
+                                        {% translate "delete" %}
+                                        <span class="lever"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            {{ choice }}
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+
+                        <div class="row mt-5">
+                            <input type="submit"
+                                   class="btn btn-purple"
+                                   value="{% trans "Delete These" %}" />
+                        </div>
+                    </div>
+
+                </form>
+                {% endif %}
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+</div>

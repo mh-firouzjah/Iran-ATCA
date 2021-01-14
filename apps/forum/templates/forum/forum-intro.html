@@ -1,0 +1,51 @@
+{% load i18n %}
+<!-- Intro -->
+<section>
+  <div class="container-fluid smooth-scroll pb-5 pt-5">
+    <h1
+        class="text-center text-uppercase dark-grey-text pb-3 mt-5 pt-5">
+      {% if not LANGUAGE_BIDI %}
+      <strong>
+        {{company.name}}'S
+      </strong>
+      {% endif %}
+      {% translate "Forum" %}
+      {% if LANGUAGE_BIDI %}
+      <strong>
+        {{company.name}}
+      </strong>
+      {% endif %}
+    </h1>
+
+    <p class="grey-text text-center mb-4 text-uppercase spacing">
+      {% translate "Welcome on our forum." %}
+    </p>
+
+    <!-- Grid row -->
+    <div class="row flex-center">
+      <!-- Grid column -->
+      <div class="col-md-10 col-xl-5 text-center">
+        <p class="grey-text text-center">
+          <em>
+            {% blocktranslate trimmed %}
+            In these forums, we will discus about
+            Iran-ATCA related stories.
+            {% endblocktranslate %}
+          </em>
+        </p>
+
+        <a href="#list-start" class="btn btn-rounded mt-5
+                                    accordion-gradient-bcg
+                                    text-white waves-effect
+                                    waves-light">
+          <strong>
+            {% translate "Read more" %}
+          </strong>
+        </a>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+  </div>
+</section>
+<!-- Intro -->

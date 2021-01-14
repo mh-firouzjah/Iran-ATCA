@@ -1,0 +1,38 @@
+{% load i18n %}
+<!-- Intro -->
+<section>
+  <div
+    class="container-fluid smooth-scroll pb-5 pt-5">
+    <h1
+      class="text-center dark-grey-text pb-3 mt-5 pt-5">
+      {% translate "<strong>IRAN-ATCA'S</strong> TIMETABLE" %}
+    </h1>
+
+    <p
+      class="grey-text text-center mb-4 text-uppercase spacing">
+      {% translate "Welcome on our timetable." %}
+    </p>
+
+    <!-- Grid row -->
+    <div class="row flex-center">
+      <!-- Grid column -->
+      <div class="col-md-10 col-xl-5 text-center">
+        <p class="grey-text text-center">
+          {{ object.description|safe }}
+        </p>
+
+        <a href="#list-start" class="btn btn-rounded mt-5
+                                    accordion-gradient-bcg
+                                    text-white waves-effect
+                                    waves-light">
+          <strong>
+            {% translate "Read more" %}
+          </strong>
+        </a>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+  </div>
+</section>
+<!-- Intro -->

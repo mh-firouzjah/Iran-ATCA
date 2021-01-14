@@ -1,0 +1,161 @@
+{% load i18n avatar_tags %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<nav
+     class="navbar navbar-expand-md navbar-dark stylish-color-dark fixed-top scrolling-navbar">
+  <div class="container">
+
+    <a class="navbar-brand font-weight-bold"
+       href="{% url 'company:intro' %}">
+      {{ company.name }}
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span
+        class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+      <ul
+          class="navbar-nav {% if not LANGUAGE_BIDI %} mr-auto {% endif %}">
+
+        <li class="nav-item
+          {% if section == 'intro' %} active disabled{% endif %}">
+          <a class="nav-link" href="{% url 'company:intro' %}">
+            {% translate "Home" %}
+          </a>
+        </li>
+
+        <li class="nav-item {% if section == 'post_list' %} active
+            disabled{% endif %}">
+          <a class="nav-link" href="{% url 'blog:post_list' %}">
+            {% translate "Blog" %}
+          </a>
+        </li>
+
+        <li class="nav-item {% if section == 'forum_list' %} active
+            disabled{% endif %}">
+          <a class="nav-link" href="{% url 'forum:forum_list' %}"
+             data-offset="100">
+            {% translate "Forums" %}
+          </a>
+        </li>
+
+        <li class="nav-item
+          {% if section == 'document_list' %} active disabled
+          {% endif %}">
+          <a class="nav-link
+            {% if section == 'document_list' %}  {% endif %}"
+             href="{% url 'documents:document_list' %}"
+             data-offset="100">
+            {% translate "Documents" %}
+          </a>
+        </li>
+
+      </ul>
+
+      <ul
+          class="navbar-nav nav-flex-icons {% if LANGUAGE_BIDI %} mr-auto {% endif %}">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item avatar dropdown pb-0">
+          <a class="nav-link dropdown-toggle"
+             id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+             aria-expanded="false">
+            {% if request.user|has_avatar %}
+            {% avatar request.user 35 class="rounded-circle z-depth-0" alt="request.user" %}
+            {% else %}
+            {% translate "Menu" %}
+            {% endif %}
+          </a>
+          <div class="dropdown-menu dropdown-secondary
+                {% if LANGUAGE_BIDI %} dropdown-menu-right text-right
+                {% else %} dropdown-menu-left text-left {% endif %}"
+               aria-labelledby="navbarDropdownMenuLink-55">
+            <a class="dropdown-item"
+               href="{% url 'users:user_detail' request.user.id %}">
+              {% translate "Profile" %}
+            </a>
+            {% if user.is_staff %}
+            <a class="dropdown-item" href="/admin/"
+               title="{{ lang_name }}">
+              {% translate "admin" %}
+            </a>
+            {% endif %}
+            <a class="dropdown-item" href="{% url 'users:logout' %}">
+              {% translate "Log out" %}
+            </a>
+          </div>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'users:login' %}?next={{request.path}}"
+             class="nav-link waves-effect waves-light">
+            {% translate "Login" %}
+          </a>
+        </li>
+        {% endif %}
+
+      </ul>
+
+      <form action="{% url 'set_language' %}" id="lang-setter-form"
+            method="post">
+        {% csrf_token %}
+        <input type="hidden" name="language" value="">
+        <input name="next" type="hidden"
+               value="{{ request.path|slice:'3:' }}" />
+      </form>
+      <!-- languages  -->
+      <ul class="navbar-nav nav-flex-icons px-1">
+
+        {% if request.user.is_authenticated %}
+        {% if request.user.atc_info %}
+        {% with request.user.atc_info.notifications as notifications %}
+        {% if notifications.count %}
+        <li class="nav-item">
+          <a class="nav-link"
+             href="{{ request.user.get_absolute_url }}">
+            {{ notifications.count }}
+            <i class="fas fa-envelope"></i>
+          </a>
+        </li>
+        {% endif %}
+        {% endwith %}
+        {% endif %}
+        {% endif %}
+
+
+        {% get_available_languages as languages %}
+        {% for lang_code, lang_name in languages %}
+        {% if lang_code != LANGUAGE_CODE %}
+        {% language lang_code %}
+        <li class="nav-item">
+          <a class="nav-link lang-setter"
+             data-lang-code="{{ lang_code }}">
+            {{ lang_code|language_name_local }}
+          </a>
+        </li>
+        {% endlanguage %}
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script type="text/javascript">
+  var langSetters = document.querySelectorAll('.lang-setter');
+  var langForm = document.getElementById('lang-setter-form');
+  var langInput = langForm.querySelector("input[name='language']");
+
+  langSetters.forEach(function (element, index) {
+    element.onclick = function () {
+      langInput.value = element.getAttribute('data-lang-code');
+      langForm.submit();
+    };
+  });
+
+</script>

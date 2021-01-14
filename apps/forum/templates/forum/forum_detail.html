@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load i18n jalali_tags thumbnail avatar_tags %}
+{% comment %} {% load hitcount_tags %} {% endcomment %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block extra_heads %}
+<style>
+  .chat-box span.badge-reply {
+    display: none;
+  }
+
+  .chat-box:hover span.badge-reply {
+    display: initial;
+  }
+
+</style>
+{% endblock extra_heads %}
+
+
+{% block title %}
+{{ forum.name }}
+{% endblock title %}
+
+{% block body_class %}
+postpage-v1
+{% endblock body_class %}
+
+{% block content %}
+
+<!-- Intro -->
+<section>
+  <div class="container-fluid smooth-scroll pb-5 pt-5">
+    <h1 class="text-center dark-grey-text pb-3 mt-5 pt-5">
+      {{ forum.name }}
+    </h1>
+
+    <p class="grey-text text-center mb-4 text-uppercase spacing">
+      {% translate "Welcome on our forum." %}
+    </p>
+
+    <!-- Grid row -->
+    <div class="row flex-center">
+      <!-- Grid column -->
+      <div class="col-md-10 col-xl-5 text-center">
+        <p class="grey-text text-center">
+          {{ forum.description|safe }}
+        </p>
+
+        <a href="#forum-start" class="btn btn-rounded mt-5
+                                    accordion-gradient-bcg
+                                    text-white waves-effect
+                                    waves-light">
+          <strong>
+            {% translate "Read more" %}
+          </strong>
+        </a>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+  </div>
+</section>
+<!-- Intro -->
+
+<hr class="mt-5">
+
+<!-- Blog section -->
+<section>
+  <div id="forum-start" class="container-fluid grey lighten-4 pt-3">
+
+    <!-- Blog -->
+    <div class="row mt-5 pt-3">
+
+      <!-- Main listing -->
+      <div class="col-lg-8 col-xl-9 col-md-12">
+
+        <section id="chatBoxHolder">
+          {% for chat in forum_chats %}
+          {% include 'forum/chat-box.html' with chat=chat %}
+          {% empty %}
+          <!-- Chat Box -->
+          <section class="mb-4 {% if LANGUAGE_BIDI %} text-right
+                          {% else %} text-left{% endif %}">
+
+            <!-- Chat Box -->
+            <div class="card card-body">
+
+              <div class="row">
+
+                <!-- Author Data -->
+                <div class="col-12 col-sm-10">
+
+                  <p class="dark-grey-text article">
+                    {% translate "There is no chats yet." %}
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+            <!-- Chat Box -->
+
+          </section>
+          <!-- Chat Box -->
+          {% endfor %}
+        </section>
+
+        <div class="text-center my-4">
+          <button data-toggle="modal" data-target="#generalModal"
+                  data-url="{% url 'forum:add_chat' 0 %}"
+                  class="accordion-gradient-bcg gmodal-loader text-white btn btn-lg"
+                  style="cursor: pointer;">
+            {% translate "Add your comment" %}
+          </button>
+
+        </div>
+
+      </div>
+      <!-- Main newsfeed -->
+
+      {% include 'components/sidebar.html' %}
+
+    </div>
+  </div>
+</section>
+{% endblock content %}
+
+{% block document_ready %}
+<script type="text/javascript">
+  var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+  var url = ws_scheme + '://' + window.location.host +
+    '/ws/forum/room/' + '{{ forum.id }}/';
+  var chatSocket = new WebSocket(url);
+  var is_sender = false;
+
+  chatSocket.onmessage = function (e) {
+    var data = JSON.parse(e.data);
+    var message = data.message;
+    var message_for_sender = data.message_for_sender;
+    var $chatBoxHolder = $('#chatBoxHolder');
+
+    if (data.message_type === "deletion") {
+      $(`#chat-box-number-${data.chat_id}`)
+        .remove();
+    } else if (data.message_type === "edit") {
+      $(`#chat-box-number-${data.chat_id}`)
+        .replaceWith(data.message)
+    } else {
+      if (is_sender) {
+        console.log('is_sender' + is_sender);
+        $chatBoxHolder.append(message_for_sender);
+        is_sender = false;
+      } else {
+        $chatBoxHolder.append(message);
+      }
+    }
+    // document.location.reload(true);
+    $chatBoxHolder.scrollTop($chatBoxHolder[0]
+      .scrollHeight);
+  };
+  chatSocket.onclose = function (e) {
+    console.error(
+      'Chat socket closed unexpectedly ');
+  };
+
+</script>
+{% endblock document_ready %}

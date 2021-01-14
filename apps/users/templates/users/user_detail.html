@@ -1,0 +1,459 @@
+{% extends 'base.html' %}
+
+{% load i18n static jalali_tags widget_tweaks %}
+{% load social_share thumbnail %}
+{% comment %} {% load hitcount_tags %} {% endcomment %}
+{% load avatar_tags humanize %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+
+{% block title %}
+{% translate 'User Profile' %} {{ object }}
+{% endblock title %}
+
+{% block meta_description %}
+{% firstof object.description object.stroy as desc %}
+{{ desc|truncatechars_html:250|safe }}
+{% endblock meta_description %}
+
+{% block body_class %}
+postpage-v1 grey lighten-4
+{% endblock body_class %}
+
+{% block extra_heads %}
+<style>
+  .django-ckeditor-widget>* {
+    max-width: 70vw !important;
+  }
+
+  label[for^=id_description_],
+  label[for^=id_story_],
+  label[for^=id_maried] {
+    position: static !important;
+    margin-bottom: 10px !important;
+  }
+
+</style>
+{% if LANGUAGE_BIDI %}
+<style>
+  .md-form label {
+    right: 0 !important;
+    left: auto !important;
+  }
+
+  .md-form label.active {
+    right: 0 !important;
+    left: auto !important;
+  }
+
+  .select-wrapper span.caret {
+    left: 0 !important;
+    right: inherit !important;
+  }
+
+</style>
+{% endif %}
+
+{% endblock extra_heads %}
+
+{% block content %}
+<div class="container-fluid mt-5 pt-5">
+
+  {% if request.user == object %}
+  <div class="row">
+    <div class="col-12">
+      <ul class="nav md-tabs nav-justified teal darken-1 mb-5"
+          role="tablist">
+
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab"
+             href="#panel-edit-profile" role="tab">
+            {% translate 'Edit profile' %}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab"
+             href="#panel-preview-object-info" role="tab">
+            {% translate 'Preview' %}
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="tab-content">
+
+    <!-- Section: Edit Account -->
+    <div id="panel-edit-profile" dir="ltr"
+         class=" card card-body-cascade tab-pane fade in "
+         role="tabpanel">
+      <!-- First row -->
+      <div class="row">
+        <!-- First column -->
+        <div class="col-lg-4 mb-4">
+
+          <!-- Card -->
+          <div class="card-cascade narrower">
+
+            <!-- Card image -->
+            <div class="py-3 px-1 teal lighten-2">
+              <h5 class="mb-0 font-weight-bold">
+                {% translate "Edit Photo" %}
+              </h5>
+            </div>
+            <!-- Card image -->
+
+            <!-- Card content -->
+            <div class="card-body card-body-cascade text-center">
+
+              {% avatar object 200 class="z-depth-1 rounded-circle mb-3 mx-auto" alt="object" %}
+              <p class="text-muted">
+                <small>
+                  {% translate "Profile photo will be changed automatically" %}
+                </small>
+              </p>
+              <div class="row flex-center">
+                <a class="btn btn-info btn-rounded btn-sm
+                font-weight-bold" href="{% url 'avatar_add' %}">
+                  {% translate "Change" %}
+                </a>
+                <br>
+                <a class="btn btn-danger btn-rounded btn-sm
+                font-weight-bold" href="{% url 'avatar_delete' %}">
+                  {% translate "Delete" %}
+                </a>
+              </div>
+            </div>
+            <!-- Card content -->
+
+          </div>
+          <!-- Card -->
+
+        </div>
+        <!-- First column -->
+
+        <!-- Second column -->
+        <div class="col-lg-8 mb-4">
+
+          <!-- Card -->
+          <div class="card-cascade narrower">
+
+            <!-- Card image -->
+            <div class="py-3 px-1 teal lighten-2">
+              <h5 class="mb-0 font-weight-bold">
+                {% translate "Edit Account" %}
+              </h5>
+            </div>
+            <!-- Card image -->
+
+            <!-- Card content -->
+            <div class="card-body card-body-cascade">
+
+              <!-- Edit Form -->
+              <form id="form_with_formset" action="{{ request.path }}"
+                    method="post">
+                {% csrf_token %}
+                {{ user_update_form.media }}
+                <div {% if LANGUAGE_BIDI %} dir="rtl" {% endif %}>
+                  <!-- First row -->
+                  {% for field in user_update_form %}
+                  {% if forloop.first %}
+                  <div class="row">
+                    {% endif %}
+                    <div class="col-md-6">
+                      <div class="md-form">
+                        <label for="{{ field.id_for_label }}"
+                               class="{{ field.label_classes }}">
+                          {{ field.label }}
+                        </label>
+                        {{field}}
+                        {% for error in field.errors %}
+                        <p class="small danger-ic">
+                          {{ error }}
+                        </p>
+                        {% endfor %}
+                        {% if field.help_text %}
+                        <p class="small text-muted">
+                          {{ field.help_text }}
+                        </p>
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                  </div>
+                  <div class="row">
+                    {% elif forloop.last %}
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                  <!-- First row -->
+
+                  <!-- Second row -->
+                  {% for field in atc_info_update_form %}
+                  {% if forloop.first %}
+                  <div class="row">
+                    {% endif %}
+                    <div class="col-md-6">
+                      <div class="md-form">
+                        {% if not field.name == 'maried' %}
+                        <label for="{{ field.id_for_label }}"
+                               class="{% for class in field.label_classes %}{{class}}{% endfor %}">
+                          {{ field.label }}
+                        </label>
+                        {% endif %}
+                        {{field}}
+                        {% for error in field.errors %}
+                        <p class="small danger-ic">
+                          {{ error }}
+                        </p>
+                        {% endfor %}
+                        <p class="small text-muted">
+                          {{ field.help_text }}
+                        </p>
+                      </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                  </div>
+                  <div class="row">
+                    {% elif forloop.last %}
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                  <!-- Second row -->
+                  <hr>
+                  <!-- Third row -->
+                  <div class="row">
+                    <div class="col-12">
+                      <p class="text-bold my-2">
+                        {% translate "My social networks" %}:
+                      </p>
+                    </div>
+                    <div id="formset_container" class="col-12 px-2">
+                      {{ formset.management_form }}
+
+                      {% for error in formset.non_form_errors %}
+                      {{ error }}
+                      {% endfor %}
+
+                      {% for form in formset.forms %}
+                      {{ form.media }}
+
+                      {% for hidden in form.hidden_fields %}
+                      {{ hidden }}
+                      {% endfor %}
+
+                      {% for error in form.non_field_errors %}
+                      {{ error }}
+                      {% endfor %}
+
+                      <div class="row">
+                        <div class="col-md-5 col-sm-10">
+                          <div class="md-form">
+                            {{ form.user_link }}
+                            <label for="{{ form.user_link.id_for_label }}"
+                                   class="">
+                              {{ form.user_link.label }}
+                            </label>
+                            <span class="text-danger">
+                            {{ form.user_link.errors.as_ul }}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-6">
+                          <div class="md-form">
+                            {{ form.social_media }}
+                            <span class="text-danger">
+                            {{ form.social_media.errors.as_ul }}
+                            </span>
+                          </div>
+                        </div>
+
+                        {% if formset.can_delete and form.social_media.value %}
+                        <div class="col-md-3 col-sm-12 pt-2">
+                          <div class="switch">
+                            <p>{% translate "Delete" %}</p>
+                            <label
+                                   for="{{ form.DELETE.id_for_label }}">
+                              {{ form.DELETE }}
+                              <span class="lever"></span>
+                            </label>
+                          </div>
+                        </div>
+                        {% endif %}
+
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <!-- Third row -->
+
+                  <!-- Fourth row -->
+                  <div class="row">
+                    <div class="col-md-12 text-center my-4">
+                      <input type="submit"
+                             value="{% translate 'Update Account' %}"
+                             class="btn btn-success btn-rounded">
+                    </div>
+                  </div>
+                  <!-- Fourth row -->
+
+                </div>
+              </form>
+              <!-- Edit Form -->
+
+            </div>
+            <!-- Card content -->
+
+          </div>
+          <!-- Card -->
+
+        </div>
+        <!-- Second column -->
+
+      </div>
+      <!-- First row -->
+
+    </div>
+    <!-- Section: Edit Account -->
+    {% endif %}
+
+    <!-- Section: Preview Profile -->
+    <div id="panel-preview-object-info"
+         class="tab-pane fade in card card-body-cascade show active"
+         role="tabpanel">
+      <div class="row p-0">
+        <!-- Grid column -->
+        <div class="col-md-12 mb-4">
+          <!-- News card -->
+          <div class="text-center mb-3">
+            <div class="card-body">
+              <!-- Grid row -->
+              <div class="row cloudy-knoxville-gradient">
+
+                <div class="mx-auto">
+
+                  <!-- Featured image -->
+                  <div
+                       class="view overlay rounded-circle shadow-lg z-depth-1-half">
+                    {% avatar object 200 class="img-fluid" alt="object" %}
+                    <a>
+                      <div class="mask"></div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Grid row -->
+              <div class="row justify-content-center ">
+                <!-- Grid column -->
+                <div class="mt-3">
+                  <h4 class="mb-3 text-center">
+                    <strong>
+                      {{ object }}
+                    </strong>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% get_available_languages as languages %}
+                    {% for lang_code, lang_name in languages %}
+                    {% if lang_code != LANGUAGE_CODE %}
+                    {% language lang_code %}
+                    <h6 class="mb-4">{{ object }}</h6>
+                    {% endlanguage %}
+                    {% endif %}
+                    {% endfor %}
+                  </h4>
+                  <div class="text">
+                    {% if not object.atc_info.isnull %}
+                    {% with object.atc_info as object_atc_info %}
+
+                    <div class="mx-2 d-inline-block">
+                      <i class="fad fa-birthday-cake red-ic"></i>
+                      {% translate "Birthplace" %}:
+                      {{ object_atc_info.birth_place }}
+                    </div>
+                    <div class="mx-2 d-inline-block">
+                      <i class="fad fa-map-marker-alt indigo-ic"></i>
+                      {% translate "Working in" %}:
+                      {{ object_atc_info.work_city }}
+                    </div>
+                    <div class="mx-2 d-inline-block">
+                      <i class="fad fa-handshake dark-green-ic"></i>
+                      {% translate 'Joined Iran-ATCA on' %}:
+                      {% if LANGUAGE_BIDI %}
+                      {{ object_atc_info.joined|to_jalali:'%B %d, %Y'}}
+                      {% else %}
+                      {{ object_atc_info.joined }}
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <hr class="mx-5 px-5">
+
+                  <div {% if LANGUAGE_BIDI %} class="text-right mt-3"
+                       {% else %} class="text-left mt-3" {% endif %}>
+                    {% if object.description %}
+                    {{ object.description|safe }}
+                    {% endif %}
+                    <hr>
+                    {% if object.story %}
+                    {% translate "My Story" %}:
+                    {{ object.story|safe }}
+                    <hr>
+                    {% endif %}
+                  </div>
+
+                  <div {% if LANGUAGE_BIDI %}class="text-right"
+                       {% else %}class="text-left" {% endif %}>
+                    {% with object_atc_info.blog_posts.count as obj_blog_posts %}
+                    {% if obj_blog_posts %}
+                    <p>
+                      <i class="fad fa-pencil purple-ic"></i>
+                      {% blocktranslate count counter=obj_blog_posts trimmed %}
+                      currently author of {{ counter }} post.
+                      {% plural %}
+                      currently author of {{ counter }} posts.
+                      {% endblocktranslate %}
+                    </p>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% with object_atc_info.social_links.all as links %}
+                    {% if links %}
+                    <div class="text-center">
+                      <h3>
+                        {% translate 'Contact me' %}:
+                      </h3>
+                      <div class="social-buttons">
+                        {% for link in links %}
+                        {{ link.html_tag }}
+                        {% endfor %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% endwith %}
+                    {% endif %}
+                  </div>
+                </div>
+                <!-- Grid column -->
+              </div>
+              <!-- Grid row -->
+            </div>
+          </div>
+          <!-- News card -->
+        </div>
+        <!-- Grid column -->
+      </div>
+    </div>
+    <!-- Section: Preview Profile -->
+
+    {% if request.user == object %}
+
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}

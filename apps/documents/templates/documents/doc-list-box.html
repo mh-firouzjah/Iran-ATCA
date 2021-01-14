@@ -1,0 +1,117 @@
+{% load i18n jalali_tags %}
+
+{% for object in object_list %}
+<div id="" class="col-md-12 mb-4">
+
+  <!-- News card -->
+  <div class="card  mb-3 text-center">
+
+    <div class="card-body">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Image column -->
+        <div class="col-md-5 mx-3 my-3">
+
+          <!-- Featured image -->
+          <div class="view overlay rgba-white-slight">
+
+            <img src="{{ object.cover.url }}"
+                 class="img-fluid rounded-bottom" alt="{{ object }}">
+
+            <a>
+              <div class="mask waves-effect waves-light">
+              </div>
+            </a>
+
+          </div>
+
+        </div>
+        <!-- Image column -->
+
+        <!-- Grid column -->
+        <div
+             class="col-md-6 ml-xl-3 ml-lg-0 ml-md-3 mt-3
+                {% if LANGUAGE_BIDI %}text-right{% else %}text-left{% endif %}">
+
+          <h4 class="mb-2">
+
+            <strong>
+              {{ object.title }}
+            </strong>
+
+          </h4>
+
+          <p class="mb-4">
+            {% for cat in object.categories.all %}
+            <span class="badge {% cycle 'indigo' 'purple' 'cyan' 'teal' %} mx-1">
+            {{ cat.title }}
+            </span>
+            {% endfor %}
+          </p>
+
+          <p class="dark-grey-text">
+            {{ object.description|truncatechars:350 }}
+          </p>
+
+          <p>
+            {% translate 'by' %}
+            <a title="{% translate 'documents by' %} {{object.uploaded_by}}"
+               href="{% url 'documents:documents_by_author' object.uploaded_by.user.username %}#list-start">
+              <strong>
+                {{ object.uploaded_by }}
+              </strong>
+            </a>
+
+            {% if LANGUAGE_BIDI %}
+            <br>
+            {{ object.publish|to_jalali:'%H:%M %B %d, %Y' }}
+            {% else %}
+            {{ object.publish }}
+            {% endif %}
+          </p>
+
+
+          {% if not object.content %}
+          <a class="btn btn-indigo btn-sm waves-effect waves-light"
+             href="{{ object.document_file }}" target="_blank">
+            {% translate 'Download' %}
+          </a>
+          {% else %}
+          <a href="{{ object.get_absolute_url }}#list-start"
+             class="btn btn-indigo btn-sm waves-effect waves-light">
+            {% translate 'Read more' %}
+          </a>
+          {% endif %}
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+
+  </div>
+  <!-- News card -->
+
+</div>
+
+{% empty %}
+<div id="" class="col-md-12 mb-4">
+  <!-- News card -->
+  <div class="card  mb-3 text-center">
+    <div class="card-body">
+      <!-- Grid row -->
+      <div class="row">
+        <div class="mx-4">
+          <h3>
+            {% translate "There is no documents for this category" %}
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}

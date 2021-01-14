@@ -1,0 +1,40 @@
+{% load i18n %}
+
+{% csrf_token %}
+{{ form }}
+{{ form.media }}
+
+<input type="hidden" id="inpChatId"
+  value="{{ chat_id }}">
+
+<input type="submit" id="submitChat"
+  class="btn accordion-gradient-bcg text-white btn-sm mx-auto my-3"
+  value="{% trans 'submit' %}">
+
+
+<script>
+  var $submit = $('#submitChat');
+  $submit.click(function () {
+    var message =
+      CKEDITOR.instances['id_content']
+      .getData();
+    if (message) {
+      // send message in JSON format
+      var finalData = JSON.stringify({
+        'message': message,
+        'message_type':
+        {% if not edit %} "addition" {% else %} "edit" {% endif %},
+        'chat_id': $("#inpChatId").val()
+      })
+      is_sender = true;
+      chatSocket.send(finalData);
+      // clear input
+      CKEDITOR.instances['id_content']
+        .setData('');
+      // return focus
+    }
+
+    $("#generalModal .close").click();
+  });
+
+</script>

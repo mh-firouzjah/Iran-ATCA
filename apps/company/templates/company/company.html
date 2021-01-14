@@ -1,0 +1,567 @@
+{% extends "base.html" %}
+{% load static i18n thumbnail avatar_tags jalali_tags %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block extra_heads %}
+<style>
+  .errorlist {
+    color: red;
+  }
+
+  .navbar:not(.top-nav-collapse) .nav-link,
+  .navbar:not(.top-nav-collapse) .navbar-brand {
+    color: #fff !important;
+  }
+
+  .floating-action-menu {
+    backface-visibility: hidden;
+  }
+
+  #fm-action-button i {
+    transform: rotate(0);
+    transition: transform 0.5s ease-in;
+  }
+
+  #fm-action-button.active i {
+    transform: rotate(135deg);
+    transition: transform 0.5s ease-in;
+  }
+
+  .floating-action-menu.my-fade-in-left {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: all 0.5s ease-out 0.5s;
+    backface-visibility: hidden;
+  }
+
+  .floating-action-menu.my-fade-in-right {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
+    transition: all 0.5s ease-out 0.5s;
+    backface-visibility: hidden;
+  }
+
+  .floating-action-menu.my-fade-in-left.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+    transition: all 0.5s ease-out 0.5s;
+    backface-visibility: hidden;
+  }
+
+  .floating-action-menu.my-fade-in-right.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+    transition: all 0.5s ease-out 0.5s;
+    backface-visibility: hidden;
+  }
+
+</style>
+
+{% if LANGUAGE_BIDI %}
+<style>
+  .md-form label {
+    right: 0 !important;
+    left: auto !important;
+  }
+
+  .md-form label.active {
+    right: 0 !important;
+    left: auto !important;
+  }
+
+</style>
+{% endif %}
+
+{% endblock extra_heads %}
+
+{% block title %}
+{% translate "Intro" %}
+{% endblock title %}
+
+{% block header_content %}
+{{ block.super }}
+<div class="container-fluid">
+  <div class="d-block" style="position: relative; height:100vh;">
+    <div class="mask rgba-black-strong w-100 h-100 pt-5 "
+         style="position: absolute;top:0;">
+      <div class="col-12 mt-5 pt-5 pt-md-0">
+        <div class="white-text text-center mt-5 pt-5">
+          <h2 class="display-3 font-weight-bold wow fadeIn pt-5 mt-5 mt-md-0"
+              style="text-shadow: 3px 2px rgba(63, 58, 58, 0.685)">
+            {{ company.name }}
+          </h2>
+
+          <h3 class="wow fadeIn mt-3 font-weight-bolder"
+              data-wow-delay="0.2s"
+              style="text-shadow: 2px 2px rgba(63, 58, 58, 0.685)">
+            {{ company.short_description|safe }}
+          </h3>
+        </div>
+
+        <div class="Carousel-Controls mt-5 pt-5">
+          <!-- Controls -->
+          <a class="carousel-control-prev h-75"
+             href="#carousel-example-1z" role="button"
+             data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true">
+                </span>
+            <span class="sr-only">Previous</span>
+          </a>
+
+          <a class="carousel-control-next h-75"
+             href="#carousel-example-1z" role="button"
+             data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true">
+                </span>
+            <span class="sr-only">Next</span>
+          </a>
+          <!-- Controls -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Wrapper -->
+    <div id="carousel-example-1z"
+         style="position: absolute;top:0;z-index:-99;"
+         class="carousel slide carousel-fade w-100 h-100"
+         data-ride="carousel">
+      <!-- Indicators -->
+      <ol dir="ltr" class="carousel-indicators">
+        <li data-target="#carousel-example-1z" data-slide-to="0"
+            class="active"></li>
+        <li data-target="#carousel-example-1z" data-slide-to="1"
+            class=""></li>
+        <li data-target="#carousel-example-1z" data-slide-to="2"
+            class=""></li>
+      </ol>
+      <!-- Indicators -->
+
+      <!-- Slides -->
+      <div class="carousel-inner" role="listbox">
+        <!-- slide -->
+        <div class="carousel-item active" style="
+            background-repeat:no-repeat;
+            background-size: cover; background-image:
+            url(/media/upload/breakingofday-1920x1080.png);
+            background-position: center center;
+            height: 100vh">
+        </div>
+        <!-- slide -->
+
+        <!-- slide -->
+        <div class="carousel-item" style="
+            background-repeat:no-repeat;
+            background-size: cover; background-image:
+            url(/media/upload/mountains-1412683.jpg);
+            background-position: center center;
+            height: 100vh">
+        </div>
+        <!-- slide -->
+
+        <!-- slide -->
+        <div class="carousel-item" style="
+            background-repeat:no-repeat;
+            background-size: cover; background-image:
+            url(/media/upload/seaside-3992x2242.jpg);
+            background-position: center center;
+            height: 100vh">
+        </div>
+        <!-- slide -->
+      </div>
+      <!-- Slides -->
+
+    </div>
+    <!-- Carousel Wrapper -->
+  </div>
+</div>
+{% endblock header_content %}
+
+{% block body_class %}
+{{ block.super }} bg-light
+{% endblock body_class %}
+
+{% block content %}
+<!-- Main layout -->
+<div class="container-fluid">
+
+  <!-- Section About -->
+  <section id="home-about" class="section card w-100 p-5 mt-5">
+
+    <!-- Section title -->
+    <h1
+        class="section-heading text-center mb-5 my-5 mb-4 font-weight-bold wow fadeIn">
+      {% translate "About us" %}
+    </h1>
+
+    <!-- First row -->
+    <div class="row mb-5 wow fadeIn" data-wow-delay="0.2s">
+
+      <!-- Place for photo -->
+      <div class="col-md-4 col-lg-4 col-xl-4 mb-2
+          view">
+
+        {% thumbnail company.logo "300" padding=True as logo %}
+        <img src="{{ logo.url }}" alt="My photo"
+             class="z-depth-1 img-fluid rounded-pill"
+             {% if company.darken_logo %}
+             style="filter: grayscale(1);" {% endif %}>
+        {% endthumbnail %}
+
+      </div>
+
+      <!-- Text content -->
+      <div class="col-md-8 col-lg-8 col-xl-8 mb-2">
+
+        <p class="lead">
+          {{ company.short_description|safe }}
+        </p>
+
+        <p class="text-justify">
+          {{ company.long_description|safe }}
+        </p>
+
+      </div>
+
+    </div>
+    <!-- First row -->
+
+  </section>
+  <!-- Section About -->
+
+  <!-- Streak -->
+  <div class="card streak streak-photo streak-md mt-5"
+       style="background-image:url({% static 'img/breakingofday-1920x1080.png' %})">
+
+    <div class="flex-center rgba-black-strong mask">
+
+      <div class="white-text smooth-scroll">
+
+        <h2 class="h2-responsive mb-5 wow fadeIn">
+          {% translate 'More important events' %}
+        </h2>
+
+        <div class="text-center">
+
+          <a href="#timetable"
+             class="btn btn-outline-white wow fadeIn"
+             data-offset="100" data-wow-delay="0.2s">
+            {% trans 'See the timetable' %}
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- Streak -->
+
+  <!-- Second section -->
+  <section id="home-team" class="section card team-section p-5 mt-5">
+
+    <h1
+        class="section-heading text-center mb-5 mt-5 pt-4 font-weight-bold wow fadeIn">
+      {% translate "Our management team" %}
+    </h1>
+
+    <p class="text-center w-responsive mx-auto wow fadeIn my-5"
+       data-wow-delay="0.2s">
+      {{ team.intro }}
+    </p>
+
+    <div class="row text-center wow fadeIn" data-wow-delay="0.4s">
+
+      {% translate 'Secretary General' as team_user_title %}
+      {% include 'company/team-user-photo.html' with user=team.secretary_general team_user_title=team_user_title %}
+
+      {% translate 'Veep' as team_user_title %}
+      {% include 'company/team-user-photo.html' with user=team.veep team_user_title=team_user_title %}
+
+      {% translate 'Treasure' as team_user_title %}
+      {% include 'company/team-user-photo.html' with user=team.treasure team_user_title=team_user_title %}
+
+    </div>
+
+    <div class="row text-center wow fadeIn" data-wow-delay="0.4s">
+
+      {% translate 'Warden' as team_user_title %}
+      {% include 'company/team-user-photo.html' with user=team.warden team_user_title=team_user_title %}
+
+      {% translate 'Head of Public Relations' as team_user_title %}
+      {% include 'company/team-user-photo.html' with user=team.headPR team_user_title=team_user_title %}
+
+      {% translate 'Head of Foreign Relations' as team_user_title %}
+      {% include 'company/team-user-photo.html' with user=team.headFR team_user_title=team_user_title %}
+
+      {% translate 'Secretary' as team_user_title %}
+      {% include 'company/team-user-photo.html' with user=team.secretary team_user_title=team_user_title %}
+
+    </div>
+
+  </section>
+
+  <!-- Second section -->
+
+  <!-- Third section -->
+  <section id="home-timetable" class="section card p-5 mt-5">
+
+    <!-- Section title -->
+    <h1 class="section-heading text-center mb-5 mt-5 pt-4 font-weight-bold wow fadeIn"
+        data-wow-delay="0.2s">
+      {% trans 'Timetable' %}
+    </h1>
+
+    <!-- Section description -->
+    <p class="text-center w-responsive mx-auto wow fadeIn my-5">
+      {{ company.timetable_intro|safe }}
+    </p>
+
+    <!-- First row -->
+    <div class="row wow fadeIn" data-wow-delay="0.4s">
+
+      <div class="col-md-12">
+
+        <div class="table-responsive">
+
+          <table class="table timetable">
+
+            <tbody>
+
+              {% for item in timetables %}
+              <tr>
+
+                <td class="align-middle">
+                  <strong>
+                    {{ item.name }}
+                  </strong>
+                </td>
+
+                <td class="align-middle">
+                  {{ item.description|safe }}
+                </td>
+
+                <td class="align-middle">
+                  <strong>
+                    {{ item.date }}
+                  </strong>
+                </td>
+
+                {% if item.content %}
+                <td class="align-middle">
+                  <a class="btn btn-primary m-0"
+                     href="{{ item.get_absolute_url }}">
+                    {% trans 'Read more' %}
+                  </a>
+                </td>
+                {% endif %}
+
+              </tr>
+              {% endfor %}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- First row -->
+
+  </section>
+  <!-- Third section -->
+
+  <!-- Contact -->
+  <section id="home-contact" class="section card p-5 mt-5">
+
+    <!-- Section heading -->
+    <h1
+        class="section-heading text-center mb-5 mt-5 pt-4 font-weight-bold wow fadeIn">
+      {% translate 'Contact us' %}
+    </h1>
+
+    <!-- Section description -->
+    <div class="text-center w-responsive mx-auto mb-5 wow fadeIn"
+         data-wow-delay="0.2s">
+      {{ company.contact_intro|safe }}
+    </div>
+
+    <div class="row wow fadeIn" data-wow-delay="0.4s">
+
+      <!-- First column -->
+      <div class="col-md-8 mb-5 mx-4">
+        {% if form %}
+        {{ form.non_field_errors }}
+        <form id="contactUsForm" method="post"
+              action="{% url 'company:intro' %}">
+          {% csrf_token %}
+          <!-- First row -->
+          <div class="row">
+
+            <!-- First column -->
+            <div class="col-md-6">
+
+              <div class="md-form mb-0">
+
+                <div class="md-form mb-0">
+
+                  {{ form.name }}
+
+                  <label for="{{ form.name.id_for_label }}"
+                         class="">{{ form.name.label }}</label>
+                  {{ form.name.errors }}
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Second column -->
+            <div class="col-md-6">
+
+              <div class="md-form mb-0">
+
+                <div class="md-form mb-0">
+
+                  {{ form.email }}
+
+                  <label for="{{ form.email.id_for_label }}"
+                         class="">{{ form.email.label }}</label>
+                  {{ form.email.errors }}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+          <!-- First row -->
+
+          <!-- Second row -->
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <div class="md-form mb-0">
+
+                {{ form.subject }}
+
+                <label for="{{ form.subject.id_for_label }}">
+                  {{ form.subject.label }}
+                </label>
+                {{ form.subject.errors }}
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Second row -->
+          <!-- Third row -->
+          <div class="row">
+
+            <!-- First column -->
+            <div class="col-md-12">
+
+              <div class="md-form mb-0">
+
+                {{ form.content }}
+
+                <label for="{{ form.content.id_for_label }}"
+                       class="">{{ form.content.label }}
+                </label>
+                {{ form.content.errors }}
+
+              </div>
+
+            </div>
+
+          </div>
+          <!-- Third row -->
+
+          <div class="text-center text-md-left mt-4">
+
+            <input id="contactUsFormSubmit" type="submit"
+                   class="btn btn-primary" value="{% trans 'Send' %}">
+
+          </div>
+        </form>
+        {% else %}
+        <div class="text-center w-responsive mx-auto mb-5 wow fadeIn"
+             data-wow-delay="0.2s">
+          {% translate "Your message has been sent, thank you." %}
+        </div>
+        {% endif %}
+      </div>
+      <!-- First column -->
+
+      <!-- Second column -->
+      <div class="col-md-2">
+        <ul class="contact-icons list-unstyled text-center mt-4">
+          {% translate "Our Social Links" %}:
+
+          {% for social_link in company_social_links %}
+          <li class="mt-3">
+            <a {% if LANGUAGE_BIDI %} dir="ltr" {% else %} dir="rtl"
+               {% endif %} class="indigo-text"
+               href="{{social_link.url}}" target="_blank">
+              {{social_link.title}} {{social_link.icon|safe}}
+            </a>
+          </li>
+          {% endfor %}
+
+        </ul>
+
+      </div>
+      <!-- Second column -->
+
+    </div>
+
+  </section>
+  <!-- Section: Contact v.2 -->
+
+</div>
+<!-- Main layout -->
+{% endblock content %}
+
+{% block footer %}
+{{ block.super }}
+<!-- Scrollspy -->
+<div class="dotted-scrollspy clearfix d-none d-sm-block">
+  <ul class="nav smooth-scroll flex-column px-0"
+      style="display:none;">
+    <li class="nav-item">
+      <a href="#home-about" class="nav-link">
+        <span></span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="#home-team" class="nav-link">
+        <span></span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="#home-timetable" class="nav-link">
+        <span></span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="#home-contact" class="nav-link">
+        <span></span>
+      </a>
+    </li>
+  </ul>
+</div>
+<!-- Scrollspy -->
+{% endblock footer %}

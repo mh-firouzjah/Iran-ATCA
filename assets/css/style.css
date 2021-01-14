@@ -1,0 +1,52 @@
+@font-face {
+	font-family: Samim;
+	src: url('../font/samim-wol/Samim.woff') format('woff');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: Samim;
+	src: url('../font/samim-wol/Samim-Bold.woff') format('woff');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: Samim;
+	src: url('../font/samim-wol/Samim-Medium.woff') format('woff');
+	font-weight: 500;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*:not(i) {
+	font-family: 'Roboto', Samim !important;
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+	.navbar:not(.top-nav-collapse) {
+		background: #222 !important;
+	}
+
+	.navbar {
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+			0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+	}
+}
+
+.navbar:not(.top-nav-collapse) {
+	background-color: transparent !important;
+}
+
+.navbar:not(.top-nav-collapse) .navbar-brand,
+.navbar:not(.top-nav-collapse) .nav-link {
+	color: #45526e !important;
+}
+
+footer.page-footer a:hover {
+	color: rgb(147, 163, 253) !important;
+	text-decoration: underline !important;
+}
+
+.django-ckeditor-widget > * {
+	max-width: 70vw !important;
+}

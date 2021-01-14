@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load i18n static %}
+{% load social_share thumbnail %}
+{% load avatar_tags humanize %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}
+{% translate 'Documents' %}
+{% endblock title %}
+
+{% block meta_description %}
+iran-atca documents provides annexes, videos, voices and any documents
+related to ATC.
+{% endblock meta_description %}
+
+{% block content %}
+
+{% include 'documents/documents-intro.html' %}
+
+<hr class="my-5">
+
+<div id="list-start" class="container-fluid grey lighten-4 pt-5">
+
+  <section class="mt-4">
+    <!-- Magazine -->
+    <div class="row">
+
+      <!-- Main newsfeed -->
+      <div class="col-xl-9 col-lg-8 col-md-12">
+
+        <!-- Section: News -->
+        <section>
+          <!-- Grid row -->
+          <div class="row">
+
+            {% include 'documents/doc-list-box.html' with object_list=object_list %}
+
+          </div>
+          <!-- Grid row -->
+
+          {% include 'components/pagination.html' %}
+
+        </section>
+        <!-- Section: News -->
+      </div>
+
+      {% include 'documents/documents-sidebar.html' %}
+
+    </div>
+  </section>
+</div>
+
+{% endblock content %}
