@@ -4,95 +4,98 @@
 
 {% with chat.user as user %}
 <!-- Chat Box -->
-<section id="chat-box-number-{{chat.id}}" class="mb-4 text-right ">
-  {% comment %}
-  {% if LANGUAGE_BIDI %} text-right
-  {% else %} text-left {% endif %}
-  {% endcomment %}
+<section id="chat-box-number-{{chat.id}}"
+         class="mb-4 text-right ">
+    {% comment %}
+    {% if LANGUAGE_BIDI %} text-right
+    {% else %} text-left {% endif %}
+    {% endcomment %}
 
-  <!-- Chat Box -->
-  <div class="card card-body col-11 chat-box
+    <!-- Chat Box -->
+    <div class="card card-body col-11 chat-box
       {% if not user == g_user or broadcast %}
         mr-auto
       {% else %}
         lime lighten-4
       {% endif %}">
 
-    <div class="row">
+        <div class="row">
 
-      <!-- Avatar -->
-      <div
-           class="col-12 col-sm-2 mb-md-0 mb-3
+            <!-- Avatar -->
+            <div class="col-12 col-sm-2 mb-md-0 mb-3
             {% if not user == g_user or broadcast %} mr-auto {% endif %}">
-        {% avatar user 200 class="img-fluid rounded-circle z-depth-1 shadow" alt="author" %}
-      </div>
+                {% avatar user 200 class="img-fluid rounded-circle z-depth-1 shadow" alt="author" %}
+            </div>
 
-      <!-- Author Data -->
-      <div class="col-12 col-sm-10">
+            <!-- Author Data -->
+            <div class="col-12 col-sm-10">
 
-        {% if chat.reply %}
-        <a class="text-muted"
-           href="#chat-box-number-{{chat.reply.id}}">
-          <p class="text-muted">
-            {% translate 'replied to' %}:
-            {{ chat.reply.user }}
-          </p>
-          {{ chat.reply.content|truncatechars_html:100|safe }}
-        </a>
-        {% endif %}
+                {% if chat.reply %}
+                <a class="text-muted"
+                   href="#chat-box-number-{{chat.reply.id}}">
+                    <p class="text-muted">
+                        {% translate 'replied to' %}:
+                        {{ chat.reply.user }}
+                    </p>
+                    {{ chat.reply.content|truncatechars_html:100|safe }}
+                </a>
+                {% endif %}
 
-        <p {% if not user == g_user or broadcast %} class="text-left"
-           dir="ltr" {% endif %}>
-          <a href="{{ user.get_absolute_url }}">
-            <strong>
-              {{ user }}
-            </strong>
-          </a>
+                <p {% if not user == g_user or broadcast %}
+                   class="text-left"
+                   dir="ltr"
+                   {% endif %}>
+                    <a href="{{ user.get_absolute_url }}">
+                        <strong>
+                            {{ user }}
+                        </strong>
+                    </a>
 
-          {% language "en" %}
-          <span dir="ltr" class="mx-3 text-muted">
-          {{ chat.created }}
-          </span>
-          {% endlanguage %}
+                    {% language "en" %}
+                    <span dir="ltr"
+                          class="mx-3 text-muted">
+                        {{ chat.created }}
+                    </span>
+                    {% endlanguage %}
 
-          <span class="mx-3 badge badge-pill badge-info badge-reply gmodal-loader"
-                data-toggle="modal"
-                data-target="#generalModal"
-                data-url="{% url 'forum:add_chat' chat.id %}"
-                style="cursor: pointer;">
-            {% translate 'reply' %}
-          </span>
+                    <span class="mx-3 badge badge-pill badge-info badge-reply gmodal-loader"
+                          data-toggle="modal"
+                          data-target="#generalModal"
+                          data-url="{% url 'forum:add_chat' chat.id %}"
+                          style="cursor: pointer;">
+                        {% translate 'reply' %}
+                    </span>
 
-          {% if user == g_user and not broadcast %}
-          <span class="mr-3 badge badge-pill badge-reply badge-warning gmodal-loader"
-                data-toggle="modal"
-                data-target="#generalModal"
-                data-url="{% url 'forum:edit_chat' chat.id %}"
-                style="cursor: pointer;">
-            {% translate 'edit' %}
-          </span>
-          {% endif %}
+                    {% if user == g_user and not broadcast %}
+                    <span class="mr-3 badge badge-pill badge-reply badge-warning gmodal-loader"
+                          data-toggle="modal"
+                          data-target="#generalModal"
+                          data-url="{% url 'forum:edit_chat' chat.id %}"
+                          style="cursor: pointer;">
+                        {% translate 'edit' %}
+                    </span>
+                    {% endif %}
 
-          {% if user == g_user or g_user == forum.admin %}
-          <span class="mr-3 badge badge-pill badge-reply badge-danger gmodal-loader"
-                data-toggle="modal"
-                data-target="#generalModal"
-                data-url="{% url 'forum:delete_chat' chat.id %}"
-                style="cursor: pointer;">
-            {% translate 'delete' %}
-          </span>
-          {% endif %}
+                    {% if user == g_user or g_user == forum.admin %}
+                    <span class="mr-3 badge badge-pill badge-reply badge-danger gmodal-loader"
+                          data-toggle="modal"
+                          data-target="#generalModal"
+                          data-url="{% url 'forum:delete_chat' chat.id %}"
+                          style="cursor: pointer;">
+                        {% translate 'delete' %}
+                    </span>
+                    {% endif %}
 
-        </p>
+                </p>
 
-        {{ chat.content|safe }}
+                {{ chat.content|safe }}
 
-      </div>
+            </div>
+
+        </div>
 
     </div>
-
-  </div>
-  <!-- Chat Box -->
+    <!-- Chat Box -->
 
 </section>
 <!-- Chat Box -->

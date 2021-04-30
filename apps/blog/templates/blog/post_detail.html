@@ -6,6 +6,546 @@
 {% load avatar_tags humanize %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
+
+{% block body_class %}
+postpage-v1
+{% endblock body_class %}
+{% block content %}
+{% include 'blog/blog-intro.html' %}
+
+<hr class="mt-5">
+
+<!-- Blog section -->
+<section>
+    <div id="list-start" class="container-fluid grey lighten-4 pt-3">
+        <!-- Blog -->
+        <div class="row mt-5 pt-3">
+            <!-- Main listing -->
+            <div class="col-lg-8 col-xl-9 col-md-12">
+                <!-- Section: Blog v.3 -->
+                <section {% if LANGUAGE_BIDI %} class="pb-1 text-lg-right"
+                         {% else %} class="pb-1 text-lg-left" {% endif %}>
+
+                    <!-- Grid row -->
+                    <div class="row mb-4">
+
+                        <!-- Grid column -->
+                        <div class="col-md-12">
+
+                            <!-- Card -->
+                            <div class="card">
+
+                                <div class="post-data mb-4 ml-4 mt-4 px-4">
+
+                                    <p class="font-small dark-grey-text mb-1">
+                                        <strong>
+                                            {% translate "Author" %}:
+                                        </strong>
+                                        {{ author }}
+                                    </p>
+
+                                    <p class="font-small grey-text mb-0">
+
+                                        <i class="far fa-clock-o"></i>
+                                        {% if LANGUAGE_BIDI %}
+                                        {{ post.publish|to_jalali:'%H:%M %B %d, %Y' }}
+                                        {% else %}
+                                        {{ post.publish }}
+                                        {% endif %}
+                                    </p>
+
+                                    {% for item in post_tags %}
+                                    <a href="{% url 'blog:post_list' %}?tag={{item}}">
+                                        <span
+                                              class="badge
+                          {% cycle 'indigo' 'purple' 'cyan' 'green' 'lime' 'teal' 'amber' 'brown' 'deep-orange' 'pink' %}">
+                                            {{ item }}
+                                        </span>
+                                    </a>
+                                    {% endfor %}
+
+                                </div>
+
+                                <!-- Title -->
+                                <h1 class="font-weight-bold text-center">
+                                    <strong>
+                                        {{ post.title }}
+                                    </strong>
+
+                                </h1>
+
+                                <hr class="red title-hr">
+
+                                <!-- Card image -->
+                                <div class="view overlay">
+
+                                    {% if post_images %}
+                                    <!-- Carousel Wrapper -->
+                                    <div id="carousel-example-1z"
+                                         class="carousel slide carousel-fade"
+                                         data-ride="carousel">
+
+                                        <!-- Indicators -->
+                                        <ol class="carousel-indicators">
+                                            {% for image in post_images %}
+                                            <li data-target="#carousel-example-1z"
+                                                data-slide-to="{{ forloop.counter0 }}"
+                                                {% if forloop.first %} class="active"
+                                                {% endif %}>
+                                            </li>
+                                            {% endfor %}
+                                        </ol>
+                                        <!-- Indicators -->
+
+                                        <!-- Slides -->
+                                        <div class="carousel-inner" role="listbox">
+
+                                            <!-- slide -->
+                                            {% for item in post_images %}
+                                            <div
+                                                 {% if forloop.first %}
+                                                 class="carousel-item active"
+                                                 {% else %}
+                                                 class="carousel-item"
+                                                 {% endif %}>
+                                                {% thumbnail item.image "x600" padding=True as im %}
+                                                <img class="d-block rounded-0 w-100 mx-auto"
+                                                     src="{{ im.url }}"
+                                                     alt="slide number {{ forloop.counter }}"
+                                                     style="height:600px;
+                      width:600px;
+                      object-fit:cover;">
+                                                {% endthumbnail %}
+
+                                            </div>
+                                            {% endfor %}
+                                            <!-- slide -->
+
+                                            <!-- Controls -->
+                                            <a class="carousel-control-prev"
+                                               href="#carousel-example-1z" role="button"
+                                               data-slide="prev">
+
+                                                <span
+                                                      class="carousel-control-prev-icon"
+                                                      aria-hidden="true"></span>
+
+                                                <span
+                                                      class="sr-only">Previous</span>
+
+                                            </a>
+
+                                            <a class="carousel-control-next"
+                                               href="#carousel-example-1z" role="button"
+                                               data-slide="next">
+
+                                                <span
+                                                      class="carousel-control-next-icon"
+                                                      aria-hidden="true"></span>
+
+                                                <span
+                                                      class="sr-only">Next</span>
+
+                                            </a>
+                                            <!-- Controls -->
+
+                                        </div>
+                                        <!-- Slides -->
+
+                                    </div>
+                                    <!-- Carousel Wrapper -->
+                                    {% endif %}
+
+                                    <a>
+                                        <div class="mask rgba-white-slight">
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Card image -->
+
+                                <!-- Card content -->
+                                <div class="card-body">
+                                    <!-- Grid row -->
+                                    <div class="row px-4">
+
+                                        <!-- Grid column -->
+                                        <div class="col-md-3 mt-4">
+
+                                            <p class="font-weight-bold dark-grey-text">
+                                                <i class="fad fa-lg fa-eye mr-3
+                        indigo-text">
+                                                </i>
+
+                                                {% translate "Views" %}:
+                                                {% comment %} {% get_hit_count for post %}
+                                                {% endcomment %}
+
+                                            </p>
+
+                                        </div>
+                                        <!-- Grid column -->
+
+                                        <!-- Grid column -->
+                                        <div class="col-md-3 mt-4">
+
+                                            <p class="font-weight-bold dark-grey-text">
+
+                                                <i
+                                                   class="fad fa-comments fa-lg mr-3 indigo-text"></i>
+
+                                                {% if total_comments != 1 %}
+                                                {% trans "Comments" %}:
+                                                {% else %}
+                                                {% trans "Comment" %}:
+                                                {% endif %}
+
+                                                {{ total_comments|default:0 }}
+
+                                            </p>
+
+                                        </div>
+                                        <!-- Grid column -->
+
+                                        <!-- Grid column -->
+                                        <div class="col-md-6 mt-4">
+
+                                            <p class="font-weight-bold indigo-text">
+
+                                                {% for cat in post.categories.all %}
+
+                                                {{ cat.icon|default_if_none:'<i class="fad fa-newspaper blue-text"></i>'|safe }}
+
+                                                <a class="indigo-text"
+                                                   href="{% url 'blog:post_list' %}?category={{cat.slug}}">{{ cat.name }}</a>
+                                                {% endfor %}
+
+                                            </p>
+
+                                        </div>
+                                        <!-- Grid column -->
+
+                                    </div>
+                                    <!-- Grid row -->
+
+                                    <hr>
+
+                                    <!-- Grid row -->
+                                    <div class="row px-4 mt-3">
+                                        <div class="article">
+                                            {{ post.body|safe }}
+                                        </div>
+                                    </div>
+                                    <!-- Grid row -->
+
+                                    <hr>
+
+                                    <!-- Share row -->
+                                    <div class="row mb-4">
+
+                                        <!-- Grid column -->
+                                        <div class="col-md-12 text-center">
+
+                                            <h4
+                                                class="text-center font-weight-bold dark-grey-text mt-3 mb-3">
+
+                                                <strong>
+                                                    {% translate "Share this post" %}:
+                                                </strong>
+
+                                            </h4>
+
+                                            <div class="row justify-content-center">
+                                                <!-- Facebook -->
+                                                {% post_to_facebook post '<button title="Facebook" type="button" class="btn btn-fb btn-sm font-weight-bolder"> <i class="fab fa-facebook-f fa-3x left"></i></button>' %}
+                                                <!-- Twitter -->
+                                                {% post_to_twitter "{{ post.title }}" post '<button title="Twitter" type="button" class="btn btn-tw btn-sm font-weight-bolder"> <i class="fab fa-twitter fa-3x left"></i></button> ' %}
+                                                <!-- Google + -->
+                                                {% post_to_gplus post '<button title="Google" type="button" class="btn btn-gplus btn-sm font-weight-bolder"> <i class="fab fa-google-plus-g fa-3x left"></i></button>' %}
+                                                <!-- Telegram -->
+                                                {% post_to_telegram "{{post.title }}" post '<button title="Telegram" type="button" class="btn btn-blue btn-sm font-weight-bolder"> <i class="fab fa-telegram-plane fa-3x left"></i></button>' %}
+                                                <!-- Whatsapp -->
+                                                {% post_to_whatsapp post '<button title="Whatsapp" type="button" class="btn btn-success btn-sm font-weight-bolder"> <i class="fab fa-whatsapp fa-3x left"></i></button>' %}
+                                            </div>
+                                        </div>
+                                        <!-- Grid column -->
+                                    </div>
+                                    <!-- Share row -->
+                                </div>
+                                <!-- Card content -->
+
+                            </div>
+                            <!-- Card -->
+
+                        </div>
+                        <!-- Grid column -->
+
+                    </div>
+                    <!-- Grid row -->
+
+                </section>
+                <!-- Section: Blog v.3 -->
+
+                <!-- Author box -->
+                <section class="text-center mb-4
+                    {% if LANGUAGE_BIDI %}
+                      text-md-right
+                    {% else %}
+                    text-md-left
+                    {% endif %}">
+
+                    <!-- Author box -->
+                    <div class="card card-body">
+
+                        <div class="row">
+
+                            <!-- Avatar -->
+                            <div class="col-12 col-sm-2 mb-md-0 mb-3">
+                                {% avatar author 200 class="img-fluid rounded-circle z-depth-1 shadow" alt="author" %}
+                            </div>
+
+                            <!-- Author Data -->
+                            <div class="col-12 col-sm-10">
+                                <p>
+                                    {% trans "About" %}:
+                                    <a href="{{ author.get_absolute_url }}">
+                                        <strong>
+                                            {{ author }}
+                                        </strong>
+                                    </a>
+                                </p>
+
+                                <p class="dark-grey-text article">
+                                    {{ author.description|safe }}
+                                </p>
+
+                                <div class="personal-sm small">
+                                    {% translate "Other articles from this author" %}
+                                    ({{ author.blog_posts.count }}):
+                                    <a
+                                       href="{% url 'blog:posts_by_author' author.user.username %}">
+                                        <span class="badge badge-secondary">
+                                            {% translate "Read more" %}
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Author box -->
+                </section>
+                <!-- Author box -->
+
+                <!-- Comments -->
+                <section {% if LANGUAGE_BIDI %} class="pb-1 text-lg-right"
+                         {% else %} class="pb-1 text-lg-left" {% endif %}>
+                    <!-- Grid row -->
+                    <div class=" row mb-4">
+
+                        <!-- Grid column -->
+                        <div class="col-md-12">
+
+                            <!-- Card -->
+                            <div class="card comments-list px-4">
+
+                                <div class="text-center mt-5 mb-3">
+                                    <h3 class="font-weight-bold">
+                                        {% if total_comments != 1 %}
+                                        {% trans "Comments" %}:
+                                        {% else %}
+                                        {% trans "Comment" %}:
+                                        {% endif %}
+
+                                        {{ total_comments|default:0 }}
+
+                                    </h3>
+
+                                    {% if request.user.is_anonymous and total_comments %}
+                                    <p class="text-center">
+                                        {% translate "login to see all" %}
+                                    </p>
+                                    {% endif %}
+
+                                </div>
+                                <hr class="mb-3">
+
+                                {% for comment in comments %}
+                                {% with comment.user as cmuser %}
+                                <!-- Comment row -->
+                                {% if not comment.replied %}
+                                <div id="comment-row-{{comment.id}}" class="row mb-5">
+                                    <!-- Image column -->
+                                    <div class="col-sm-2 col-12 mb-3">
+                                        {% avatar cmuser 100 class="avatar rounded-circle z-depth-1-half" alt="cmuser" %}
+                                    </div>
+                                    <!-- Image column -->
+
+                                    <!-- Content column -->
+                                    <div class="col-sm-10 col-12">
+
+                                        <h5 class="user-name font-weight-bold">
+                                            <a href="{{ cmuser.get_absolute_url }}">
+                                                {{ cmuser }}
+                                            </a>
+                                            {% if author == cmuser %}
+                                            <small>
+                                                <span
+                                                      class="badge badge-secondary"
+                                                      style="cursor: default;"
+                                                      title="{% translate 'This user is the author of the post' %}">
+                                                    {% translate "Author" %}
+                                                </span>
+                                            </small>
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                            <small>
+                                                <span
+                                                      class="badge badge-info mx-1 gmodal-loader"
+                                                      data-toggle="modal"
+                                                      data-target="#generalModal"
+                                                      data-url="{% url 'blog:add_comment' post.id comment.id %}"
+                                                      data-title="
+                      {% blocktranslate trimmed %}
+                      Reply to
+                      {{ cmuser }}'s
+                      comment
+                      {% endblocktranslate %}
+                      "
+                                                      style="cursor: pointer;">
+                                                    {% translate "Reply" %}
+                                                </span>
+                                            </small>
+                                            {% endif %}
+                                        </h5>
+
+                                        <div class="card-data">
+                                            <ul class="list-unstyled">
+                                                <li class="comment-date font-small">
+                                                    <i class="far fa-clock-o"></i>
+                                                    {% if LANGUAGE_BIDI %}
+                                                    {{ comment.created|to_jalali:'%H:%M %B %d, %Y' }}
+                                                    {% else %}
+                                                    {{ comment.created }}
+                                                    {% endif %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <p class="dark-grey-text article">
+                                            {{ comment.content|safe }}
+                                        </p>
+                                    </div>
+                                    <!-- Content column -->
+                                </div>
+
+                                {% with comment.replies.all as comment_replies %}
+                                {% for reply in comment_replies %}
+                                <div id="comment-row-{{reply.id}}"
+                                     class="row mb-1 mx-5 px-4">
+                                    <!-- Image column -->
+                                    <div class="col-sm-2 col-12 mb-3">
+                                        {% avatar reply.user 100 class="avatar rounded-circle z-depth-1-half" alt="reply.user" %}
+                                    </div>
+                                    <!-- Image column -->
+
+                                    <!-- Content column -->
+                                    <div class="col-sm-10 col-12">
+
+                                        <h6 class="user-name font-weight-bold">
+                                            <a href="{{ reply.user.get_absolute_url }}">
+                                                {{ reply.user }}
+                                            </a>
+                                            {% if author == reply.user %}
+                                            <small>
+                                                <span
+                                                      class="badge badge-light mx-1"
+                                                      style="cursor: default;"
+                                                      title="{% translate 'This user is the author of the post' %}">
+                                                    {% translate "Author" %}
+                                                </span>
+                                            </small>
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                            <small>
+                                                <span
+                                                      class="badge badge-info mx-1 gmodal-loader"
+                                                      data-toggle="modal"
+                                                      data-target="#generalModal"
+                                                      data-url="{% url 'blog:add_comment' post.id comment.id %}"
+                                                      data-title="{% blocktranslate trimmed %} Reply to {{ cmuser }}'s comment{% endblocktranslate %}"
+                                                      style="cursor: pointer;">
+                                                    {% translate "Reply" %}
+                                                </span>
+                                            </small>
+                                            {% endif %}
+                                        </h6>
+
+                                        <div class="card-data">
+                                            <ul class="list-unstyled">
+                                                <li class="comment-date font-small">
+                                                    <i class="far fa-clock-o"></i>
+                                                    {% if LANGUAGE_BIDI %}
+                                                    {{ reply.created|to_jalali:'%H:%M %B %d, %Y' }}
+                                                    {% else %}
+                                                    {{ reply.created }}
+                                                    {% endif %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <p class="dark-grey-text article">
+                                            {{ reply.content|safe }}
+                                        </p>
+                                    </div>
+                                    <!-- Content column -->
+                                </div>
+                                {% endfor %}
+                                {% endwith %}
+                                <hr class="mb-3">
+                                {% endif %}
+                                {% endwith %}
+                                <!-- Comment row -->
+                                {% endfor %}
+
+                            </div>
+                            <!-- Card -->
+
+                            {% if request.user.is_authenticated %}
+                            <div class="text-center mt-4">
+                                <button data-toggle="modal"
+                                        data-target="#generalModal"
+                                        data-url="{% url 'blog:add_comment' post.id comment.id|default:0 %}"
+                                        data-title="{% translate "Add your comment" %}"
+                                        style="cursor: pointer;"
+                                        class="btn accordion-gradient-bcg text-white btn-lg gmodal-loader">
+                                    {% translate "Add your comment" %}
+                                </button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </section>
+                <!-- Comments -->
+
+            </div>
+            <!-- Main listing -->
+
+            {% include 'components/sidebar.html' %}
+
+        </div>
+        <!-- Blog -->
+
+    </div>
+
+</section>
+<!-- Blog section -->
+
+{% endblock content %}
+
 {% block title %}
 {{ post.title }}
 {% endblock title %}
@@ -13,559 +553,3 @@
 {% block meta_description %}
 {{ post.description|safe }}
 {% endblock meta_description %}
-
-{% block body_class %}
-postpage-v1
-{% endblock body_class %}
-
-{% block content %}
-
-{% include 'blog/blog-intro.html' %}
-
-<hr class="mt-5">
-
-<!-- Blog section -->
-<section>
-  <div id="list-start" class="container-fluid grey lighten-4 pt-3">
-
-    <!-- Blog -->
-    <div class="row mt-5 pt-3">
-
-      <!-- Main listing -->
-      <div class="col-lg-8 col-xl-9 col-md-12">
-
-        <!-- Section: Blog v.3 -->
-        <section class="pb-1
-            {% if LANGUAGE_BIDI %}
-            text-lg-right
-            {% else %}
-            text-lg-left
-            {% endif %}
-            ">
-
-          <!-- Grid row -->
-          <div class="row mb-4">
-
-            <!-- Grid column -->
-            <div class="col-md-12">
-
-              <!-- Card -->
-              <div class="card">
-
-                <div class="post-data mb-4 ml-4 mt-4 px-4">
-
-                  <p class="font-small dark-grey-text mb-1">
-                    <strong>
-                      {% trans "Author" %}:
-                    </strong>
-                    {{ author }}
-                  </p>
-
-                  <p class="font-small grey-text mb-0">
-
-                    <i class="far fa-clock-o"></i>
-                    {% if LANGUAGE_BIDI %}
-                    {{ post.publish|to_jalali:'%H:%M %B %d, %Y' }}
-                    {% else %}
-                    {{ post.publish }}
-                    {% endif %}
-                  </p>
-
-                  {% for item in post_tags %}
-                  <a href="{% url 'blog:post_list' %}?tag={{item}}">
-                    <span
-                      class="badge
-                              {% cycle 'indigo' 'purple' 'cyan' 'green' 'lime' 'teal' 'amber' 'brown' 'deep-orange' 'pink' %}">
-                    {{ item }}
-                    </span>
-                  </a>
-                  {% endfor %}
-
-                </div>
-
-                <!-- Title -->
-                <h1 class="font-weight-bold text-center">
-                  <strong>
-                    {{ post.title }}
-                  </strong>
-
-                </h1>
-
-                <hr class="red title-hr">
-
-                <!-- Card image -->
-                <div class="view overlay">
-
-                  {% if post_images %}
-                  <!-- Carousel Wrapper -->
-                  <div id="carousel-example-1z"
-                       class="carousel slide carousel-fade"
-                       data-ride="carousel">
-
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                      {% for image in post_images %}
-                      <li data-target="#carousel-example-1z"
-                          data-slide-to="{{ forloop.counter0 }}"
-                          {% if forloop.first %} class="active"
-                          {% endif %}>
-                      </li>
-                      {% endfor %}
-                    </ol>
-                    <!-- Indicators -->
-
-                    <!-- Slides -->
-                    <div class="carousel-inner" role="listbox">
-
-                      <!-- slide -->
-                      {% for item in post_images %}
-                      <div class="carousel-item
-                              {% if forloop.first %}
-                              active
-                              {% endif %}
-                              ">
-                        {% thumbnail item.image "x600" padding=True as im %}
-                        <img class="d-block rounded-0 w-100 mx-auto"
-                             src="{{ im.url }}"
-                             alt="slide number {{ forloop.counter }}"
-                             style="height:600px;
-                          width:600px;
-                          object-fit:cover;">
-                        {% endthumbnail %}
-
-                      </div>
-                      {% endfor %}
-                      <!-- slide -->
-
-                      <!-- Controls -->
-                      <a class="carousel-control-prev"
-                         href="#carousel-example-1z" role="button"
-                         data-slide="prev">
-
-                        <span
-                          class="carousel-control-prev-icon"
-                          aria-hidden="true"></span>
-
-                        <span
-                          class="sr-only">Previous</span>
-
-                      </a>
-
-                      <a class="carousel-control-next"
-                         href="#carousel-example-1z" role="button"
-                         data-slide="next">
-
-                        <span
-                          class="carousel-control-next-icon"
-                          aria-hidden="true"></span>
-
-                        <span
-                          class="sr-only">Next</span>
-
-                      </a>
-                      <!-- Controls -->
-
-                    </div>
-                    <!-- Slides -->
-
-                  </div>
-                  <!-- Carousel Wrapper -->
-                  {% endif %}
-
-                  <a>
-                    <div class="mask rgba-white-slight">
-                    </div>
-                  </a>
-                </div>
-                <!-- Card image -->
-
-                <!-- Card content -->
-                <div class="card-body">
-                  <!-- Grid row -->
-                  <div class="row px-4">
-
-                    <!-- Grid column -->
-                    <div class="col-md-3 mt-4">
-
-                      <p class="font-weight-bold dark-grey-text">
-                        <i class="fad fa-lg fa-eye mr-3
-                            indigo-text">
-                        </i>
-
-                        {% translate "Views" %}:
-                        {% comment %} {% get_hit_count for post %}
-                        {% endcomment %}
-
-                      </p>
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-3 mt-4">
-
-                      <p class="font-weight-bold dark-grey-text">
-
-                        <i
-                           class="fad fa-comments fa-lg mr-3 indigo-text"></i>
-
-                        {% if total_comments != 1 %}
-                        {% trans "Comments" %}:
-                        {% else %}
-                        {% trans "Comment" %}:
-                        {% endif %}
-
-                        {{ total_comments|default:0 }}
-
-                      </p>
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-6 mt-4">
-
-                      <p class="font-weight-bold indigo-text">
-
-                        {% for cat in post.categories.all %}
-
-                        {{ cat.icon|default_if_none:'<i class="fad fa-newspaper blue-text"></i>'|safe }}
-
-                        <a class="indigo-text"
-                           href="{% url 'blog:post_list' %}?category={{cat.slug}}">{{ cat.name }}</a>
-                        {% endfor %}
-
-                      </p>
-
-                    </div>
-                    <!-- Grid column -->
-
-                  </div>
-                  <!-- Grid row -->
-
-                  <hr>
-
-                  <!-- Grid row -->
-                  <div class="row px-4 mt-3">
-                    <div class="article">
-                      {{ post.body|safe }}
-                    </div>
-                  </div>
-                  <!-- Grid row -->
-
-                  <hr>
-
-                  <!-- Share row -->
-                  <div class="row mb-4">
-
-                    <!-- Grid column -->
-                    <div class="col-md-12 text-center">
-
-                      <h4
-                          class="text-center font-weight-bold dark-grey-text mt-3 mb-3">
-
-                        <strong>
-                          {% translate "Share this post" %}:
-                        </strong>
-
-                      </h4>
-
-                      <div class="row justify-content-center">
-                        <!-- Facebook -->
-                        {% post_to_facebook post '<button title="Facebook" type="button" class="btn btn-fb btn-sm font-weight-bolder"> <i class="fab fa-facebook-f fa-3x left"></i></button>' %}
-                        <!-- Twitter -->
-                        {% post_to_twitter "{{ post.title }}" post '<button title="Twitter" type="button" class="btn btn-tw btn-sm font-weight-bolder"> <i class="fab fa-twitter fa-3x left"></i></button> ' %}
-                        <!-- Google + -->
-                        {% post_to_gplus post '<button title="Google" type="button" class="btn btn-gplus btn-sm font-weight-bolder"> <i class="fab fa-google-plus-g fa-3x left"></i></button>' %}
-                        <!-- Telegram -->
-                        {% post_to_telegram "{{post.title }}" post '<button title="Telegram" type="button" class="btn btn-blue btn-sm font-weight-bolder"> <i class="fab fa-telegram-plane fa-3x left"></i></button>' %}
-                        <!-- Whatsapp -->
-                        {% post_to_whatsapp post '<button title="Whatsapp" type="button" class="btn btn-success btn-sm font-weight-bolder"> <i class="fab fa-whatsapp fa-3x left"></i></button>' %}
-                      </div>
-                    </div>
-                    <!-- Grid column -->
-                  </div>
-                  <!-- Share row -->
-                </div>
-                <!-- Card content -->
-
-              </div>
-              <!-- Card -->
-
-            </div>
-            <!-- Grid column -->
-
-          </div>
-          <!-- Grid row -->
-
-        </section>
-        <!-- Section: Blog v.3 -->
-
-        <!-- Author box -->
-        <section class="text-center mb-4
-                        {% if LANGUAGE_BIDI %}
-                          text-md-right
-                        {% else %}
-                        text-md-left
-                        {% endif %}">
-
-          <!-- Author box -->
-          <div class="card card-body">
-
-            <div class="row">
-
-              <!-- Avatar -->
-              <div class="col-12 col-sm-2 mb-md-0 mb-3">
-                {% avatar author 200 class="img-fluid rounded-circle z-depth-1 shadow" alt="author" %}
-              </div>
-
-              <!-- Author Data -->
-              <div class="col-12 col-sm-10">
-                <p>
-                  {% trans "About" %}:
-                  <a href="{{ author.get_absolute_url }}">
-                    <strong>
-                      {{ author }}
-                    </strong>
-                  </a>
-                </p>
-
-                <p class="dark-grey-text article">
-                  {{ author.description|safe }}
-                </p>
-
-                <div class="personal-sm small">
-                  {% translate "Other articles from this author" %}
-                  ({{ author.blog_posts.count }}):
-                  <a
-                     href="{% url 'blog:posts_by_author' author.user.username %}">
-                    <span class="badge badge-secondary">
-                    {% translate "Read more" %}
-                    </span>
-                  </a>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <!-- Author box -->
-        </section>
-        <!-- Author box -->
-
-        <!-- Comments -->
-        <section {% if LANGUAGE_BIDI %} class="pb-1 text-lg-right"
-                 {% else %} class="pb-1 text-lg-left" {% endif %}>
-          <!-- Grid row -->
-          <div class=" row mb-4">
-
-            <!-- Grid column -->
-            <div class="col-md-12">
-
-              <!-- Card -->
-              <div class="card comments-list px-4">
-
-                <div class="text-center mt-5 mb-3">
-                  <h3 class="font-weight-bold">
-                    {% if total_comments != 1 %}
-                    {% trans "Comments" %}:
-                    {% else %}
-                    {% trans "Comment" %}:
-                    {% endif %}
-
-                    {{ total_comments|default:0 }}
-
-                  </h3>
-
-                  {% if request.user.is_anonymous and total_comments %}
-                  <p class="text-center">
-                    {% translate "login to see all" %}
-                  </p>
-                  {% endif %}
-
-                </div>
-                <hr class="mb-3">
-
-                {% for comment in comments %}
-                {% with comment.user as cmuser %}
-                <!-- Comment row -->
-                {% if not comment.replied %}
-                <div id="comment-row-{{comment.id}}" class="row mb-5">
-                  <!-- Image column -->
-                  <div class="col-sm-2 col-12 mb-3">
-                    {% avatar cmuser 100 class="avatar rounded-circle z-depth-1-half" alt="cmuser" %}
-                  </div>
-                  <!-- Image column -->
-
-                  <!-- Content column -->
-                  <div class="col-sm-10 col-12">
-
-                    <h5 class="user-name font-weight-bold">
-                      <a href="{{ cmuser.get_absolute_url }}">
-                        {{ cmuser }}
-                      </a>
-                      {% if author == cmuser %}
-                      <small>
-                        <span
-                          class="badge badge-secondary"
-                          style="cursor: default;"
-                          title="{% translate 'This user is the author of the post' %}">
-                          {% translate "Author" %}
-                        </span>
-                      </small>
-                      {% endif %}
-                      {% if request.user.is_authenticated %}
-                      <small>
-                        <span
-                          class="badge badge-info mx-1 gmodal-loader"
-                          data-toggle="modal"
-                          data-target="#generalModal"
-                          data-url="{% url 'blog:add_comment' post.id comment.id %}"
-                          data-title="
-                          {% blocktranslate trimmed %}
-                          Reply to
-                          {{ cmuser }}'s
-                          comment
-                          {% endblocktranslate %}
-                          "
-                          style="cursor: pointer;">
-                          {% translate "Reply" %}
-                        </span>
-                      </small>
-                      {% endif %}
-                    </h5>
-
-                    <div class="card-data">
-                      <ul class="list-unstyled">
-                        <li class="comment-date font-small">
-                          <i class="far fa-clock-o"></i>
-                          {% if LANGUAGE_BIDI %}
-                          {{ comment.created|to_jalali:'%H:%M %B %d, %Y' }}
-                          {% else %}
-                          {{ comment.created }}
-                          {% endif %}
-                        </li>
-                      </ul>
-                    </div>
-                    <p class="dark-grey-text article">
-                      {{ comment.content|safe }}
-                    </p>
-                  </div>
-                  <!-- Content column -->
-                </div>
-
-                {% with comment.replies.all as comment_replies %}
-                {% for reply in comment_replies %}
-                <div id="comment-row-{{reply.id}}"
-                     class="row mb-1 mx-5 px-4">
-                  <!-- Image column -->
-                  <div class="col-sm-2 col-12 mb-3">
-                    {% avatar reply.user 100 class="avatar rounded-circle z-depth-1-half" alt="reply.user" %}
-                  </div>
-                  <!-- Image column -->
-
-                  <!-- Content column -->
-                  <div class="col-sm-10 col-12">
-
-                    <h6 class="user-name font-weight-bold">
-                      <a href="{{ reply.user.get_absolute_url }}">
-                        {{ reply.user }}
-                      </a>
-                      {% if author == reply.user %}
-                      <small>
-                        <span
-                          class="badge badge-light mx-1"
-                          style="cursor: default;"
-                          title="{% translate 'This user is the author of the post' %}">
-                          {% translate "Author" %}
-                        </span>
-                      </small>
-                      {% endif %}
-                      {% if request.user.is_authenticated %}
-                      <small>
-                        <span
-                          class="badge badge-info mx-1 gmodal-loader"
-                          data-toggle="modal"
-                          data-target="#generalModal"
-                          data-url="{% url 'blog:add_comment' post.id comment.id %}"
-                          data-title="
-                              {% blocktranslate trimmed %}
-                              Reply to
-                              {{ cmuser }}'s
-                              comment
-                              {% endblocktranslate %}
-                              "
-                          style="cursor: pointer;">
-                          {% translate "Reply" %}
-                        </span>
-                      </small>
-                      {% endif %}
-                    </h6>
-
-                    <div class="card-data">
-                      <ul class="list-unstyled">
-                        <li class="comment-date
-                                font-small">
-                          <i class="far fa-clock-o"></i>
-                          {% if LANGUAGE_BIDI %}
-                          {{ reply.created|to_jalali:'%H:%M %B %d, %Y' }}
-                          {% else %}
-                          {{ reply.created }}
-                          {% endif %}
-                        </li>
-                      </ul>
-                    </div>
-                    <p class="dark-grey-text article">
-                      {{ reply.content|safe }}
-                    </p>
-                  </div>
-                  <!-- Content column -->
-                </div>
-                {% endfor %}
-                {% endwith %}
-                <hr class="mb-3">
-                {% endif %}
-                {% endwith %}
-                <!-- Comment row -->
-                {% endfor %}
-
-              </div>
-              <!-- Card -->
-
-              {% if request.user.is_authenticated %}
-              <div class="text-center mt-4">
-                <button data-toggle="modal"
-                        data-target="#generalModal"
-                        data-url="{% url 'blog:add_comment' post.id comment.id|default:0 %}"
-                        data-title="{% translate "Add your comment" %}"
-                        style="cursor: pointer;" class="btn
-                    accordion-gradient-bcg text-white
-                    btn-lg gmodal-loader">
-                  {% translate "Add your comment" %}
-                </button>
-              </div>
-              {% endif %}
-
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row -->
-        </section>
-        <!-- Comments -->
-
-      </div>
-      <!-- Main listing -->
-
-      {% include 'components/sidebar.html' %}
-
-    </div>
-    <!-- Blog -->
-
-  </div>
-
-</section>
-<!-- Blog section -->
-
-{% endblock content %}

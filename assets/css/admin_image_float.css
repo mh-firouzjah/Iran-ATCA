@@ -1,3 +1,6 @@
 td.field-image > div[style^='float'] {
 	float: inherit !important;
 }
+.chat-box {
+	outline: 0rem;
+}

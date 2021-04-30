@@ -1,26 +1,25 @@
 {% load i18n %}
 
 <div class="row my-0 py-0">
-  {% if form.non_field_errors %}
-  {% include 'components/alert.html' with messages=form.non_field_errors %}
-  {% endif %}
-  <form class="my-0 py-0 px-auto"
-    action="{% url 'blog:add_comment' post_id comment_id %}"
-    method="post">
-    {% csrf_token %}
+    {% if form.non_field_errors %}
+    {% include 'components/alert.html' with messages=form.non_field_errors %}
+    {% endif %}
+    <form class="my-0 py-0 px-auto"
+          action="{% url 'blog:add_comment' post_id comment_id %}"
+          method="post">
+        {% csrf_token %}
 
-    <div class="md-form col-7 my-0 py-0 px-2">
-      {{ form.content }}
-    </div>
+        <div class="md-form col-7 my-0 py-0 px-2">
+            {{ form.content }}
+        </div>
 
-    <div class="invalid-feedback">
-      {{ form.content.errors }}
-    </div>
+        <div class="invalid-feedback">
+            {{ form.content.errors }}
+        </div>
 
-    <input
-      class="btn btn-sm btn-success my-0 font-weight-bold"
-      type="submit"
-      value="{% translate "SUBMIT" %}" />
-  </form>
-  {{ form.media }}
+        <input class="btn btn-sm btn-success my-0 font-weight-bold"
+               type="submit"
+               value="{% translate "SUBMIT" %}" />
+    </form>
+    {{ form.media }}
 </div>

@@ -1,4 +1,5 @@
 # from hitcount.views import HitCountDetailView
+from django import http
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.postgres.search import (SearchQuery, SearchRank,
                                             TrigramSimilarity)
@@ -146,7 +147,6 @@ class PostDetailView(DetailView):
             raise Http404(_("Requested page is not in English!"))
 
         return super().dispatch(request, *args, **kwargs)
-
 
     def get_context_data(self, **kwargs):
 

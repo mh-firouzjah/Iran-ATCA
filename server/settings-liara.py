@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
+import dj_database_url
 from decouple import Csv, config
 from dj_database_url import parse as db_url
 from django.contrib import messages
@@ -24,14 +26,14 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'zb+8%8-z1l%y3^%^!x6+x6@@e!a1m%j%h127ipzws0loq9m%j('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = False
 
 # EMAIL_PORT = config('EMAIL_PORT', cast=int)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['*', ]
 
 SITE_ID = 1
 
@@ -102,7 +104,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [('redis', 6379)],
         },
     },
 }
@@ -151,8 +153,10 @@ DATABASES = {
     }
 }
 '''
-
-DATABASES = {'default': db_url(config('DATABASES'), conn_max_age=600)}
+# DATABASES = {'default': db_url(
+# 'postgresql://root:0k8IosWb9oK5Twdvy3puW2ts@iran-atca-db:5432')}
+DATABASES = {'default': dj_database_url.config(
+    'postgresql://root:vzGWEYRIz8clS5WXL7gSoVMb@iran-atca-db:5432/iran-atca-db')}
 
 CACHES = {
     'default': {
@@ -204,18 +208,18 @@ AVATAR_ADD_TEMPLATE = 'components/avatar-add.html'
 AVATAR_CHANGE_TEMPLATE = 'components/avatar-add.html'
 AVATAR_DELETE_TEMPLATE = 'components/avatar-delete.html'
 
-SOCIAL_AUTH_LOGIN_ERROR_URL = 'users:login'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'company:intro'
-SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+# SOCIAL_AUTH_LOGIN_ERROR_URL = 'users:login'
+# SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'company:intro'
+# SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
-SOCIAL_AUTH_GITHUB_KEY = config('GITHUB_CLIENT_ID')
-SOCIAL_AUTH_GITHUB_SECRET = config('GITHUB_CLIENT_SECRETS')
+# SOCIAL_AUTH_GITHUB_KEY = config('GITHUB_CLIENT_ID')
+# SOCIAL_AUTH_GITHUB_SECRET = config('GITHUB_CLIENT_SECRETS')
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_CLIENT_ID')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_CLIENT_SECRET')
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_CLIENT_ID')
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_CLIENT_SECRET')
 
-SOCIAL_AUTH_FACEBOOK_KEY = config('FACEBOOK_APP_ID')
-SOCIAL_AUTH_FACEBOOK_SECRET = config('FACEBOOK_APP_SECRET')
+# SOCIAL_AUTH_FACEBOOK_KEY = config('FACEBOOK_APP_ID')
+# SOCIAL_AUTH_FACEBOOK_SECRET = config('FACEBOOK_APP_SECRET')
 # SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_likes']
 # SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 #     'fields': 'id, name, email, picture.type(large), link'

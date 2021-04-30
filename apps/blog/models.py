@@ -63,8 +63,8 @@ class Post(models.Model):
                             unique_for_date='publish')
     descrip = models.CharField(verbose_name=_("Description"), max_length=254,
                                null=True, blank=True)
-    categories = models.ManyToManyField(
-        "blog.PostCategory", help_text=_("Type comma to create a new instance."),
+    categories = models.ManyToManyField("blog.PostCategory",
+        help_text=_("Type comma to create a new instance."),
         verbose_name=_("Categories"),
         related_name='categorized_posts')
     author = models.ForeignKey('users.AirTrafficController', verbose_name=_("Author"),

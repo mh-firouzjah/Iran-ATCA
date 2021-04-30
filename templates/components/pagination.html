@@ -2,12 +2,11 @@
 {% with page_obj.paginator.num_pages as total_pages and page_obj.number as current_page %}
 {% if total_pages > 1 %}
 <nav aria-label="Page navigation example">
-	<ul
-		class="pagination pg-blue-grey pagination-circle">
+	<ul class="pagination pg-blue-grey pagination-circle">
 
 		<li class="page-item disabled">
 			<p class="page-link">
-				{% translate "Total pages" %}:
+				{% translate "Total pages" %}
 				{{ total_pages }}
 			</p>
 		</li>
@@ -15,7 +14,7 @@
 		{% if current_page > 3 %}
 		<li class="page-item">
 			<a class="page-link" href="?page=1">
-				First
+				{% translate "First" %}
 			</a>
 		</li>
 		{% endif %}
@@ -29,20 +28,17 @@
 		</li>
 		{% elif counter == current_page|add:-1 or counter == current_page|add:-2 %}
 		<li class="page-item">
-			<a class="page-link"
-				href="?page={{ counter }}">
+			<a class="page-link" href="?page={{ counter }}">
 				{{ counter }}
 			</a>
 		</li>
 		{% elif counter == current_page and total_pages != 1 %}
 		<li class="page-item disabled active">
-			<a class="page-link"
-				href="javascript:{}">{{ counter }}</a>
+			<a class="page-link" href="javascript:{}">{{ counter }}</a>
 		</li>
 		{% elif current_page < counter and counter <= current_page|add:2 %}
 		<li class="page-item">
-			<a class="page-link"
-				href="?page={{ counter }}">
+			<a class="page-link" href="?page={{ counter }}">
 				{{ counter }}
 			</a>
 		</li>
@@ -57,9 +53,8 @@
 
 		{% if page_obj.has_next and current_page|add:2 < total_pages %}
 		<li class="page-item">
-			<a class="page-link"
-				href="?page={{ total_pages }}">
-				Last
+			<a class="page-link" href="?page={{ total_pages }}">
+				{% translate "Last" %}
 			</a>
 		</li>
 		{% endif %}
@@ -67,3 +62,135 @@
 </nav>
 {% endif %}
 {% endwith %}
+
+<style>
+	.pagination .page-item.active .page-link {
+		color: #fff;
+		background-color: #4285f4;
+		border-radius: 0.125rem;
+		-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+			0 2px 10px 0 rgba(0, 0, 0, 0.12);
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+			0 2px 10px 0 rgba(0, 0, 0, 0.12);
+		-webkit-transition: all 0.2s linear;
+		transition: all 0.2s linear;
+	}
+
+	.pagination .page-item.active .page-link:hover {
+		background-color: #4285f4;
+	}
+
+	.pagination .page-item.disabled .page-link {
+		color: #868e96;
+	}
+
+	.pagination .page-item .page-link {
+		font-size: 0.9rem;
+		color: #212529;
+		background-color: transparent;
+		border: 0;
+		outline: 0;
+		-webkit-transition: all 0.3s linear;
+		transition: all 0.3s linear;
+	}
+
+	.pagination .page-item .page-link:hover {
+		background-color: #eee;
+		border-radius: 0.125rem;
+		-webkit-transition: all 0.3s linear;
+		transition: all 0.3s linear;
+	}
+
+	.pagination .page-item .page-link:focus {
+		background-color: transparent;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+
+	.pagination.pagination-lg .page-item .page-link {
+		font-size: 1rem;
+	}
+
+	.pagination.pagination-sm .page-item .page-link {
+		font-size: 0.8rem;
+	}
+
+	.pagination.pagination-circle .page-item .page-link {
+		margin-right: 2px;
+		margin-left: 2px;
+		border-radius: 50%;
+	}
+
+	.pagination.pagination-circle .page-item .page-link:hover {
+		border-radius: 50%;
+	}
+
+	.pagination.pagination-circle .page-item.active .page-link {
+		border-radius: 50%;
+	}
+
+	.pagination.pg-blue .page-item.active .page-link {
+		background-color: #4285f4;
+	}
+
+	.pagination.pg-blue .page-item.active .page-link:hover {
+		background-color: #4285f4;
+	}
+
+	.pagination.pg-red .page-item.active .page-link {
+		background-color: #ff3547;
+	}
+
+	.pagination.pg-red .page-item.active .page-link:hover {
+		background-color: #ff3547;
+	}
+
+	.pagination.pg-teal .page-item.active .page-link {
+		background-color: #2bbbad;
+	}
+
+	.pagination.pg-teal .page-item.active .page-link:hover {
+		background-color: #2bbbad;
+	}
+
+	.pagination.pg-dark-grey .page-item.active .page-link {
+		background-color: #37474f;
+	}
+
+	.pagination.pg-dark-grey .page-item.active .page-link:hover {
+		background-color: #37474f;
+	}
+
+	.pagination.pg-dark .page-item.active .page-link {
+		background-color: #2e2e2e;
+	}
+
+	.pagination.pg-dark .page-item.active .page-link:hover {
+		background-color: #2e2e2e;
+	}
+
+	.pagination.pg-blue-grey .page-item.active .page-link {
+		background-color: #3f729b;
+	}
+
+	.pagination.pg-blue-grey .page-item.active .page-link:hover {
+		background-color: #3f729b;
+	}
+
+	.pagination.pg-amber .page-item.active .page-link {
+		background-color: #ff6f00;
+	}
+
+	.pagination.pg-amber .page-item.active .page-link:hover {
+		background-color: #ff6f00;
+	}
+
+	.pagination.pg-purple .page-item.active .page-link {
+		background-color: #5e35b1;
+	}
+
+	.pagination.pg-purple .page-item.active .page-link:hover {
+		background-color: #5e35b1;
+	}
+
+</style>
