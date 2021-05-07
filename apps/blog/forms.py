@@ -19,9 +19,8 @@ class CommentForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    query = forms.CharField(help_text=_(
-        "if the term was not found, we will check for similar terms"))
-
+    query = forms.CharField(
+        help_text=_("if the term was not found, we will check for similar terms"))
     check_for_similarities = forms.BooleanField(
         label=_('Check for similar terms'),
         required=False, initial=False,
